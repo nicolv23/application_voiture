@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">louemonchar</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="marque_de_voiture">Marque de voiture</string>
+    <string name="fragment_accueil">fragment_accueil</string>
+    <string name="fragment_marques_auto">fragment_marque</string>
+    <string name="fragment_modele_auto">fragment_modele</string>
 </resources>
