@@ -10,22 +10,24 @@
         android:id="@+id/marqueTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:text="@string/marque_de_voiture"
+        android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="28sp"
-        android:layout_marginBottom="20dp"
         android:textStyle="bold" />
 
     <GridView
         android:id="@+id/gridView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:numColumns="3"
-        android:verticalSpacing="10dp"
+        android:layout_height="707dp"
+        android:columnWidth="50dp"
+        android:gravity="center"
         android:horizontalSpacing="10dp"
+        android:numColumns="3"
+        android:layout_marginTop="25dp"
         android:padding="10dp"
-        android:columnWidth="100dp"
-        android:gravity="center"/>
+        android:verticalSpacing="40dp" />
 
     <TextView
         android:id="@+id/aucunModeleTextView"
