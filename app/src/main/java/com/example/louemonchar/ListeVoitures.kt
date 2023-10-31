@@ -59,6 +59,7 @@ class ListeVoitures : Fragment() {
             "BMW" to listOf("BMW Series 3", "BMW Series 5", "BMW X5", "BMW M5", "BMW X7", "BMW Series 5"),
             "Porsche" to listOf("Porsche 911", "Porsche 718 Cayman S", "Porsche 911 GT3", "Porsche Boxster", "Porsche Taycan", "Porsche 959"),
             "Mazda" to listOf("Mazda CX5", "Mazda CX-30", "Mazda CX-9", "Mazda 3", "Mazda MX-5 RF", "Mazda 6"),
+            "Hyundai" to listOf("Hyundai Tucson", "Hyundai Elantra", "Hyundai Sonata", "Hyundai Kona", "Hyundai Venue", "Hyundai Santa Fe"),
             "Tesla" to listOf("Tesla Model X", "Tesla Model S", "Tesla Model 3", "Tesla Model Y", "Tesla Semi", "Tesla Cybertruck"),
             "Lexus" to listOf("Lexus NX 350h", "Lexus IS 500", "Lexus ES 250", "Lexus LX", "Lexus ES 350", "Lexus GX 460"),
             "Mercedes" to listOf("Mercedes-Benz Classe S", "Mercedes-Benz GLA", "Mercedes-Benz AMG GT", "Mercedes-Benz EQB", "Mercedes-Benz GLB", "Mercedes-Benz Classe C"),
