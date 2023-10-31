@@ -135,7 +135,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="#EA7B12"
-            android:text="Button" />
+            android:text="Réserver" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="114dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#EA7B12"
+            android:text="Retour" />
 
 
     </LinearLayout>
