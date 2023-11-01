@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="#658CBB"
+    tools:context=".FavorisFragment">
+
+    <TextView
+        android:id="@+id/titreFavorisTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Liste de modèles favoris"
+        android:textSize="30sp"
+        android:textStyle="italic"
+        android:textColor="#191970"
+        android:gravity="center"
+        android:paddingBottom="16dp" />
+
+    <TextView
+        android:id="@+id/aucunFavoriMessageTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Aucun favori enregistré"
+        android:textSize="18sp"
+        android:textColor="#FFFFFF"
+        android:visibility="gone"
+        android:gravity="center" />
+
+    <GridView
+        android:id="@+id/gridView"
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
+        android:gravity="center"
+        android:horizontalSpacing="8dp"
+        android:numColumns="2"
+        android:padding="16dp"
+        android:verticalSpacing="8dp" />
+
+    <Button
+        android:id="@+id/btnEffacer"
+        android:layout_width="wrap_content"
+        android:layout_height="52dp"
+        android:backgroundTint="#00A36C"
+        android:gravity="center"
+        android:onClick="effacerDernierModeleFavori"
+        android:text="Effacer modèle favori" />
+
+
+</LinearLayout>

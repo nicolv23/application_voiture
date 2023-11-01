@@ -41,5 +41,19 @@
             app:destination="@id/marquesAuto"
             app:popUpTo="@id/marquesAuto"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_listeVoitures_to_favorisFragment"
+            app:destination="@id/favorisFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favorisFragment"
+        android:name="com.example.louemonchar.FavorisFragment"
+        android:label="fragment_favoris"
+        tools:layout="@layout/fragment_favoris" >
+        <action
+            android:id="@+id/action_favorisFragment_to_listeVoitures"
+            app:destination="@id/listeVoitures"
+            app:popUpTo="@id/listeVoitures"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

@@ -5,49 +5,68 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.GridView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 
 class ListeVoitures : Fragment() {
+    private lateinit var favorisViewModel: ListeFavoris
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_liste_voitures, container, false)
-
         val marqueAuto = arguments?.getString("marqueAuto")
 
         if (marqueAuto != null) {
             val marqueTextView: TextView = view.findViewById(R.id.marqueTextView)
             marqueTextView.text = "Marque de voiture : $marqueAuto"
-
-            val modeleGridView: GridView = view.findViewById(R.id.gridView)
-            val modelesVoiture: Map<String, List<String>> = getModelesDeVoiture()
-            val modeles = modelesVoiture[marqueAuto]
-
-            if (modeles != null && modeles.isNotEmpty()) {
-                val adapter = ArrayAdapter(
-                    requireContext(),
-                    R.layout.grid_item_layout,  // Utilisez le fichier de mise en page combiné ici
-                    modeles
-                )
-                adapter.setDropDownViewResource(R.layout.grid_item_layout) // Utilisez le bon fichier de mise en page ici
-                modeleGridView.adapter = adapter
-            } else {
-                // Aucun modèle n'est disponible pour cette marque, affichez un message approprié
-                val aucunModeleTextView: TextView = view.findViewById(R.id.aucunModeleTextView)
-                aucunModeleTextView.visibility = View.VISIBLE
-                modeleGridView.visibility = View.GONE
-            }
         } else {
-            // Gérer le cas où l'argument "marqueAuto" est null (traitement d'erreur)
-            val erreurTextView: TextView = view.findViewById(R.id.marqueTextView)
-            erreurTextView.text = "Erreur : Marque de voiture non spécifiée."
+            Snackbar.make(view, "Aucun modèle sélectionné", Snackbar.LENGTH_SHORT).show()
+            return view
         }
 
+        val gridView: GridView = view.findViewById(R.id.gridView)
+        val modelesVoiture: Map<String, List<String>> = getModelesDeVoiture()
+        val modeles = modelesVoiture[marqueAuto]
+
+        val boutonFavoris: Button = view.findViewById(R.id.boutonFavoris)
+        boutonFavoris.setOnClickListener {
+            val action = ListeVoituresDirections.actionListeVoituresToFavorisFragment()
+            findNavController().navigate(action)
+        }
+
+        if (modeles != null && modeles.isNotEmpty()) {
+            val adapter = ArrayAdapter(
+                requireContext(),
+                R.layout.grid_item_layout,
+                modeles
+            )
+            adapter.setDropDownViewResource(R.layout.grid_item_layout)
+            gridView.adapter = adapter
+
+            gridView.setOnItemClickListener { _, _, position, _ ->
+                val modeleSelectionne = modeles?.get(position)
+                if (modeleSelectionne != null) {
+                    // Ajoutez le modèle à la liste des modèles favoris dans le ViewModel
+                    favorisViewModel.modelesFavoris.add(modeleSelectionne)
+                    Snackbar.make(view, "Modèle ajouté aux favoris : $modeleSelectionne", Snackbar.LENGTH_SHORT).show()
+                } else {
+                    Snackbar.make(view, "Aucun modèle sélectionné", Snackbar.LENGTH_SHORT).show()
+                }
+            }
+        } else {
+            // Aucun modèle n'est disponible pour cette marque, il faut donc afficher un message approprié
+            val aucunModeleTextView: TextView = view.findViewById(R.id.aucunModeleTextView)
+            aucunModeleTextView.visibility = View.VISIBLE
+            gridView.visibility = View.GONE
+        }
         return view
     }
 
@@ -70,8 +89,12 @@ class ListeVoitures : Fragment() {
         return modeles
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        favorisViewModel = ViewModelProvider(requireActivity()).get(ListeFavoris::class.java)
+    }
+
     private fun setToolbarTitle(title: String) {
-        // Changer le titre de la barre d'outils ou de toute autre vue appropriée
         (requireActivity() as AppCompatActivity).supportActionBar?.title = title
     }
 }
