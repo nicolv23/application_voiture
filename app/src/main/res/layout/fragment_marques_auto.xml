@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#658CBB"
+    android:gravity="center">
+
+    <ImageView
+        android:layout_width="140dp"
+        android:layout_height="70dp"
+        android:paddingBottom="27dp"
+        android:src="@drawable/logo"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choix de marque de voiture"
+        android:textColor="#000000"
+        android:textSize="28sp"
+        android:layout_marginBottom="20dp"
+        android:textStyle="bold" />
+
+    <GridLayout
+        android:id="@+id/gridLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="75dp"
+        android:columnCount="3"
+        android:rowCount="4"
+        android:background="#E6E6FA"
+        android:layout_gravity="center">
+
+        <!-- Vos ImageView ici -->
+
+        <ImageView
+            android:id="@+id/toyota"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/toyota"/>
+
+        <ImageView
+            android:id="@+id/honda"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/honda"/>
+
+        <ImageView
+            android:id="@+id/bmw"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/bmw" />
+
+        <ImageView
+            android:id="@+id/porsche"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/porsche" />
+
+        <ImageView
+            android:id="@+id/mazda"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/mazda" />
+
+        <ImageView
+            android:id="@+id/hyundai"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/hyundai"/>
+
+        <ImageView
+            android:id="@+id/tesla"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/tesla"/>
+
+        <ImageView
+            android:id="@+id/lexus"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/lexus" />
+
+        <ImageView
+            android:id="@+id/mercedes"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/mercedes" />
+
+        <ImageView
+            android:id="@+id/jeep"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/jeep" />
+
+        <ImageView
+            android:id="@+id/volvo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/volvo" />
+
+        <ImageView
+            android:id="@+id/nissan"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/nissan" />
+
+    </GridLayout>
+</LinearLayout>

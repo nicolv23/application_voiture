@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/accueilFragment">
+    <fragment
+        android:id="@+id/accueilFragment"
+        android:name="com.example.louemonchar.AccueilFragment"
+        android:label="fragment_accueil"
+        tools:layout="@layout/fragment_accueil">
+        <action
+            android:id="@+id/action_accueilFragment_to_marquesAuto"
+            app:destination="@id/marquesAuto" />
+    </fragment>
+    <fragment
+        android:id="@+id/marquesAuto"
+        android:name="com.example.louemonchar.MarquesAuto"
+        android:label="fragment_marques_auto"
+        tools:layout="@layout/fragment_marques_auto">
+        <action
+            android:id="@+id/action_marquesAuto_to_listeVoitures"
+            app:destination="@id/listeVoitures">
+            <argument
+                android:name="marqueAuto"
+                app:argType="string" />
+        </action>
+        <action
+            android:id="@+id/action_marquesAuto_to_accueilFragment"
+            app:destination="@id/accueilFragment"
+            app:popUpTo="@id/accueilFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/listeVoitures"
+        android:name="com.example.louemonchar.ListeVoitures"
+        android:label="fragment_liste_voitures"
+        tools:layout="@layout/fragment_liste_voitures">
+        <action
+            android:id="@+id/action_listeVoitures_to_marquesAuto"
+            app:destination="@id/marquesAuto"
+            app:popUpTo="@id/marquesAuto"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_listeVoitures_to_favorisFragment"
+            app:destination="@id/favorisFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favorisFragment"
+        android:name="com.example.louemonchar.FavorisFragment"
+        android:label="fragment_favoris"
+        tools:layout="@layout/fragment_favoris" >
+        <action
+            android:id="@+id/action_favorisFragment_to_listeVoitures"
+            app:destination="@id/listeVoitures"
+            app:popUpTo="@id/listeVoitures"
+            app:popUpToInclusive="true" />
+    </fragment>
+</navigation>
