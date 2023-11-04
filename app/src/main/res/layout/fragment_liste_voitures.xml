@@ -21,7 +21,7 @@
         android:id="@+id/boutonFavoris"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Voir les Favoris"
+        android:text="Voir les voitures enregistrés"
         android:backgroundTint="#00A36C"
         android:layout_gravity="center"
         android:onClick="onBoutonFavorisClick" />

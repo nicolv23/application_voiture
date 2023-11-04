@@ -12,10 +12,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.louemonchar.modèle.ListeVoituresEnregistres
 import com.google.android.material.snackbar.Snackbar
 
 class ListeVoitures : Fragment() {
-    private lateinit var favorisViewModel: ListeFavoris
+    private lateinit var enregistrementVoituresViewModel: ListeVoituresEnregistres
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +39,7 @@ class ListeVoitures : Fragment() {
 
         val boutonFavoris: Button = view.findViewById(R.id.boutonFavoris)
         boutonFavoris.setOnClickListener {
-            val action = ListeVoituresDirections.actionListeVoituresToFavorisFragment()
+            val action = ListeVoituresDirections.actionListeVoituresToEnregistrementsFragment()
             findNavController().navigate(action)
         }
 
@@ -55,8 +56,8 @@ class ListeVoitures : Fragment() {
                 val modeleSelectionne = modeles?.get(position)
                 if (modeleSelectionne != null) {
                     // Ajoutez le modèle à la liste des modèles favoris dans le ViewModel
-                    favorisViewModel.modelesFavoris.add(modeleSelectionne)
-                    Snackbar.make(view, "Modèle ajouté aux favoris : $modeleSelectionne", Snackbar.LENGTH_SHORT).show()
+                    enregistrementVoituresViewModel.voituresEnregistres.add(modeleSelectionne)
+                    Snackbar.make(view, "Modèle de voiture enregistré : $modeleSelectionne", Snackbar.LENGTH_SHORT).show()
                 } else {
                     Snackbar.make(view, "Aucun modèle sélectionné", Snackbar.LENGTH_SHORT).show()
                 }
@@ -75,7 +76,7 @@ class ListeVoitures : Fragment() {
         val modeles: Map<String, List<String>> = mapOf(
             "Toyota" to listOf("Toyota Corolla", "Toyota Camry", "Toyota Rav4", "Toyota Prius", "Toyota Highlander", "Toyota Tundra"),
             "Honda" to listOf("Honda Civic", "Honda Accord", "Honda CR-V", "Honda Odyssey", "Honda Pilot", "Honda Insight"),
-            "BMW" to listOf("BMW Series 3", "BMW Series 5", "BMW X5", "BMW M5", "BMW X7", "BMW Series 5"),
+            "BMW" to listOf("BMW Série 3", "BMW Série 5", "BMW X5", "BMW M5", "BMW X7", "BMW Série 8"),
             "Porsche" to listOf("Porsche 911", "Porsche 718 Cayman S", "Porsche 911 GT3", "Porsche Boxster", "Porsche Taycan", "Porsche 959"),
             "Mazda" to listOf("Mazda CX5", "Mazda CX-30", "Mazda CX-9", "Mazda 3", "Mazda MX-5 RF", "Mazda 6"),
             "Hyundai" to listOf("Hyundai Tucson", "Hyundai Elantra", "Hyundai Sonata", "Hyundai Kona", "Hyundai Venue", "Hyundai Santa Fe"),
@@ -91,7 +92,7 @@ class ListeVoitures : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        favorisViewModel = ViewModelProvider(requireActivity()).get(ListeFavoris::class.java)
+        enregistrementVoituresViewModel = ViewModelProvider(requireActivity()).get(ListeVoituresEnregistres::class.java)
     }
 
     private fun setToolbarTitle(title: String) {

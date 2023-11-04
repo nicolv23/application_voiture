@@ -1,4 +1,4 @@
-package com.example.louemonchar
+package com.example.louemonchar.vue
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,11 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.GridLayout
 import android.widget.ImageView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.louemonchar.interfaces.IContratVueMarque
+import com.example.louemonchar.R
+import com.example.louemonchar.présentateur.MarquePresentateur
 
-class MarquesAuto : Fragment() {
+class MarquesAuto : Fragment(), IContratVueMarque.Vue {
+
+    private val presentateur: IContratVueMarque.Presentateur by lazy {
+        MarquePresentateur(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,17 +50,22 @@ class MarquesAuto : Fragment() {
                         else -> "Cette marque n'est pas dans la liste"
                     }
 
-                    val action = MarquesAutoDirections.actionMarquesAutoToListeVoitures(marque)
-                    findNavController().navigate(action)
+                    presentateur.onMarqueSelected(marque)
                 }
             }
         }
+        presentateur.setToolbarTitle()
+
         return view
     }
 
-    private fun setToolbarTitle(title: String) {
-        // Changer le titre de la barre d'outils ou de toute autre vue appropriée
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = title
+    override fun afficherModeleVoitures(marque: String) {
+        val action = MarquesAutoDirections.actionMarquesAutoToListeVoitures(marque)
+        findNavController().navigate(action)
+    }
+
+    override fun setToolbarTitle(titre: String) {
+        requireActivity().title = titre
     }
 }
 
