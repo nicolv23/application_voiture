@@ -31,7 +31,7 @@
     <GridView
         android:id="@+id/gridView"
         android:layout_width="match_parent"
-        android:layout_height="642dp"
+        android:layout_height="604dp"
         android:gravity="center"
         android:horizontalSpacing="8dp"
         android:numColumns="2"
@@ -44,8 +44,8 @@
         android:layout_height="52dp"
         android:backgroundTint="#00A36C"
         android:gravity="center"
-        android:onClick="effacerDernierEnregistrementVoiture"
-        android:text="Effacer la voiture enregistré" />
+        android:onClick="afficherDialogEffacerModele"
+        android:text="Effacer un modèle enregistré" />
 
 
 </LinearLayout>

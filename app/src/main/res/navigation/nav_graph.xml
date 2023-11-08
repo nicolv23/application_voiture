@@ -62,7 +62,12 @@
     <fragment
         android:id="@+id/écranDétail"
         android:name="com.example.louemonchar.vue.ÉcranDétail"
-        android:label="ÉcranDétail" >
+        android:label="fragment_écran_détail"
+        tools:layout="@layout/detail_auto">
+        <argument
+            android:name="modeleSelectionne"
+            app:argType="string"
+            android:defaultValue="" />
         <action
             android:id="@+id/action_écranDétail_to_enregistrementsFragment"
             app:destination="@id/enregistrementsFragment" />

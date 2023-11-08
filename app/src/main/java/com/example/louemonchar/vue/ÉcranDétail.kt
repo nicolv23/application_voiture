@@ -30,17 +30,25 @@ class ÉcranDétail : Fragment() {
         textview4 = vue.findViewById(R.id.textView4)
         textview5 = vue.findViewById(R.id.textView5)
         textview6 = vue.findViewById(R.id.textView6)
-
         image = vue.findViewById(R.id.imageView4)
 
-        image.setImageResource(R.drawable.hyundai_elantra)
+        val arguments = arguments
+        if (arguments != null) {
+            val modeleSelectionne = arguments.getString("modeleSelectionne")
+            textview1.text = "Peut-être"
+            textview2.text = "5"
+            textview3.text = "Gaz"
+            textview4.text = "Automatique"
+            textview5.text = "$modeleSelectionne"
+            textview6.text = "Pierre"
 
-        textview1.setText("Peut-être")
-        textview2.setText("5")
-        textview3.setText("Gaz")
-        textview4.setText("Automatique")
-        textview5.setText("Hyundai Elantra 2018")
-        textview6.setText("Pierre")
+            val imageResourceId = resources.getIdentifier(modeleSelectionne, "drawable", requireContext().packageName)
+            if (imageResourceId != 0) {
+                image.setImageResource(imageResourceId)
+            } else {
+                image.visibility = View.GONE
+            }
+        }
 
         return vue
     }

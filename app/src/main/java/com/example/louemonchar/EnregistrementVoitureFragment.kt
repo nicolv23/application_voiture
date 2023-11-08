@@ -1,6 +1,8 @@
 package com.example.louemonchar
 
+import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -33,11 +35,12 @@ class EnregistrementVoitureFragment : Fragment() {
 
         gridView.setOnItemClickListener { _, _, position, _ ->
             val modeleSelectionne = enregistrementViewModel.voituresEnregistres[position]
-            if (modeleSelectionne == "Hyundai Elantra") {
+            Log.d("EnregistrementVoitureFragment", "Modèle sélectionné : $modeleSelectionne")
+            if (modeleSelectionne.isNotEmpty()) {
                 val action = EnregistrementVoitureFragmentDirections.actionEnregistrementsFragmentToÉcranDétail()
+                action.modeleSelectionne = modeleSelectionne
                 findNavController().navigate(action)
-            }
-            else{
+            } else {
                 Toast.makeText(requireContext(), "Ce modèle ne peut pas s'afficher en ce moment", Toast.LENGTH_SHORT).show()
             }
         }
@@ -51,27 +54,32 @@ class EnregistrementVoitureFragment : Fragment() {
 
         val effacerButton: Button = view.findViewById(R.id.btnEffacer)
         effacerButton.setOnClickListener {
-            effacerDernierEnregistrementVoiture()
+            afficherDialogEffacerModele()
         }
         return view
     }
 
-    private fun effacerDernierEnregistrementVoiture() {
-        if (enregistrementViewModel.voituresEnregistres.isNotEmpty()) {
-            enregistrementViewModel.voituresEnregistres.removeAt(enregistrementViewModel.voituresEnregistres.size - 1)
+    private fun afficherDialogEffacerModele() {
+        val modelesEnregistres = enregistrementViewModel.voituresEnregistres.toTypedArray()
 
-            (gridView.adapter as? GridViewTexte)?.updateData(enregistrementViewModel.voituresEnregistres)
+        AlertDialog.Builder(requireContext())
+            .setTitle("Choisir le modèle à effacer")
+            .setItems(modelesEnregistres) { _, which ->
+                val modeleSelectionne = modelesEnregistres[which]
+                // Supprimer le modèle sélectionné
+                enregistrementViewModel.voituresEnregistres.remove(modeleSelectionne)
 
-            Toast.makeText(requireContext(), "Dernier modèle enregistré effacé", Toast.LENGTH_SHORT).show()
+                (gridView.adapter as? GridViewTexte)?.updateData(enregistrementViewModel.voituresEnregistres)
 
-            // Vérifier si la liste des favoris est maintenant vide et afficher le message approprié
-            if (enregistrementViewModel.voituresEnregistres.isEmpty()) {
-                aucunEnregistrementMessage.visibility = View.VISIBLE
+                Toast.makeText(requireContext(), "Le modèle enregistré: \"$modeleSelectionne\" effacé", Toast.LENGTH_SHORT).show()
+
+                // Vérifier si la liste des favoris est maintenant vide et afficher le message approprié
+                if (enregistrementViewModel.voituresEnregistres.isEmpty()) {
+                    aucunEnregistrementMessage.visibility = View.VISIBLE
+                }
             }
-        } else {
-            // Afficher un message si la liste des favoris est déjà vide
-            Toast.makeText(requireContext(), "Aucun enregistrement à effacer", Toast.LENGTH_SHORT).show()
-        }
+            .setNegativeButton("Annuler", null)
+            .show()
     }
 }
 
