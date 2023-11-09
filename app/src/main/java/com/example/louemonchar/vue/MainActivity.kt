@@ -1,4 +1,4 @@
-package com.example.louemonchar
+package com.example.louemonchar.vue
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,21 +6,34 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.example.louemonchar.modèle.ListeVoituresEnregistres
+import com.example.louemonchar.interfaces.IContratVueMain
+import com.example.louemonchar.R
+import com.example.louemonchar.présentateur.MainPresentateur
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), IContratVueMain.Vue {
     private lateinit var navController: NavController
-    private lateinit var favorisViewModel: ListeFavoris
+    private lateinit var favorisViewModel: ListeVoituresEnregistres
+    private lateinit var presentateur: IContratVueMain.Presentateur
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        favorisViewModel = ViewModelProvider(this).get(ListeFavoris::class.java)
+        presentateur = MainPresentateur(this)
+        presentateur.onViewCreated()
+
+        favorisViewModel = ViewModelProvider(this).get(ListeVoituresEnregistres::class.java)
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragment) as NavHostFragment
         navController = navHostFragment.navController
 
         setupActionBarWithNavController(navController)
+    }
+
+    override fun onDestroy() {
+        presentateur.onDestroy()
+        super.onDestroy()
     }
 
     override fun onSupportNavigateUp(): Boolean {

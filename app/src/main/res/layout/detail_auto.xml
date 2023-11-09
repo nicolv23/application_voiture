@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="#658CBB"
+    tools:context=".vue.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -41,6 +42,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-black"
+                        android:textSize="23sp"
                         android:text="Proprio" />
 
                     <TextView
@@ -48,6 +50,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-black"
+                        android:textSize="23sp"
                         android:text="Véhicule" />
 
                     <TextView
@@ -55,6 +58,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-black"
+                        android:textSize="23sp"
                         android:text="Transmission" />
 
                     <TextView
@@ -62,6 +66,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-black"
+                        android:textSize="23sp"
                         android:text="Carburant" />
 
                     <TextView
@@ -69,6 +74,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-black"
+                        android:textSize="23sp"
                         android:text="Passagers" />
 
                     <TextView
@@ -76,6 +82,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-black"
+                        android:textSize="23sp"
                         android:text="Freins" />
 
                 </LinearLayout>
@@ -89,36 +96,42 @@
                         android:id="@+id/textView6"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="23sp"
                         android:text="TextView" />
 
                     <TextView
                         android:id="@+id/textView5"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="23sp"
                         android:text="TextView" />
 
                     <TextView
                         android:id="@+id/textView4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="23dp"
                         android:text="TextView" />
 
                     <TextView
                         android:id="@+id/textView3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="23sp"
                         android:text="TextView" />
 
                     <TextView
                         android:id="@+id/textView2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="23sp"
                         android:text="TextView" />
 
                     <TextView
                         android:id="@+id/textView1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="23sp"
                         android:text="TextView" />
                 </LinearLayout>
 
@@ -135,14 +148,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="#EA7B12"
+            android:layout_gravity="center"
             android:text="Réserver" />
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="114dp"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#EA7B12"
-            android:text="Retour" />
+
 
 
     </LinearLayout>

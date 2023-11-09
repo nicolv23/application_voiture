@@ -5,13 +5,13 @@
     android:orientation="vertical"
     android:gravity="center"
     android:background="#658CBB"
-    tools:context=".FavorisFragment">
+    tools:context=".EnregistrementVoitureFragment">
 
     <TextView
         android:id="@+id/titreFavorisTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Liste de modèles favoris"
+        android:text="Liste de voitures enregistrés"
         android:textSize="30sp"
         android:textStyle="italic"
         android:textColor="#191970"
@@ -22,7 +22,7 @@
         android:id="@+id/aucunFavoriMessageTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Aucun favori enregistré"
+        android:text="Aucun modèle enregistré"
         android:textSize="18sp"
         android:textColor="#FFFFFF"
         android:visibility="gone"
@@ -31,7 +31,7 @@
     <GridView
         android:id="@+id/gridView"
         android:layout_width="match_parent"
-        android:layout_height="600dp"
+        android:layout_height="604dp"
         android:gravity="center"
         android:horizontalSpacing="8dp"
         android:numColumns="2"
@@ -44,8 +44,8 @@
         android:layout_height="52dp"
         android:backgroundTint="#00A36C"
         android:gravity="center"
-        android:onClick="effacerDernierModeleFavori"
-        android:text="Effacer modèle favori" />
+        android:onClick="afficherDialogEffacerModele"
+        android:text="Effacer un modèle enregistré" />
 
 
 </LinearLayout>

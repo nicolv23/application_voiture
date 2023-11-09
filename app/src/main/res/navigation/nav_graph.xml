@@ -6,7 +6,7 @@
     app:startDestination="@id/accueilFragment">
     <fragment
         android:id="@+id/accueilFragment"
-        android:name="com.example.louemonchar.AccueilFragment"
+        android:name="com.example.louemonchar.vue.AccueilFragment"
         android:label="fragment_accueil"
         tools:layout="@layout/fragment_accueil">
         <action
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/marquesAuto"
-        android:name="com.example.louemonchar.MarquesAuto"
+        android:name="com.example.louemonchar.vue.MarquesAuto"
         android:label="fragment_marques_auto"
         tools:layout="@layout/fragment_marques_auto">
         <action
@@ -42,25 +42,34 @@
             app:popUpTo="@id/marquesAuto"
             app:popUpToInclusive="true" />
         <action
-            android:id="@+id/action_listeVoitures_to_favorisFragment"
-            app:destination="@id/favorisFragment" />
-        <action
-            android:id="@+id/action_listeVoitures_to_écranDétail"
-            app:destination="@id/écranDétail" />
+            android:id="@+id/action_listeVoitures_to_enregistrementsFragment"
+            app:destination="@id/enregistrementsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/favorisFragment"
-        android:name="com.example.louemonchar.FavorisFragment"
-        android:label="fragment_favoris"
-        tools:layout="@layout/fragment_favoris" >
+        android:id="@+id/enregistrementsFragment"
+        android:name="com.example.louemonchar.EnregistrementVoitureFragment"
+        android:label="fragment_voitures_enregistrement"
+        tools:layout="@layout/fragment_enregistrement_voitures" >
         <action
-            android:id="@+id/action_favorisFragment_to_listeVoitures"
+            android:id="@+id/action_enregistrementsFragment_to_listeVoitures"
             app:destination="@id/listeVoitures"
             app:popUpTo="@id/listeVoitures"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_enregistrementsFragment_to_écranDétail"
+            app:destination="@id/écranDétail" />
     </fragment>
     <fragment
         android:id="@+id/écranDétail"
         android:name="com.example.louemonchar.vue.ÉcranDétail"
-        android:label="ÉcranDétail" />
+        android:label="fragment_écran_détail"
+        tools:layout="@layout/detail_auto">
+        <argument
+            android:name="modeleSelectionne"
+            app:argType="string"
+            android:defaultValue="" />
+        <action
+            android:id="@+id/action_écranDétail_to_enregistrementsFragment"
+            app:destination="@id/enregistrementsFragment" />
+    </fragment>
 </navigation>
