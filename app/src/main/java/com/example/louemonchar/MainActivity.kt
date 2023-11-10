@@ -1,4 +1,4 @@
-package com.example.louemonchar.vue
+package com.example.louemonchar
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,7 +8,6 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.louemonchar.modèle.ListeVoituresEnregistres
 import com.example.louemonchar.interfaces.IContratVueMain
-import com.example.louemonchar.R
 import com.example.louemonchar.présentateur.MainPresentateur
 
 class MainActivity : AppCompatActivity(), IContratVueMain.Vue {
