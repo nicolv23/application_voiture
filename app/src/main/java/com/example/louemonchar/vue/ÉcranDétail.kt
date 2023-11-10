@@ -24,7 +24,7 @@ class ÉcranDétail : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val vue = inflater.inflate(R.layout.detail_auto, container, false)
-        textview1 = vue.findViewById(R.id.textView1)
+
         textview2 = vue.findViewById(R.id.textView2)
         textview3 = vue.findViewById(R.id.textView3)
         textview4 = vue.findViewById(R.id.textView4)
@@ -35,7 +35,7 @@ class ÉcranDétail : Fragment() {
         val arguments = arguments
         if (arguments != null) {
             val modeleSelectionne = arguments.getString("modeleSelectionne")
-            textview1.text = "Peut-être"
+
             textview2.text = "5"
             textview3.text = "Gaz"
             textview4.text = "Automatique"
