@@ -71,5 +71,12 @@
         <action
             android:id="@+id/action_écranDétail_to_enregistrementsFragment"
             app:destination="@id/enregistrementsFragment" />
+        <action
+            android:id="@+id/action_écranDétail_to_vuePaiement"
+            app:destination="@id/vuePaiement" />
     </fragment>
+    <fragment
+        android:id="@+id/vuePaiement"
+        android:name="com.example.louemonchar.vue.VuePaiement"
+        android:label="VuePaiement" />
 </navigation>
