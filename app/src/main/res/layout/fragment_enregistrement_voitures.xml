@@ -2,21 +2,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:gravity="center"
     android:background="#658CBB"
     tools:context=".EnregistrementVoitureFragment">
-
-    <TextView
-        android:id="@+id/titreFavorisTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Liste de voitures enregistrés"
-        android:textSize="30sp"
-        android:textStyle="italic"
-        android:textColor="#191970"
-        android:gravity="center"
-        android:paddingBottom="16dp" />
 
     <TextView
         android:id="@+id/aucunFavoriMessageTextView"
@@ -28,15 +18,28 @@
         android:visibility="gone"
         android:gravity="center" />
 
-    <GridView
-        android:id="@+id/gridView"
-        android:layout_width="match_parent"
-        android:layout_height="604dp"
+
+    <TextView
+        android:id="@+id/titreVoitureEnregistresTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:horizontalSpacing="8dp"
-        android:numColumns="2"
-        android:padding="16dp"
-        android:verticalSpacing="8dp" />
+        android:paddingBottom="16dp"
+        android:text="Liste de voitures enregistrés"
+        android:textColor="#191970"
+        android:textSize="30sp"
+        android:textStyle="italic" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        android:layout_weight="1"
+        android:padding="10dp"
+        android:visibility="visible"
+        tools:listitem="@layout/modele_voitures" />
 
     <Button
         android:id="@+id/btnEffacer"

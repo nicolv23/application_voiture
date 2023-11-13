@@ -6,13 +6,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
-import com.example.louemonchar.modèle.ListeVoituresEnregistres
 import com.example.louemonchar.interfaces.IContratVueMain
 import com.example.louemonchar.présentateur.MainPresentateur
 
 class MainActivity : AppCompatActivity(), IContratVueMain.Vue {
     private lateinit var navController: NavController
-    private lateinit var favorisViewModel: ListeVoituresEnregistres
     private lateinit var presentateur: IContratVueMain.Presentateur
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +20,6 @@ class MainActivity : AppCompatActivity(), IContratVueMain.Vue {
         presentateur = MainPresentateur(this)
         presentateur.onViewCreated()
 
-        favorisViewModel = ViewModelProvider(this).get(ListeVoituresEnregistres::class.java)
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragment) as NavHostFragment
         navController = navHostFragment.navController
