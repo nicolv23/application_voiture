@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.louemonchar.modele.ModeleAdapteur
 import com.example.louemonchar.modele.ModeleListener
 import com.example.louemonchar.modele.ModeleVoiture
 import com.example.louemonchar.sourceDonnees.SourceDeVoituresBidon
@@ -64,10 +63,10 @@ class EnregistrementModele : Fragment(), ModeleVoiture.ModeleClickListener, Mode
         recyclerView = view.findViewById(R.id.recyclerViewModele)
         val args = requireArguments()
         marqueAuto = args.getString("marqueAuto") ?: ""
-        modeleEnregistres = args.getStringArray("modeleEnregistres")?.toList() ?: emptyList()
+        chargerModelesEnregistres(marqueAuto)
 
-        val modeleAdapteur = ModeleAdapteur(modeleEnregistres)
-        recyclerView.adapter = modeleAdapteur
+        adapter = ModeleVoiture(modeleEnregistres, this)
+        recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         val effacerButton: Button = view.findViewById(R.id.btnEffacer)
@@ -86,9 +85,8 @@ class EnregistrementModele : Fragment(), ModeleVoiture.ModeleClickListener, Mode
         modificationModele.apply()
     }
 
-    private fun chargerModelesEnregistres(marqueAuto: String): List<String> {
-        val listeModeles = emptySet<String>()
-        return sauvegardeEntreFragments.getStringSet(marqueAuto, listeModeles)?.toList() ?: emptyList()
+    private fun chargerModelesEnregistres(marqueAuto: String) {
+        modeleEnregistres = sauvegardeEntreFragments.getStringSet(marqueAuto, emptySet())?.toList() ?: emptyList()
     }
 
     private fun afficherDialogEffacerModele(modelesEnregistres: List<String>) {

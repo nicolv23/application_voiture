@@ -34,6 +34,7 @@ class SourceDeVoituresBidon : SourceVoitures {
         if (modelesMarque != null) {
             if (!modelesMarque.contains(modele)) {
                 modelesMarque.add(modele)
+                modelesEnregistres[marque] = modelesMarque
             } else {
                 Log.d("SourceDeVoituresBidon", "Le modèle $modele est déjà enregistré pour la marque $marque")
             }
@@ -44,5 +45,6 @@ class SourceDeVoituresBidon : SourceVoitures {
 
     override fun effacerModele(marque: String, modele: String) {
         modelesEnregistres[marque]?.remove(modele)
+        modelesEnregistres[marque]?.let { modelesEnregistres[marque] = it }
     }
 }

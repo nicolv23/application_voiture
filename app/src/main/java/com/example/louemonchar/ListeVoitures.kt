@@ -76,8 +76,8 @@ class ListeVoitures : Fragment(), ModeleVoiture.ModeleClickListener {
         val boutonEnregistres: Button = view.findViewById(R.id.boutonEnregistres)
         boutonEnregistres.setOnClickListener {
             val action = ListeVoituresDirections.actionListeVoituresToEnregistrementsModele().apply {
-                marqueAuto = this@ListeVoitures.marqueAuto ?: ""
-                modeleEnregistres = sourceVoitures.getModelesEnregistres()[marqueAuto]?.toTypedArray() ?: emptyArray()
+                this@ListeVoitures.marqueAuto = this@ListeVoitures.marqueAuto ?: ""
+                this@ListeVoitures.modeleEnregistres = sourceVoitures.getModelesEnregistres()[this@ListeVoitures.marqueAuto]?.toTypedArray() ?: emptyArray()
             }
             findNavController().navigate(action)
         }
@@ -104,8 +104,17 @@ class ListeVoitures : Fragment(), ModeleVoiture.ModeleClickListener {
     override fun onModeleClick(modele: String) {
         val marque = marqueAuto ?: ""
         sourceVoitures.enregistrerModele(marque, modele)
-        modeleEnregistres = sourceVoitures.getModelesEnregistres()[marque]?.toTypedArray() ?: emptyArray()
-        modeleListener?.onModeleEnregistre(marque, modele)
-        view?.let { Snackbar.make(it, "Le modèle: $modele a été enregistré" , Snackbar.LENGTH_SHORT).show() }
+        chargerModelesEnregistres(marque)
+
+        val modelesEnregistres = sourceVoitures.getModelesEnregistres()[marque]?.toTypedArray() ?: emptyArray()
+        val modeleEstEnregistre = modelesEnregistres.contains(modele)
+
+        if (modeleEstEnregistre) {
+            modeleListener?.onModeleEnregistre(marque, modele)
+            view?.let { Snackbar.make(it, "Le modèle: $modele a été enregistré", Snackbar.LENGTH_SHORT).show() }
+        } else {
+            view?.let { Snackbar.make(it, "Erreur lors de l'enregistrement du modèle: $modele", Snackbar.LENGTH_SHORT).show() }
+        }
     }
+
 }
