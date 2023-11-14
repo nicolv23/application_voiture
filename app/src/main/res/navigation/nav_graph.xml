@@ -42,14 +42,27 @@
             app:popUpTo="@id/marquesAuto"
             app:popUpToInclusive="true" />
         <action
-            android:id="@+id/action_listeVoitures_to_enregistrementsFragment"
-            app:destination="@id/enregistrementsFragment" />
+            android:id="@+id/action_listeVoitures_to_enregistrementsModele"
+            app:destination="@id/enregistrementsModele" />
     </fragment>
     <fragment
-        android:id="@+id/enregistrementsFragment"
-        android:name="com.example.louemonchar.EnregistrementVoitureFragment"
-        android:label="fragment_voitures_enregistrement"
-        tools:layout="@layout/fragment_enregistrement_voitures" >
+        android:id="@+id/enregistrementsModele"
+        android:name="com.example.louemonchar.EnregistrementModele"
+        android:label="Enregistrements"
+        tools:layout="@layout/fragment_enregistrement">
+        <action
+            android:id="@+id/action_listeVoitures_to_enregistrementsModele"
+            app:destination="@id/enregistrementsModele">
+            <argument
+                android:name="marqueAuto"
+                app:argType="string" />
+            <argument
+                android:name="modeleEnregistres"
+                app:argType="string[]"
+                app:nullable="true"
+                android:defaultValue="@null" />
+        </action>
+
         <action
             android:id="@+id/action_enregistrementsFragment_to_listeVoitures"
             app:destination="@id/listeVoitures"
@@ -64,13 +77,9 @@
         android:name="com.example.louemonchar.vue.ÉcranDétail"
         android:label="fragment_écran_détail"
         tools:layout="@layout/detail_auto">
-        <argument
-            android:name="modeleSelectionne"
-            app:argType="string"
-            android:defaultValue="" />
         <action
-            android:id="@+id/action_écranDétail_to_enregistrementsFragment"
-            app:destination="@id/enregistrementsFragment" />
+            android:id="@+id/action_enregistrementsFragment_to_écranDétail"
+            app:destination="@id/enregistrementsModele" />
         <action
             android:id="@+id/action_écranDétail_to_vuePaiement"
             app:destination="@id/vuePaiement" />

@@ -7,8 +7,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.louemonchar.R
 
-class ModeleVoiture(private val modeles: List<String>, private val clickListener: ModeleClickListener) :
-    RecyclerView.Adapter<ModeleVoiture.ViewHolder>() {
+class ModeleVoiture(
+    private var modeles: List<String>,
+    private val clickListener: ModeleClickListener
+) : RecyclerView.Adapter<ModeleVoiture.ViewHolder>() {
 
     interface ModeleClickListener {
         fun onModeleClick(modele: String)
@@ -35,9 +37,12 @@ class ModeleVoiture(private val modeles: List<String>, private val clickListener
         return modeles.size
     }
 
+    fun majModeles(nouveauModelesEnregistres: List<String>) {
+        modeles = nouveauModelesEnregistres
+        notifyDataSetChanged()
+    }
+
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textModeleVoiture: TextView = itemView.findViewById(R.id.textModeleVoiture)
     }
-
-
 }

@@ -2,21 +2,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:gravity="center"
     android:background="#658CBB"
-    tools:context=".EnregistrementVoitureFragment">
-
-    <TextView
-        android:id="@+id/aucunFavoriMessageTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Aucun modèle enregistré"
-        android:textSize="18sp"
-        android:textColor="#FFFFFF"
-        android:visibility="gone"
-        android:gravity="center" />
+    tools:context="EnregistrementModele">
 
 
     <TextView
@@ -24,31 +13,32 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:paddingBottom="16dp"
+        android:layout_marginTop="30dp"
+        android:paddingBottom="15dp"
         android:text="Liste de voitures enregistrés"
         android:textColor="#191970"
         android:textSize="30sp"
         android:textStyle="italic" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/recyclerViewModele"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="25dp"
-        android:layout_weight="1"
+        android:layout_marginTop="10dp"
         android:padding="10dp"
         android:visibility="visible"
-        tools:listitem="@layout/modele_voitures" />
+        tools:listitem="@layout/modele_enregistements"
+        />
 
     <Button
         android:id="@+id/btnEffacer"
         android:layout_width="wrap_content"
         android:layout_height="52dp"
         android:backgroundTint="#00A36C"
+        android:layout_marginBottom="30dp"
         android:gravity="center"
-        android:onClick="afficherDialogEffacerModele"
-        android:text="Effacer un modèle enregistré" />
+        android:text="Effacer modèle enregistré" />
 
 
 </LinearLayout>

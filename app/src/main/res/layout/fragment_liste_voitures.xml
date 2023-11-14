@@ -30,11 +30,10 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="25dp"
-        android:layout_weight="1"
-        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        android:padding="5dp"
         android:visibility="visible"
         tools:listitem="@layout/modele_voitures" />
 

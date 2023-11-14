@@ -1,5 +1,7 @@
 package com.example.louemonchar.sourceDonnees
 
+import android.util.Log
+
 class SourceDeVoituresBidon : SourceVoitures {
 
     private val modelesEnregistres: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -22,9 +24,19 @@ class SourceDeVoituresBidon : SourceVoitures {
         )
     }
 
+    override fun getModelesEnregistres(): Map<String, List<String>> {
+        return modelesEnregistres
+    }
+
     override fun enregistrerModele(marque: String, modele: String) {
-        if (modelesEnregistres.containsKey(marque)) {
-            modelesEnregistres[marque]?.add(modele)
+        val modelesMarque = modelesEnregistres[marque]
+
+        if (modelesMarque != null) {
+            if (!modelesMarque.contains(modele)) {
+                modelesMarque.add(modele)
+            } else {
+                Log.d("SourceDeVoituresBidon", "Le modèle $modele est déjà enregistré pour la marque $marque")
+            }
         } else {
             modelesEnregistres[marque] = mutableListOf(modele)
         }

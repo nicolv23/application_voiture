@@ -6,4 +6,5 @@
     <string name="fragment_accueil">fragment_accueil</string>
     <string name="fragment_marques_auto">fragment_marque</string>
     <string name="fragment_modele_auto">fragment_modele</string>
+    <string name="effacer_modele">effacer_modele</string>
 </resources>
