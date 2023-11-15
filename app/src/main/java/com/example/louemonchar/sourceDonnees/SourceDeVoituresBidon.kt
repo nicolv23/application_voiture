@@ -35,11 +35,13 @@ class SourceDeVoituresBidon : SourceVoitures {
             if (!modelesMarque.contains(modele)) {
                 modelesMarque.add(modele)
                 modelesEnregistres[marque] = modelesMarque
+                Log.d("SourceDeVoituresBidon", "Modèle enregistré : $modele pour la marque $marque")
             } else {
                 Log.d("SourceDeVoituresBidon", "Le modèle $modele est déjà enregistré pour la marque $marque")
             }
         } else {
             modelesEnregistres[marque] = mutableListOf(modele)
+            Log.d("SourceDeVoituresBidon", "Modèle enregistré : $modele pour la marque $marque")
         }
     }
 

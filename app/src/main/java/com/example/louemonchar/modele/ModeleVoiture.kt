@@ -37,10 +37,6 @@ class ModeleVoiture(
         return modeles.size
     }
 
-    fun majModeles(nouveauModelesEnregistres: List<String>) {
-        modeles = nouveauModelesEnregistres
-        notifyDataSetChanged()
-    }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textModeleVoiture: TextView = itemView.findViewById(R.id.textModeleVoiture)

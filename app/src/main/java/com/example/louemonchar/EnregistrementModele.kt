@@ -2,30 +2,29 @@ package com.example.louemonchar
 
 import android.app.AlertDialog
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.GridView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.louemonchar.modele.ModeleEnregistrement
 import com.example.louemonchar.modele.ModeleListener
-import com.example.louemonchar.modele.ModeleVoiture
 import com.example.louemonchar.sourceDonnees.SourceDeVoituresBidon
 import com.example.louemonchar.sourceDonnees.SourceVoitures
-import com.google.android.material.snackbar.Snackbar
 
-class EnregistrementModele : Fragment(), ModeleVoiture.ModeleClickListener, ModeleListener {
+class EnregistrementModele : Fragment(), ModeleEnregistrement.ModeleClickListener, ModeleListener {
     private lateinit var sourceVoitures: SourceVoitures
+    private lateinit var adapteur: ModeleEnregistrement
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: ModeleVoiture
-    private lateinit var sauvegardeEntreFragments: SharedPreferences
     private var marqueAuto: String = ""
-    private var modeleEnregistres: List<String> = emptyList()
+    private var modeleEnregistres: MutableList<String> = mutableListOf()
     private lateinit var modeleListener: ModeleListener
 
     override fun onAttach(context: Context) {
@@ -36,57 +35,26 @@ class EnregistrementModele : Fragment(), ModeleVoiture.ModeleClickListener, Mode
             throw RuntimeException("$context doit implémenter ModeleListener")
         }
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sourceVoitures = SourceDeVoituresBidon()
-        sauvegardeEntreFragments = requireActivity().getPreferences(Context.MODE_PRIVATE)
-    }
-
-    override fun onModeleEnregistre(marque: String, modele: String) {
-        sourceVoitures.enregistrerModele(marque, modele)
-        majModelesEnregistres()
-        sauvegarderModelesEnregistres(marque)
-        Snackbar.make(requireView(), "Modèle enregistré : $modele", Snackbar.LENGTH_SHORT).show()
-        val action = EnregistrementModeleDirections.actionEnregistrementsFragmentToÉcranDétail()
-        findNavController().navigate(action)
-    }
-
-    override fun getModelesEnregistres(marque: String): List<String> {
-        return modeleEnregistres.toList()
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_enregistrement, container, false)
-        recyclerView = view.findViewById(R.id.recyclerViewModele)
-        val args = requireArguments()
-        marqueAuto = args.getString("marqueAuto") ?: ""
-        chargerModelesEnregistres(marqueAuto)
-
-        adapter = ModeleVoiture(modeleEnregistres, this)
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
-        val effacerButton: Button = view.findViewById(R.id.btnEffacer)
-        effacerButton.setOnClickListener {
-            afficherDialogEffacerModele(modeleEnregistres)
-        }
-        return view
-    }
-
-
-
-    private fun sauvegarderModelesEnregistres(marque: String) {
-        val listeEnregistrementVoiture = getModelesEnregistres(marque)
-        val modificationModele = sauvegardeEntreFragments.edit()
-        modificationModele.putStringSet(marque, listeEnregistrementVoiture.toSet())
-        modificationModele.apply()
     }
 
     private fun chargerModelesEnregistres(marqueAuto: String) {
-        modeleEnregistres = sauvegardeEntreFragments.getStringSet(marqueAuto, emptySet())?.toList() ?: emptyList()
+        modeleEnregistres.clear()
+        modeleEnregistres.addAll(sourceVoitures.getModelesEnregistres()[marqueAuto] ?: emptyList())
+        majModelesEnregistres()
+    }
+
+    private fun majModelesEnregistres() {
+        if (!::adapteur.isInitialized) {
+            adapteur = ModeleEnregistrement(requireContext(), modeleEnregistres, this)
+            recyclerView.adapter = adapteur
+        } else {
+            adapteur.updateModelesEnregistres(modeleEnregistres)
+            adapteur.notifyDataSetChanged()
+        }
     }
 
     private fun afficherDialogEffacerModele(modelesEnregistres: List<String>) {
@@ -97,26 +65,56 @@ class EnregistrementModele : Fragment(), ModeleVoiture.ModeleClickListener, Mode
                 val marque = getMarqueDuModele(modeleSelectionne)
                 sourceVoitures.effacerModele(marque, modeleSelectionne)
 
+
+                sourceVoitures.getModelesEnregistres()
                 Toast.makeText(
                     requireContext(),
                     "Le modèle enregistré \"$modeleSelectionne\" a été effacé",
                     Toast.LENGTH_SHORT
                 ).show()
-                majModelesEnregistres()
+                chargerModelesEnregistres(marqueAuto)
             }
             .setNegativeButton("Annuler", null)
             .show()
     }
 
-    private fun majModelesEnregistres() {
-        val marqueChoisi = marqueAuto ?: ""
-        val listeEnregistrementVoiture = getModelesEnregistres(marqueChoisi)
-        adapter.majModeles(listeEnregistrementVoiture)
+    override fun getModelesEnregistres(marque: String): List<String> {
+        return modeleEnregistres.toList()
+    }
+
+    private fun testerSourceDeVoitures() {
+        sourceVoitures.enregistrerModele("Toyota", "Magog")
+        modeleEnregistres = sourceVoitures.getModelesEnregistres()[marqueAuto]?.toMutableList() ?: mutableListOf()
+        chargerModelesEnregistres("Toyota") // Met à jour les modèles enregistrés pour "Toyota"
+        Log.d("EnregistrementModele", "Modèles chargés : $modeleEnregistres")
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view = inflater.inflate(R.layout.fragment_enregistrement, container, false)
+
+        recyclerView = view.findViewById(R.id.recyclerViewModele)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        adapteur = ModeleEnregistrement(requireContext(), modeleEnregistres, this)
+        recyclerView.adapter = adapteur
+        majModelesEnregistres()
+
+        val effacerButton: Button = view.findViewById(R.id.btnEffacer)
+        effacerButton.setOnClickListener {
+            afficherDialogEffacerModele(modeleEnregistres)
+        }
+
+        // Appeler testerSourceDeVoitures après initialisation
+        testerSourceDeVoitures()
+        return view
     }
 
     private fun getMarqueDuModele(modeleEfface: String?): String {
         if (modeleEfface != null) {
-            for ((marque, modeles) in sourceVoitures.getModelesDeVoiture()) {
+            for ((marque, modeles) in sourceVoitures.getModelesEnregistres()) {
                 if (modeles.contains(modeleEfface)) {
                     return marque
                 }
@@ -125,12 +123,12 @@ class EnregistrementModele : Fragment(), ModeleVoiture.ModeleClickListener, Mode
         return ""
     }
 
-    override fun onDestroyView() {
-        sauvegarderModelesEnregistres(requireArguments().getString("marqueAuto") ?: "")
-        super.onDestroyView()
+    override fun onModeleEnregistre(marque: String, modele: String) {
+        chargerModelesEnregistres(marque)
     }
 
     override fun onModeleClick(modele: String) {
-        onModeleEnregistre(requireArguments().getString("marqueAuto")!!, modele)
+        val action = EnregistrementModeleDirections.actionEnregistrementsFragmentToÉcranDétail()
+        findNavController().navigate(action)
     }
 }

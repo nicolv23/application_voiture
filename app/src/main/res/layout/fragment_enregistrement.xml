@@ -18,7 +18,7 @@
         android:text="Liste de voitures enregistrés"
         android:textColor="#191970"
         android:textSize="30sp"
-        android:textStyle="italic" />
+        android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewModele"
@@ -28,7 +28,7 @@
         android:layout_marginTop="10dp"
         android:padding="10dp"
         android:visibility="visible"
-        tools:listitem="@layout/modele_enregistements" />
+        tools:listitem="@layout/modele_enregistrements" />
 
     <Button
         android:id="@+id/btnEffacer"
