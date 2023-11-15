@@ -63,16 +63,22 @@ class EnregistrementModele : Fragment(), ModeleEnregistrement.ModeleClickListene
             .setItems(modelesEnregistres.toTypedArray()) { _, which ->
                 val modeleSelectionne = modelesEnregistres[which]
                 val marque = getMarqueDuModele(modeleSelectionne)
-                sourceVoitures.effacerModele(marque, modeleSelectionne)
-
-
-                sourceVoitures.getModelesEnregistres()
-                Toast.makeText(
-                    requireContext(),
-                    "Le modèle enregistré \"$modeleSelectionne\" a été effacé",
-                    Toast.LENGTH_SHORT
-                ).show()
-                chargerModelesEnregistres(marqueAuto)
+                AlertDialog.Builder(requireContext())
+                    .setTitle("Confirmer la suppression")
+                    .setMessage("Voulez-vous effacer le modèle \"$modeleSelectionne\"?")
+                    .setPositiveButton("Oui") { _, _ ->
+                        if (marque.isNotEmpty()) {
+                            sourceVoitures.effacerModele(marque, modeleSelectionne)
+                            Toast.makeText(
+                                requireContext(),
+                                "Le modèle enregistré \"$modeleSelectionne\" a été effacé",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            chargerModelesEnregistres(marque)
+                        }
+                    }
+                    .setNegativeButton("Non", null)
+                    .show()
             }
             .setNegativeButton("Annuler", null)
             .show()
