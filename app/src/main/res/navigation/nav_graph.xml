@@ -74,7 +74,7 @@
     </fragment>
     <fragment
         android:id="@+id/écranDétail"
-        android:name="com.example.louemonchar.vue.ÉcranDétail"
+        android:name="com.example.louemonchar.vue.EcranDetail"
         android:label="fragment_écran_détail"
         tools:layout="@layout/detail_auto">
         <action

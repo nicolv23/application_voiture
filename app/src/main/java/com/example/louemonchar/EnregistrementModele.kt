@@ -83,9 +83,19 @@ class EnregistrementModele : Fragment(), ModeleEnregistrement.ModeleClickListene
     }
 
     private fun testerSourceDeVoitures() {
-        sourceVoitures.enregistrerModele("Toyota", "Magog")
+        sourceVoitures.enregistrerModele("Toyota", "Toyota Prius")
+        sourceVoitures.enregistrerModele("Toyota", "Toyota Corolla")
+        sourceVoitures.enregistrerModele("Mercedes", "Mercedes-Benz Classe S")
+        sourceVoitures.enregistrerModele("Hyundai", "Hyundai Tucson")
+        sourceVoitures.enregistrerModele("Hyundai", "Hyundai Kona")
+        sourceVoitures.enregistrerModele("Hyundai", "Hyundai Sonata")
+        sourceVoitures.enregistrerModele("Hyundai", "Hyundai Venue")
+        sourceVoitures.enregistrerModele("Hyundai", "Hyundai Elantra")
+        sourceVoitures.enregistrerModele("Hyundai", "Hyundai Santa Fe")
         modeleEnregistres = sourceVoitures.getModelesEnregistres()[marqueAuto]?.toMutableList() ?: mutableListOf()
-        chargerModelesEnregistres("Toyota") // Met à jour les modèles enregistrés pour "Toyota"
+        chargerModelesEnregistres("Toyota")
+        chargerModelesEnregistres("Mercedes")
+        chargerModelesEnregistres("Hyundai")
         Log.d("EnregistrementModele", "Modèles chargés : $modeleEnregistres")
     }
 

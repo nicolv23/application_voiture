@@ -9,12 +9,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.louemonchar.R
 import com.example.louemonchar.présentateur.DetailPresentateur
 
-class ÉcranDétail : Fragment() {
+class EcranDetail : Fragment() {
 
     lateinit var navController: NavController
     lateinit var textview1: TextView
@@ -47,7 +46,7 @@ class ÉcranDétail : Fragment() {
 
         val arguments = arguments
         if (arguments != null) {
-            val modeleSelectionne = arguments.getString("modeleSelectionne")
+            val modeleSelectionne = arguments?.getString("modeleSelectionne")
 
             textview2.text = "5"
             textview3.text = "Gaz"
@@ -55,19 +54,24 @@ class ÉcranDétail : Fragment() {
             textview5.text = "$modeleSelectionne"
             textview6.text = "Pierre"
 
-            val imageResourceId = resources.getIdentifier(modeleSelectionne, "drawable", requireContext().packageName)
-            if (imageResourceId != 0) {
-                image.setImageResource(imageResourceId)
+            if (!modeleSelectionne.isNullOrEmpty()) {
+                val imageResourceId = resources.getIdentifier(modeleSelectionne, "drawable", requireContext().packageName)
+                if (imageResourceId != 0) {
+                    image.setImageResource(imageResourceId)
+                } else {
+                    image.visibility = View.GONE
+                }
             } else {
                 image.visibility = View.GONE
             }
+
         }
 
         return vue
     }
 
     fun naviguerVersPaiement(){
-        val action = ÉcranDétailDirections.actionÉcranDétailToVuePaiement()
+        val action = EcranDetailDirections.actionÉcranDétailToVuePaiement()
         findNavController().navigate(action)
 
     }
