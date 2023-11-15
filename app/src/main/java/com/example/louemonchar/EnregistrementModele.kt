@@ -138,7 +138,8 @@ class EnregistrementModele : Fragment(), ModeleEnregistrement.ModeleClickListene
     }
 
     override fun onModeleClick(modele: String) {
-        val action = EnregistrementModeleDirections.actionEnregistrementsFragmentToÉcranDétail()
+        val action = EnregistrementModeleDirections.actionEnregistrementsFragmentToÉcranDétail(modele)
+        action.modeleSelectionne = modele
         findNavController().navigate(action)
     }
 }

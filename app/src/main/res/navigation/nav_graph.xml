@@ -70,16 +70,21 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_enregistrementsFragment_to_écranDétail"
-            app:destination="@id/écranDétail" />
+            app:destination="@id/écranDétail">
+        <argument
+            android:name="modeleSelectionne"
+            app:argType="string" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/écranDétail"
         android:name="com.example.louemonchar.vue.EcranDetail"
         android:label="fragment_écran_détail"
         tools:layout="@layout/detail_auto">
+
         <action
             android:id="@+id/action_enregistrementsFragment_to_écranDétail"
-            app:destination="@id/enregistrementsModele" />
+            app:destination="@id/enregistrementsModele"/>
         <action
             android:id="@+id/action_écranDétail_to_vuePaiement"
             app:destination="@id/vuePaiement" />

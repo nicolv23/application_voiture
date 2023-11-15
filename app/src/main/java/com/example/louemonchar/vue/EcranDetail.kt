@@ -33,7 +33,6 @@ class EcranDetail : Fragment() {
     ): View? {
         val vue = inflater.inflate(R.layout.detail_auto, container, false)
 
-
         textview2 = vue.findViewById(R.id.textView2)
         textview3 = vue.findViewById(R.id.textView3)
         textview4 = vue.findViewById(R.id.textView4)
@@ -46,27 +45,28 @@ class EcranDetail : Fragment() {
 
         val arguments = arguments
         if (arguments != null) {
-            val modeleSelectionne = arguments?.getString("modeleSelectionne")
+            val modeleSelectionne = arguments.getString("modeleSelectionne")
 
-            textview2.text = "5"
-            textview3.text = "Gaz"
-            textview4.text = "Automatique"
-            textview5.text = "$modeleSelectionne"
-            textview6.text = "Pierre"
+            modeleSelectionne?.let {
+                textview2.text = "5"
+                textview3.text = "Gaz"
+                textview4.text = "Automatique"
+                textview5.text = modeleSelectionne
+                textview6.text = "Pierre"
 
-            if (!modeleSelectionne.isNullOrEmpty()) {
-                val imageResourceId = resources.getIdentifier(modeleSelectionne, "drawable", requireContext().packageName)
-                if (imageResourceId != 0) {
-                    image.setImageResource(imageResourceId)
+                if (!modeleSelectionne.isNullOrEmpty()) {
+                    val imageResourceId = resources.getIdentifier(modeleSelectionne.toLowerCase().replace(" ", "_"), "drawable", requireContext().packageName)
+                    if (imageResourceId != 0) {
+                        image.setImageResource(imageResourceId)
+                        image.visibility = View.VISIBLE
+                    } else {
+                        image.visibility = View.GONE
+                    }
                 } else {
                     image.visibility = View.GONE
                 }
-            } else {
-                image.visibility = View.GONE
             }
-
         }
-
         return vue
     }
 
