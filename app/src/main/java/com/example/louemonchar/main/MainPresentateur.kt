@@ -1,6 +1,6 @@
-package com.example.louemonchar.présentateur
+package com.example.louemonchar.main
 
-import com.example.louemonchar.interfaces.IContratVueMain
+import com.example.louemonchar.main.IContratVueMain
 
 class MainPresentateur(private var vue: IContratVueMain.Vue?) : IContratVueMain.Presentateur {
 

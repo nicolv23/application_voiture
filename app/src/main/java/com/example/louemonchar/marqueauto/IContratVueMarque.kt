@@ -1,4 +1,4 @@
-package com.example.louemonchar.interfaces
+package com.example.louemonchar.marqueauto
 
 interface IContratVueMarque {
     interface Vue {

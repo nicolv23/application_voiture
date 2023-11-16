@@ -1,4 +1,4 @@
-package com.example.louemonchar.modele
+package com.example.louemonchar.marqueauto
 
 interface ModeleListener {
     fun onModeleEnregistre(marque: String, modele: String)

@@ -2,13 +2,12 @@ package com.example.louemonchar
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
-import com.example.louemonchar.interfaces.IContratVueMain
-import com.example.louemonchar.modele.ModeleListener
-import com.example.louemonchar.présentateur.MainPresentateur
+import com.example.louemonchar.main.IContratVueMain
+import com.example.louemonchar.marqueauto.ModeleListener
+import com.example.louemonchar.main.MainPresentateur
 
 class MainActivity : AppCompatActivity(), IContratVueMain.Vue, ModeleListener {
 

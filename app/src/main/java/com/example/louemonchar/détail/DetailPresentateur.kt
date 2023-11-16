@@ -1,6 +1,6 @@
-package com.example.louemonchar.présentateur
+package com.example.louemonchar.détail
 
-import com.example.louemonchar.vue.EcranDetail
+import com.example.louemonchar.détail.EcranDetail
 
 class DetailPresentateur(var vue: EcranDetail) {
 

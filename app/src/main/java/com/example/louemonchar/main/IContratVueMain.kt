@@ -1,4 +1,4 @@
-package com.example.louemonchar.interfaces
+package com.example.louemonchar.main
 
 interface IContratVueMain {
     interface Vue {

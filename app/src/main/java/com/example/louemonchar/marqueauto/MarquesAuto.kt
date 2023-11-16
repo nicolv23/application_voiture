@@ -1,4 +1,4 @@
-package com.example.louemonchar.vue
+package com.example.louemonchar.marqueauto
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,9 +8,7 @@ import android.widget.GridLayout
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.louemonchar.interfaces.IContratVueMarque
 import com.example.louemonchar.R
-import com.example.louemonchar.présentateur.MarquePresentateur
 
 class MarquesAuto : Fragment(), IContratVueMarque.Vue {
 
@@ -60,7 +58,10 @@ class MarquesAuto : Fragment(), IContratVueMarque.Vue {
     }
 
     override fun afficherModeleVoitures(marque: String) {
-        val action = MarquesAutoDirections.actionMarquesAutoToListeVoitures(marque)
+        val action =
+            com.example.louemonchar.marqueauto.MarquesAutoDirections.actionMarquesAutoToListeVoitures(
+                marque
+            )
         findNavController().navigate(action)
     }
 

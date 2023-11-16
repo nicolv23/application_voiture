@@ -8,14 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.GridView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.louemonchar.modele.ModeleEnregistrement
-import com.example.louemonchar.modele.ModeleListener
+import com.example.louemonchar.marqueauto.ModeleEnregistrement
+import com.example.louemonchar.marqueauto.ModeleListener
 import com.example.louemonchar.sourceDonnees.SourceDeVoituresBidon
 import com.example.louemonchar.sourceDonnees.SourceVoitures
 import com.example.louemonchar.vue.RecyclerViewSurligne

@@ -1,4 +1,4 @@
-package com.example.louemonchar.vue
+package com.example.louemonchar.détail
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.louemonchar.R
-import com.example.louemonchar.présentateur.DetailPresentateur
 
 class EcranDetail : Fragment() {
 
@@ -71,7 +70,8 @@ class EcranDetail : Fragment() {
     }
 
     fun naviguerVersPaiement(){
-        val action = EcranDetailDirections.actionÉcranDétailToVuePaiement()
+        val action =
+            com.example.louemonchar.détail.EcranDetailDirections.actionÉcranDétailToVuePaiement()
         findNavController().navigate(action)
 
     }

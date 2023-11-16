@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/marquesAuto"
-        android:name="com.example.louemonchar.vue.MarquesAuto"
+        android:name="com.example.louemonchar.marqueauto.MarquesAuto"
         android:label="fragment_marques_auto"
         tools:layout="@layout/fragment_marques_auto">
         <action
@@ -78,7 +78,7 @@
     </fragment>
     <fragment
         android:id="@+id/écranDétail"
-        android:name="com.example.louemonchar.vue.EcranDetail"
+        android:name="com.example.louemonchar.détail.EcranDetail"
         android:label="fragment_écran_détail"
         tools:layout="@layout/detail_auto">
 

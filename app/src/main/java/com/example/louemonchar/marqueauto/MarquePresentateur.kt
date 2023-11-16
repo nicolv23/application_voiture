@@ -1,6 +1,6 @@
-package com.example.louemonchar.présentateur
+package com.example.louemonchar.marqueauto
 
-import com.example.louemonchar.interfaces.IContratVueMarque
+import com.example.louemonchar.marqueauto.IContratVueMarque
 
 class MarquePresentateur(private val vue: IContratVueMarque.Vue) : IContratVueMarque.Presentateur {
 

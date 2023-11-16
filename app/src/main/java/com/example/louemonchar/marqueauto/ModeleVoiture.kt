@@ -1,4 +1,4 @@
-package com.example.louemonchar.modele
+package com.example.louemonchar.marqueauto
 
 import android.view.LayoutInflater
 import android.view.View
