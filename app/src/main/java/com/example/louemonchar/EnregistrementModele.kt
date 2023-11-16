@@ -18,6 +18,7 @@ import com.example.louemonchar.modele.ModeleEnregistrement
 import com.example.louemonchar.modele.ModeleListener
 import com.example.louemonchar.sourceDonnees.SourceDeVoituresBidon
 import com.example.louemonchar.sourceDonnees.SourceVoitures
+import com.example.louemonchar.vue.RecyclerViewSurligne
 
 class EnregistrementModele : Fragment(), ModeleEnregistrement.ModeleClickListener, ModeleListener {
     private lateinit var sourceVoitures: SourceVoitures
@@ -91,17 +92,24 @@ class EnregistrementModele : Fragment(), ModeleEnregistrement.ModeleClickListene
     private fun testerSourceDeVoitures() {
         sourceVoitures.enregistrerModele("Toyota", "Toyota Prius")
         sourceVoitures.enregistrerModele("Toyota", "Toyota Corolla")
-        sourceVoitures.enregistrerModele("Mercedes", "Mercedes-Benz Classe S")
+        sourceVoitures.enregistrerModele("Mercedes", "Mercedes Benz Classe S")
+        sourceVoitures.enregistrerModele("Mercedes", "Mercedes Benz AMG GT")
+        sourceVoitures.enregistrerModele("Mazda", "Mazda 3")
+        sourceVoitures.enregistrerModele("Mazda", "Mazda 6")
+        sourceVoitures.enregistrerModele("Tesla", "Tesla Modele X")
+        sourceVoitures.enregistrerModele("Tesla", "Tesla Cybertruck")
+        sourceVoitures.enregistrerModele("Tesla", "Tesla Semi")
+        sourceVoitures.enregistrerModele("BMW", "BMW Serie 3")
         sourceVoitures.enregistrerModele("Hyundai", "Hyundai Tucson")
         sourceVoitures.enregistrerModele("Hyundai", "Hyundai Kona")
         sourceVoitures.enregistrerModele("Hyundai", "Hyundai Sonata")
         sourceVoitures.enregistrerModele("Hyundai", "Hyundai Venue")
         sourceVoitures.enregistrerModele("Hyundai", "Hyundai Elantra")
         sourceVoitures.enregistrerModele("Hyundai", "Hyundai Santa Fe")
-        modeleEnregistres = sourceVoitures.getModelesEnregistres()[marqueAuto]?.toMutableList() ?: mutableListOf()
-        chargerModelesEnregistres("Toyota")
-        chargerModelesEnregistres("Mercedes")
-        chargerModelesEnregistres("Hyundai")
+
+        val listeModeles = sourceVoitures.getModelesEnregistres().flatMap { it.value }
+        modeleEnregistres.addAll(listeModeles)
+
         Log.d("EnregistrementModele", "Modèles chargés : $modeleEnregistres")
     }
 
@@ -116,6 +124,9 @@ class EnregistrementModele : Fragment(), ModeleEnregistrement.ModeleClickListene
 
         adapteur = ModeleEnregistrement(requireContext(), modeleEnregistres, this)
         recyclerView.adapter = adapteur
+
+        val surlignerModele = RecyclerViewSurligne(recyclerView)
+        recyclerView.addItemDecoration(surlignerModele)
         majModelesEnregistres()
 
         val effacerButton: Button = view.findViewById(R.id.btnEffacer)
