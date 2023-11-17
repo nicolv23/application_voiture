@@ -2,17 +2,16 @@ package com.example.louemonchar
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
-import com.example.louemonchar.modèle.ListeVoituresEnregistres
-import com.example.louemonchar.interfaces.IContratVueMain
-import com.example.louemonchar.présentateur.MainPresentateur
+import com.example.louemonchar.main.IContratVueMain
+import com.example.louemonchar.marqueauto.ModeleListener
+import com.example.louemonchar.main.MainPresentateur
 
-class MainActivity : AppCompatActivity(), IContratVueMain.Vue {
+class MainActivity : AppCompatActivity(), IContratVueMain.Vue, ModeleListener {
+
     private lateinit var navController: NavController
-    private lateinit var favorisViewModel: ListeVoituresEnregistres
     private lateinit var presentateur: IContratVueMain.Presentateur
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +21,6 @@ class MainActivity : AppCompatActivity(), IContratVueMain.Vue {
         presentateur = MainPresentateur(this)
         presentateur.onViewCreated()
 
-        favorisViewModel = ViewModelProvider(this).get(ListeVoituresEnregistres::class.java)
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragment) as NavHostFragment
         navController = navHostFragment.navController
@@ -37,5 +35,12 @@ class MainActivity : AppCompatActivity(), IContratVueMain.Vue {
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+
+    override fun onModeleEnregistre(marque: String, modele: String) {
+    }
+
+    override fun getModelesEnregistres(marque: String): List<String> {
+        return emptyList()
     }
 }

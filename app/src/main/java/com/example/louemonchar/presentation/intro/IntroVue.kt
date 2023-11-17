@@ -1,0 +1,74 @@
+package com.example.louemonchar.presentation.intro
+
+import android.content.Intent
+import android.os.Bundle
+import android.os.Handler
+import android.view.View
+import android.view.animation.AnimationUtils
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import com.example.louemonchar.MainActivity
+import com.example.louemonchar.R
+
+class IntroVue : AppCompatActivity(), IntroInterface.Vue {
+
+    private lateinit var presentateur: IntroInterface.Presentateur
+    private var image1: ImageView? = null
+    private var image2: ImageView? = null
+    private var text1: TextView? = null
+    private var text2: TextView? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.fragment_intro)
+
+        presentateur = IntroPresentateur(this)
+
+        image1 = findViewById(R.id.logoImageView)
+        image2 = findViewById(R.id.introImageView)
+        text1 = findViewById(R.id.logoTitle)
+        text2 = findViewById(R.id.logoSlogan)
+
+        Handler().postDelayed({
+            presentateur.commencerAnimation()
+        }, 1000)
+    }
+
+    override fun afficherEcranPrincipal() {
+        startEnterAnimation()
+        Handler().postDelayed({
+            startExitAnimation()
+        }, 3000)
+
+        // Démarrer l'écran principal après le délai d'attente
+        Handler().postDelayed({
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }, 5000)
+    }
+
+    private fun startEnterAnimation() {
+        image1?.startAnimation(AnimationUtils.loadAnimation(this, R.anim.logoentrant))
+        image2?.startAnimation(AnimationUtils.loadAnimation(this, R.anim.imageentrant))
+        text1?.startAnimation(AnimationUtils.loadAnimation(this, R.anim.textentrant))
+        text2?.startAnimation(AnimationUtils.loadAnimation(this, R.anim.textentrant))
+        image1?.visibility = View.VISIBLE
+        image2?.visibility = View.VISIBLE
+        text1?.visibility = View.VISIBLE
+        text2?.visibility = View.VISIBLE
+    }
+
+    private fun startExitAnimation() {
+        image1?.startAnimation(AnimationUtils.loadAnimation(this, R.anim.logosortant))
+        image2?.startAnimation(AnimationUtils.loadAnimation(this, R.anim.imagesortant))
+        text1?.startAnimation(AnimationUtils.loadAnimation(this, R.anim.textsortant))
+        text2?.startAnimation(AnimationUtils.loadAnimation(this, R.anim.textsortant))
+        image1?.visibility = View.INVISIBLE
+        image2?.visibility = View.INVISIBLE
+        text1?.visibility = View.INVISIBLE
+        text2?.visibility = View.INVISIBLE
+    }
+}
+

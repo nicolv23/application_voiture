@@ -8,18 +8,28 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
-                  <entry key="accueilFragment">
+                  <entry key="connexionVue2">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="12" />
-                            <option name="y" value="436" />
+                            <option name="x" value="-636" />
+                            <option name="y" value="199" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_accueilFragment_to_marquesAuto">
+                            <entry key="action_connexionVue2_to_inscriptionVue">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_connexionVue2_to_marquesAuto">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_connexionVue2_to_recuperationVue">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -29,13 +39,13 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="enregistrementsFragment">
+                  <entry key="enregistrementsModele">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="256" />
-                            <option name="y" value="46" />
+                            <option name="x" value="32" />
+                            <option name="y" value="12" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -46,6 +56,32 @@
                               </value>
                             </entry>
                             <entry key="action_enregistrementsFragment_to_écranDétail">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_listeVoitures_to_enregistrementsModele">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="inscriptionVue">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-273" />
+                            <option name="y" value="170" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_inscriptionVue_to_connexionVue2">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -66,7 +102,7 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_listeVoitures_to_enregistrementsFragment">
+                            <entry key="action_listeVoitures_to_enregistrementsModele">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -92,11 +128,6 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_marquesAuto_to_accueilFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
                             <entry key="action_marquesAuto_to_listeVoitures">
                               <value>
                                 <LayoutPositions />
@@ -107,13 +138,25 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="recuperationVue">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-409" />
+                            <option name="y" value="546" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="vuePaiement">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-17" />
-                            <option name="y" value="-137" />
+                            <option name="x" value="-76" />
+                            <option name="y" value="-406" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -130,7 +173,12 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_écranDétail_to_enregistrementsFragment">
+                            <entry key="action_enregistrementsFragment_to_écranDétail">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_écranDétail_to_vuePaiement">
                               <value>
                                 <LayoutPositions />
                               </value>

@@ -3,19 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/accueilFragment">
-    <fragment
-        android:id="@+id/accueilFragment"
-        android:name="com.example.louemonchar.vue.AccueilFragment"
-        android:label="fragment_accueil"
-        tools:layout="@layout/fragment_accueil">
-        <action
-            android:id="@+id/action_accueilFragment_to_marquesAuto"
-            app:destination="@id/marquesAuto" />
-    </fragment>
+    app:startDestination="@id/connexionVue2">
     <fragment
         android:id="@+id/marquesAuto"
-        android:name="com.example.louemonchar.vue.MarquesAuto"
+        android:name="com.example.louemonchar.marqueauto.MarquesAuto"
         android:label="fragment_marques_auto"
         tools:layout="@layout/fragment_marques_auto">
         <action
@@ -25,11 +16,6 @@
                 android:name="marqueAuto"
                 app:argType="string" />
         </action>
-        <action
-            android:id="@+id/action_marquesAuto_to_accueilFragment"
-            app:destination="@id/accueilFragment"
-            app:popUpTo="@id/accueilFragment"
-            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/listeVoitures"
@@ -42,14 +28,27 @@
             app:popUpTo="@id/marquesAuto"
             app:popUpToInclusive="true" />
         <action
-            android:id="@+id/action_listeVoitures_to_enregistrementsFragment"
-            app:destination="@id/enregistrementsFragment" />
+            android:id="@+id/action_listeVoitures_to_enregistrementsModele"
+            app:destination="@id/enregistrementsModele" />
     </fragment>
     <fragment
-        android:id="@+id/enregistrementsFragment"
-        android:name="com.example.louemonchar.EnregistrementVoitureFragment"
-        android:label="fragment_voitures_enregistrement"
-        tools:layout="@layout/fragment_enregistrement_voitures" >
+        android:id="@+id/enregistrementsModele"
+        android:name="com.example.louemonchar.EnregistrementModele"
+        android:label="Enregistrements"
+        tools:layout="@layout/fragment_enregistrement">
+        <action
+            android:id="@+id/action_listeVoitures_to_enregistrementsModele"
+            app:destination="@id/enregistrementsModele">
+            <argument
+                android:name="marqueAuto"
+                app:argType="string" />
+            <argument
+                android:name="modeleEnregistres"
+                app:argType="string[]"
+                app:nullable="true"
+                android:defaultValue="@null" />
+        </action>
+
         <action
             android:id="@+id/action_enregistrementsFragment_to_listeVoitures"
             app:destination="@id/listeVoitures"
@@ -57,20 +56,21 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_enregistrementsFragment_to_écranDétail"
-            app:destination="@id/écranDétail" />
+            app:destination="@id/écranDétail">
+        <argument
+            android:name="modeleSelectionne"
+            app:argType="string" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/écranDétail"
-        android:name="com.example.louemonchar.vue.ÉcranDétail"
+        android:name="com.example.louemonchar.détail.EcranDetail"
         android:label="fragment_écran_détail"
         tools:layout="@layout/detail_auto">
-        <argument
-            android:name="modeleSelectionne"
-            app:argType="string"
-            android:defaultValue="" />
+
         <action
-            android:id="@+id/action_écranDétail_to_enregistrementsFragment"
-            app:destination="@id/enregistrementsFragment" />
+            android:id="@+id/action_enregistrementsFragment_to_écranDétail"
+            app:destination="@id/enregistrementsModele"/>
         <action
             android:id="@+id/action_écranDétail_to_vuePaiement"
             app:destination="@id/vuePaiement" />
@@ -79,4 +79,33 @@
         android:id="@+id/vuePaiement"
         android:name="com.example.louemonchar.vue.VuePaiement"
         android:label="VuePaiement" />
+    <fragment
+        android:id="@+id/connexionVue2"
+        android:name="com.example.louemonchar.presentation.connexion.ConnexionVue"
+        android:label="fragment_connexion"
+        tools:layout="@layout/fragment_connexion" >
+        <action
+            android:id="@+id/action_connexionVue2_to_inscriptionVue"
+            app:destination="@id/inscriptionVue" />
+        <action
+            android:id="@+id/action_connexionVue2_to_recuperationVue"
+            app:destination="@id/recuperationVue" />
+        <action
+            android:id="@+id/action_connexionVue2_to_marquesAuto"
+            app:destination="@id/marquesAuto" />
+    </fragment>
+    <fragment
+        android:id="@+id/recuperationVue"
+        android:name="com.example.louemonchar.presentation.recuperation.RecuperationVue"
+        android:label="fragment_recuperation"
+        tools:layout="@layout/fragment_recuperation" />
+    <fragment
+        android:id="@+id/inscriptionVue"
+        android:name="com.example.louemonchar.presentation.inscription.InscriptionVue"
+        android:label="fragment_inscription"
+        tools:layout="@layout/fragment_inscription" >
+        <action
+            android:id="@+id/action_inscriptionVue_to_connexionVue2"
+            app:destination="@id/connexionVue2" />
+    </fragment>
 </navigation>

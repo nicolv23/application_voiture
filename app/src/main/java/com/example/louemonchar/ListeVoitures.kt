@@ -1,31 +1,66 @@
 package com.example.louemonchar
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.Button
-import android.widget.GridView
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.example.louemonchar.modèle.ListeVoituresEnregistres
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.louemonchar.marqueauto.ModeleListener
+import com.example.louemonchar.marqueauto.ModeleVoiture
+import com.example.louemonchar.sourceDonnees.SourceDeVoituresBidon
+import com.example.louemonchar.sourceDonnees.SourceVoitures
 import com.google.android.material.snackbar.Snackbar
 
-class ListeVoitures : Fragment() {
-    private lateinit var enregistrementVoituresViewModel: ListeVoituresEnregistres
+class ListeVoitures : Fragment(), ModeleVoiture.ModeleClickListener {
+
+    private lateinit var sourceVoitures: SourceVoitures
+    private lateinit var sauvegardeEntreFragments: SharedPreferences
+    private var marqueAuto: String? = null
+    private var modeleEnregistres: Array<String> = emptyArray()
+    private lateinit var modeleListener: ModeleListener
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is ModeleListener) {
+            modeleListener = context
+        } else {
+            throw RuntimeException("$context doit implémenter ModeleListener")
+        }
+    }
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        if (parentFragment is ModeleListener) {
+            modeleListener = parentFragment as ModeleListener
+        } else if (activity is ModeleListener) {
+            modeleListener = activity as ModeleListener
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sourceVoitures = SourceDeVoituresBidon()
+        sauvegardeEntreFragments = requireActivity().getPreferences(Context.MODE_PRIVATE)
+        if (parentFragment is ModeleListener) {
+            modeleListener = parentFragment as ModeleListener
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_liste_voitures, container, false)
-        val marqueAuto = arguments?.getString("marqueAuto")
+        marqueAuto = requireArguments().getString("marqueAuto")
 
         if (marqueAuto != null) {
+            chargerModelesEnregistres(marqueAuto!!)
             val marqueTextView: TextView = view.findViewById(R.id.marqueTextView)
             marqueTextView.text = "Marque de voiture : $marqueAuto"
         } else {
@@ -33,69 +68,55 @@ class ListeVoitures : Fragment() {
             return view
         }
 
-        val gridView: GridView = view.findViewById(R.id.gridView)
-        val modelesVoiture: Map<String, List<String>> = getModelesDeVoiture()
+        val recyclerView: RecyclerView = view.findViewById(R.id.recyclerView)
+
+        val modelesVoiture: Map<String, List<String>> = sourceVoitures.getModelesDeVoiture()
         val modeles = modelesVoiture[marqueAuto]
 
-        val boutonFavoris: Button = view.findViewById(R.id.boutonFavoris)
-        boutonFavoris.setOnClickListener {
-            val action = ListeVoituresDirections.actionListeVoituresToEnregistrementsFragment()
+        val boutonEnregistres: Button = view.findViewById(R.id.boutonEnregistres)
+        boutonEnregistres.setOnClickListener {
+            val action = ListeVoituresDirections.actionListeVoituresToEnregistrementsModele().apply {
+                marqueAuto = this@ListeVoitures.marqueAuto ?: ""
+                modeleEnregistres = sourceVoitures.getModelesEnregistres()[marqueAuto]?.toTypedArray() ?: emptyArray()
+            }
             findNavController().navigate(action)
         }
 
-        if (modeles != null && modeles.isNotEmpty()) {
-            val adapter = ArrayAdapter(
-                requireContext(),
-                R.layout.grid_item_layout,
-                modeles
-            )
-            adapter.setDropDownViewResource(R.layout.grid_item_layout)
-            gridView.adapter = adapter
-
-            gridView.setOnItemClickListener { _, _, position, _ ->
-                val modeleSelectionne = modeles?.get(position)
-                if (modeleSelectionne != null) {
-                    // Ajoutez le modèle à la liste des modèles favoris dans le ViewModel
-                    enregistrementVoituresViewModel.voituresEnregistres.add(modeleSelectionne)
-                    Snackbar.make(view, "Modèle de voiture enregistré : $modeleSelectionne", Snackbar.LENGTH_SHORT).show()
-                } else {
-                    Snackbar.make(view, "Aucun modèle sélectionné", Snackbar.LENGTH_SHORT).show()
-                }
-            }
+        if (!modeles.isNullOrEmpty()) {
+            recyclerView.visibility = View.VISIBLE
+            recyclerView.layoutManager =
+                GridLayoutManager(requireContext(), 6, GridLayoutManager.HORIZONTAL, false)
+            val adapter = ModeleVoiture(modeles, this)
+            recyclerView.adapter = adapter
         } else {
-            // Aucun modèle n'est disponible pour cette marque, il faut donc afficher un message approprié
-            val aucunModeleTextView: TextView = view.findViewById(R.id.aucunModeleTextView)
-            aucunModeleTextView.visibility = View.VISIBLE
-            gridView.visibility = View.GONE
+            recyclerView.visibility = View.GONE
         }
+
         return view
     }
 
-    private fun getModelesDeVoiture(): Map<String, List<String>> {
-        // Map de modèles de voitures (codage en dur)
-        val modeles: Map<String, List<String>> = mapOf(
-            "Toyota" to listOf("Toyota Corolla", "Toyota Camry", "Toyota Rav4", "Toyota Prius", "Toyota Highlander", "Toyota Tundra"),
-            "Honda" to listOf("Honda Civic", "Honda Accord", "Honda CR-V", "Honda Odyssey", "Honda Pilot", "Honda Insight"),
-            "BMW" to listOf("BMW Série 3", "BMW Série 5", "BMW X5", "BMW M5", "BMW X7", "BMW Série 8"),
-            "Porsche" to listOf("Porsche 911", "Porsche 718 Cayman S", "Porsche 911 GT3", "Porsche Boxster", "Porsche Taycan", "Porsche 959"),
-            "Mazda" to listOf("Mazda CX5", "Mazda CX-30", "Mazda CX-9", "Mazda 3", "Mazda MX-5 RF", "Mazda 6"),
-            "Hyundai" to listOf("hyundai_tucson", "hyundai_elantra", "hyundai_sonata", "hyundai_kona", "hyundai_venue", "hyundai_santa_fe"),
-            "Tesla" to listOf("Tesla Model X", "Tesla Model S", "Tesla Model 3", "Tesla Model Y", "Tesla Semi", "Tesla Cybertruck"),
-            "Lexus" to listOf("Lexus NX 350h", "Lexus IS 500", "Lexus ES 250", "Lexus LX", "Lexus ES 350", "Lexus GX 460"),
-            "Mercedes" to listOf("Mercedes-Benz Classe S", "Mercedes-Benz GLA", "Mercedes-Benz AMG GT", "Mercedes-Benz EQB", "Mercedes-Benz GLB", "Mercedes-Benz Classe C"),
-            "Jeep" to listOf("Jeep Renegade North", "Jeep Cherokee", "Jeep Avenger", "Jeep Compass", "Jeep Wrangler", "Jeep Gladiator"),
-            "Volvo" to listOf("Volvo XC60", "Volvo V60", "Volvo C40", "Volvo XC90", "Volvo S90", "Volvo EX30"),
-            "Nissan" to listOf("Nissan Pathfinder", "Nissan Rogue", "Nissan Altima", "Nissan Frontier", "Nissan Versa", "Nissan Sentra"),
-        )
-        return modeles
+    private fun chargerModelesEnregistres(marqueAuto: String) {
+        val listeModeles = emptySet<String>()
+        modeleEnregistres = sauvegardeEntreFragments.getStringSet(marqueAuto, listeModeles)?.toTypedArray()
+            ?: emptyArray()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        enregistrementVoituresViewModel = ViewModelProvider(requireActivity()).get(ListeVoituresEnregistres::class.java)
+    override fun onModeleClick(modele: String) {
+        val marque = marqueAuto ?: ""
+        val modelesEnregistres = sourceVoitures.getModelesEnregistres()[marque]?.toMutableList() ?: mutableListOf()
+
+        if (!modelesEnregistres.contains(modele)) {
+            sourceVoitures.enregistrerModele(marque, modele)
+            modelesEnregistres.add(modele)
+            chargerModelesEnregistres(marque)
+            val parentFragment = parentFragment as? ModeleListener
+            parentFragment?.onModeleEnregistre(marque, modele)
+
+            modeleListener?.onModeleEnregistre(marque, modele)
+            view?.let { Snackbar.make(it, "Le modèle: $modele a été enregistré", Snackbar.LENGTH_SHORT).show() }
+        } else {
+            view?.let { Snackbar.make(it, "Le modèle: $modele est déjà enregistré", Snackbar.LENGTH_SHORT).show() }
+        }
     }
 
-    private fun setToolbarTitle(title: String) {
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = title
-    }
 }

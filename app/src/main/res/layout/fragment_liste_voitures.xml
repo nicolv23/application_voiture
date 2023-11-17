@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="#658CBB">
 
@@ -18,26 +19,23 @@
         android:textStyle="bold" />
 
     <Button
-        android:id="@+id/boutonFavoris"
+        android:id="@+id/boutonEnregistres"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Voir les voitures enregistrés"
+        android:text="Voir les voitures enregistrées"
         android:backgroundTint="#00A36C"
-        android:layout_gravity="center"
-        android:onClick="onBoutonFavorisClick" />
+        android:layout_gravity="center" />
 
 
-    <GridView
-        android:id="@+id/gridView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="707dp"
-        android:columnWidth="50dp"
-        android:gravity="center"
-        android:horizontalSpacing="10dp"
-        android:numColumns="3"
-        android:layout_marginTop="25dp"
-        android:padding="10dp"
-        android:verticalSpacing="40dp" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:padding="5dp"
+        android:visibility="visible"
+        tools:listitem="@layout/modele_voitures" />
 
     <TextView
         android:id="@+id/aucunModeleTextView"
