@@ -73,7 +73,6 @@
             android:padding="@dimen/spacing_xlarge">
 
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -81,9 +80,7 @@
                 android:orientation="vertical"
                 android:paddingTop="40dp">
 
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp" />
+
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -130,7 +127,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_xlarge"
                     android:background="@color/background"
-                    android:backgroundTint="#FF9800"
+                    android:backgroundTint="@color/background"
                     android:text="Connexion"
                     android:textColor="@android:color/white"
                     app:rippleColor="#FF9800" />

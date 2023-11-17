@@ -4,6 +4,9 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -45,6 +48,7 @@ class ListeVoitures : Fragment(), ModeleVoiture.ModeleClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
         sourceVoitures = SourceDeVoituresBidon()
         sauvegardeEntreFragments = requireActivity().getPreferences(Context.MODE_PRIVATE)
         if (parentFragment is ModeleListener) {
@@ -116,6 +120,27 @@ class ListeVoitures : Fragment(), ModeleVoiture.ModeleClickListener {
             view?.let { Snackbar.make(it, "Le modèle: $modele a été enregistré", Snackbar.LENGTH_SHORT).show() }
         } else {
             view?.let { Snackbar.make(it, "Le modèle: $modele est déjà enregistré", Snackbar.LENGTH_SHORT).show() }
+        }
+    }
+
+
+
+
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        // Inflater le menu spécifique au fragment; cela ajoutera des éléments à la barre d'action s'il est présent.
+        inflater.inflate(R.menu.menu_main, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Gérer les clics d'éléments du menu ici.
+        return when (item.itemId) {
+            R.id.action_settings -> {
+                // Faire quelque chose quand l'élément de menu "action_settings" est sélectionné.
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 

@@ -2,6 +2,8 @@ package com.example.louemonchar
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.View
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -14,6 +16,9 @@ class MainActivity : AppCompatActivity(), IContratVueMain.Vue, ModeleListener {
     private lateinit var navController: NavController
     private lateinit var presentateur: IContratVueMain.Presentateur
 
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -25,8 +30,11 @@ class MainActivity : AppCompatActivity(), IContratVueMain.Vue, ModeleListener {
             supportFragmentManager.findFragmentById(R.id.fragment) as NavHostFragment
         navController = navHostFragment.navController
 
-        setupActionBarWithNavController(navController)
+        //setupActionBarWithNavController(navController)
     }
+
+
+
 
     override fun onDestroy() {
         presentateur.onDestroy()

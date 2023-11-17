@@ -1,12 +1,19 @@
 package com.example.louemonchar.presentation.connexion
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.util.Log
+import android.view.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.example.louemonchar.R
+import android.view.MenuInflater
+
+
 
 
 class ConnexionVue : Fragment(), ConnexionInterface.Vue {
@@ -14,6 +21,8 @@ class ConnexionVue : Fragment(), ConnexionInterface.Vue {
     private lateinit var presentateur: ConnexionInterface.Presentateur
 
     override fun onCreateView(
+
+
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
@@ -57,14 +66,17 @@ class ConnexionVue : Fragment(), ConnexionInterface.Vue {
 
 
 
-/*
-    override fun navigationVersMarquesFragment() {
-        // Utiliser Navigation component pour naviguer vers InscriptionFragment
-        Navigation.findNavController(requireView()).navigate(R.id.Navigation_Vers_MarquesFragment)
 
-    }
 
- */
+
+    /*
+        override fun navigationVersMarquesFragment() {
+            // Utiliser Navigation component pour naviguer vers InscriptionFragment
+            Navigation.findNavController(requireView()).navigate(R.id.Navigation_Vers_MarquesFragment)
+
+        }
+
+     */
 
 
 

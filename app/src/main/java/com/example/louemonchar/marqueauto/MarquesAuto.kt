@@ -4,13 +4,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import android.widget.GridLayout
+import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.louemonchar.R
+import com.google.android.material.bottomnavigation.BottomNavigationView
+
+lateinit var bottomNavigationView: BottomNavigationView
 
 class MarquesAuto : Fragment(), IContratVueMarque.Vue {
+
+
+    var menuBtn: ImageButton? = null
+
+
+
 
     private val presentateur: IContratVueMarque.Presentateur by lazy {
         MarquePresentateur(this)
@@ -21,6 +33,11 @@ class MarquesAuto : Fragment(), IContratVueMarque.Vue {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_marques_auto, container, false)
+
+
+
+
+
 
         // Récupérer le GridLayout
         val gridLayout: GridLayout = view.findViewById(R.id.gridLayout)
@@ -52,9 +69,12 @@ class MarquesAuto : Fragment(), IContratVueMarque.Vue {
                 }
             }
         }
+        bottomNavigationView = view.findViewById<BottomNavigationView>(R.id.bottom_navigation_view)
+
         presentateur.setToolbarTitle()
 
         return view
+
     }
 
     override fun afficherModeleVoitures(marque: String) {
