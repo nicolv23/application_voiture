@@ -7,4 +7,8 @@ class DetailPresentateur(var vue: EcranDetail) {
     fun allezVersPaiement(){
        vue.naviguerVersPaiement()
     }
+
+    fun allezVersContact() {
+        vue.naviguerVersContact()
+    }
 }

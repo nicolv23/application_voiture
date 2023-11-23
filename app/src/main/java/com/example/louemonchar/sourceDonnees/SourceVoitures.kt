@@ -5,4 +5,6 @@ interface SourceVoitures {
     fun getModelesEnregistres(): Map<String, List<String>>
     fun enregistrerModele(marque: String, modele: String)
     fun effacerModele(marque: String, modele: String)
+    fun assignerProprietaire(marque: String, proprietaire: SourceDeVoituresBidon.Proprietaire)
+    fun obtenirProprietaire(marque: String): SourceDeVoituresBidon.Proprietaire?
 }

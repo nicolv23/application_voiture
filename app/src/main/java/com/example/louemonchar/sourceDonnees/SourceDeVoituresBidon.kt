@@ -5,6 +5,15 @@ import android.util.Log
 class SourceDeVoituresBidon : SourceVoitures {
 
     private val modelesEnregistres: MutableMap<String, MutableList<String>> = mutableMapOf()
+    private val proprietairesParMarque: MutableMap<String, Proprietaire> = mutableMapOf()
+
+    // Structure de données pour le propriétaire
+    data class Proprietaire(
+        val nom: String,
+        val telephone: String,
+        val email: String,
+        val horaireTravail: String
+    )
 
     override fun getModelesDeVoiture(): Map<String, List<String>> {
         // Source de données bidon
@@ -47,5 +56,30 @@ class SourceDeVoituresBidon : SourceVoitures {
     override fun effacerModele(marque: String, modele: String) {
         modelesEnregistres[marque]?.remove(modele)
         modelesEnregistres[marque]?.let { modelesEnregistres[marque] = it }
+    }
+
+    override fun assignerProprietaire(marque: String, proprietaire: Proprietaire) {
+        proprietairesParMarque[marque] = proprietaire
+        Log.d("SourceDeVoituresBidon", "${proprietaire.nom} est maintenant propriétaire de la marque $marque")
+    }
+
+    override fun obtenirProprietaire(marque: String): Proprietaire? {
+        return proprietairesParMarque[marque]
+    }
+
+    init {
+        proprietairesParMarque["Hyundai"] = Proprietaire(
+            "Jean Dupont",
+            "+1234567890",
+            "jean.dupont@hotmail.com",
+            "10h - 19h, Lun-Ven"
+        )
+
+        proprietairesParMarque["Tesla"] = Proprietaire(
+            "Elon Musk",
+            "+1987654321",
+            "elonmusk@gmail.com",
+            "6h - 16h, Lun-Ven"
+        )
     }
 }
