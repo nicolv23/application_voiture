@@ -19,11 +19,11 @@ class RecyclerViewSurligne (private val recyclerView: RecyclerView) :
     }
 
     private fun surlignerModele(view: View?) {
-        val couleurJaunePale = Color.parseColor("#FFFFE0")
+        val couleurVert = Color.parseColor("#8CFF32")
         for (i in 0 until recyclerView.childCount) {
             val enfant = recyclerView.getChildAt(i)
             if (enfant == view) {
-                enfant.setBackgroundColor(couleurJaunePale)
+                enfant.setBackgroundColor(couleurVert)
             } else {
                 enfant.setBackgroundColor(Color.TRANSPARENT)
             }

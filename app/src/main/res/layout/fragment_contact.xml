@@ -1,9 +1,8 @@
-<!-- fragment_contact.xml -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F0944D"
+    android:background="#E0DFDA"
     android:orientation="vertical">
 
     <ImageView
@@ -23,8 +22,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="16dp">
+            android:layout_marginTop="16dp"
+            android:orientation="vertical">
 
             <TableLayout
                 android:layout_width="match_parent"
@@ -63,8 +62,7 @@
                     <TextView
                         android:id="@+id/marqueVoiture"
                         android:text="Tesla"
-                        android:textSize="24sp"
-                        />
+                        android:textSize="24sp" />
                 </TableRow>
 
                 <TableRow
@@ -118,9 +116,18 @@
                         android:textSize="24sp" />
                 </TableRow>
 
-                <!-- Ajoutez d'autres lignes pour d'autres informations du propriétaire si nécessaire -->
 
             </TableLayout>
         </LinearLayout>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/appelerProprietaire"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/green"
+        android:onClick="effectuerAppel"
+        android:text="Appeler le propriétaire"
+        android:textSize="20sp" />
 </LinearLayout>
