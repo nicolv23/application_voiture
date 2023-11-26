@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import com.example.louemonchar.R
 
 class RecuperationVue : Fragment(), RecuperationInterface.Vue {
@@ -18,13 +19,15 @@ class RecuperationVue : Fragment(), RecuperationInterface.Vue {
     private lateinit var depart: EditText
     private lateinit var destination: EditText
     private lateinit var bouton: Button
+    lateinit var boutonRetour: Button
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_recuperation, container, false)
-
+        boutonRetour = view.findViewById(R.id.btnRetour)
+        boutonRetour.setOnClickListener { presentateur.allezConnexion() }
         depart = view.findViewById(R.id.depart)
         destination = view.findViewById(R.id.destination)
         bouton = view.findViewById(R.id.lancerGPS)
@@ -50,5 +53,9 @@ class RecuperationVue : Fragment(), RecuperationInterface.Vue {
         intent.setPackage("com.google.android.apps.maps")
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
+    }
+
+    override fun connexion(){
+        Navigation.findNavController(requireView()).navigate(R.id.action_recuperationVue_to_connexionVue2)
     }
 }

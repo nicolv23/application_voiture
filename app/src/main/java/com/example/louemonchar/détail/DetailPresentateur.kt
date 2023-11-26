@@ -2,7 +2,7 @@ package com.example.louemonchar.détail
 
 import androidx.navigation.NavController
 
-class DetailPresentateur {
+class DetailPresentateur (var vue: EcranDetail) {
 
     fun allezVersPaiement(navController: NavController){
         val action =
@@ -14,5 +14,8 @@ class DetailPresentateur {
         val action =
             EcranDetailDirections.actionÉcranDétailToContact(modeleSelectionne, modeleSelectionne)
         navController.navigate(action)
+    }
+    fun allezVersMarques(){
+        vue.marque()
     }
 }

@@ -130,4 +130,10 @@
         android:onClick="effectuerAppel"
         android:text="Appeler le propriétaire"
         android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/btnRetour"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Retour" />
 </LinearLayout>

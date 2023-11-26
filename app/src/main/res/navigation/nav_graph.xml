@@ -16,6 +16,9 @@
                 android:name="marqueAuto"
                 app:argType="string" />
         </action>
+        <action
+            android:id="@+id/action_marquesAuto_to_connexionVue2"
+            app:destination="@id/connexionVue2" />
     </fragment>
     <fragment
         android:id="@+id/listeVoitures"
@@ -61,6 +64,9 @@
             android:name="modeleSelectionne"
             app:argType="string" />
         </action>
+        <action
+            android:id="@+id/action_enregistrementsModele_to_marquesAuto"
+            app:destination="@id/marquesAuto" />
     </fragment>
     <fragment
         android:id="@+id/écranDétail"
@@ -84,7 +90,9 @@
                 android:name="modele"
                 app:argType="string" />
         </action>
-
+        <action
+            android:id="@+id/action_écranDétail_to_marquesAuto"
+            app:destination="@id/marquesAuto" />
     </fragment>
     <fragment
         android:id="@+id/vuePaiement"
@@ -93,6 +101,9 @@
         <action
             android:id="@+id/action_vuePaiement_to_écranDétail"
             app:destination="@id/écranDétail" />
+        <action
+            android:id="@+id/action_vuePaiement_to_marquesAuto"
+            app:destination="@id/marquesAuto" />
     </fragment>
     <fragment
         android:id="@+id/connexionVue2"
@@ -113,7 +124,11 @@
         android:id="@+id/recuperationVue"
         android:name="com.example.louemonchar.presentation.recuperation.RecuperationVue"
         android:label="fragment_recuperation"
-        tools:layout="@layout/fragment_recuperation" />
+        tools:layout="@layout/fragment_recuperation" >
+        <action
+            android:id="@+id/action_recuperationVue_to_connexionVue2"
+            app:destination="@id/connexionVue2" />
+    </fragment>
     <fragment
         android:id="@+id/inscriptionVue"
         android:name="com.example.louemonchar.presentation.inscription.InscriptionVue"
@@ -130,5 +145,8 @@
         <action
             android:id="@+id/action_contact_to_écranDétail"
             app:destination="@id/écranDétail" />
+        <action
+            android:id="@+id/action_contactVue_to_marquesAuto"
+            app:destination="@id/marquesAuto" />
     </fragment>
 </navigation>

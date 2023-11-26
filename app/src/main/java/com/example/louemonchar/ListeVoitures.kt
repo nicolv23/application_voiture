@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -28,6 +29,7 @@ class ListeVoitures : Fragment(), ModeleVoiture.ModeleClickListener {
     private var marqueAuto: String? = null
     private var modeleEnregistres: Array<String> = emptyArray()
     private lateinit var modeleListener: ModeleListener
+    lateinit var boutonRetour: Button
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -73,7 +75,11 @@ class ListeVoitures : Fragment(), ModeleVoiture.ModeleClickListener {
         }
 
         val recyclerView: RecyclerView = view.findViewById(R.id.recyclerView)
+        var boutonRetour = view.findViewById<View>(R.id.btnRetour)
+        boutonRetour.setOnClickListener{
+            Navigation.findNavController(requireView()).navigate(R.id.action_listeVoitures_to_marquesAuto)
 
+        }
         val modelesVoiture: Map<String, List<String>> = sourceVoitures.getModelesDeVoiture()
         val modeles = modelesVoiture[marqueAuto]
 

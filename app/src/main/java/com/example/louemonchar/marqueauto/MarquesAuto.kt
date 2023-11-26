@@ -10,6 +10,7 @@ import android.widget.GridLayout
 import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.louemonchar.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -20,6 +21,7 @@ class MarquesAuto : Fragment(), IContratVueMarque.Vue {
 
 
     var menuBtn: ImageButton? = null
+    lateinit var boutonDeconnexion: Button
 
 
 
@@ -69,8 +71,9 @@ class MarquesAuto : Fragment(), IContratVueMarque.Vue {
                 }
             }
         }
-        bottomNavigationView = view.findViewById<BottomNavigationView>(R.id.bottom_navigation_view)
 
+        boutonDeconnexion = view.findViewById(R.id.button1)
+        boutonDeconnexion.setOnClickListener { presentateur.deconnexion() }
         presentateur.setToolbarTitle()
 
         return view
@@ -83,6 +86,10 @@ class MarquesAuto : Fragment(), IContratVueMarque.Vue {
                 marque
             )
         findNavController().navigate(action)
+    }
+
+    override fun allezVersConnexion(){
+        Navigation.findNavController(requireView()).navigate(R.id.action_marquesAuto_to_connexionVue2)
     }
 
     override fun setToolbarTitle(titre: String) {

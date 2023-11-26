@@ -12,4 +12,8 @@ class RecuperationPresentateur(private val vue: RecuperationInterface.Vue) :
             vue.lancerNavigation(depart, destination)
         }
     }
+
+    override fun allezConnexion(){
+        vue.connexion()
+    }
 }

@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import com.example.louemonchar.R
 import com.example.louemonchar.contactPropietaire.IContratVueContact
 import com.example.louemonchar.sourceDonnees.ProprietaireModele
@@ -21,6 +22,7 @@ class VueContact : Fragment(), IContratVueContact.Vue {
 
     private lateinit var presentateurContact: IContratVueContact.Presentateur
     private val sourceDeVoitures = SourceDeVoituresBidon()
+    lateinit var boutonRetour: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +46,15 @@ class VueContact : Fragment(), IContratVueContact.Vue {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_contact, container, false)
+        boutonRetour = view.findViewById(R.id.btnRetour)
+        boutonRetour.setOnClickListener { presentateurContact.retour() }
+        val marqueVoiture = "Tesla"
+        val modeleVoiture = "Tesla Modele X"
+
+        // Instanciation du présentateur avec la vue et la source de données
+        presentateurContact = PresentateurContact(this, SourceDeVoituresBidon())
+
+        presentateurContact.recupererDetailsProprietaire(marqueVoiture, modeleVoiture)
 
         val boutonAppeler = view.findViewById<Button>(R.id.appelerProprietaire)
         boutonAppeler.setOnClickListener {
@@ -103,6 +114,9 @@ class VueContact : Fragment(), IContratVueContact.Vue {
             "Hyundai" -> imageView?.setImageResource(R.drawable.dwayne_johnson)
             else -> imageView?.setImageResource(R.drawable.elon_musk) // Image par défaut
         }
+    }
+    override fun retour(){
+        Navigation.findNavController(requireView()).navigate(R.id.action_contactVue_to_marquesAuto)
     }
 
     companion object {

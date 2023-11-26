@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.louemonchar.R
 import com.example.louemonchar.sourceDonnees.SourceDeVoituresBidon
@@ -26,12 +27,12 @@ class EcranDetail : Fragment() {
     lateinit var button: Button
     lateinit var contact: Button
     private val sourceDeVoitures = SourceDeVoituresBidon()
-
+    lateinit var buttonRetour: Button
     private lateinit var presentateur: DetailPresentateur
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        presentateur = DetailPresentateur()
+        presentateur = DetailPresentateur(this)
     }
 
     override fun onCreateView(
@@ -48,7 +49,7 @@ class EcranDetail : Fragment() {
         image = vue.findViewById(R.id.imageView4)
         button = vue.findViewById(R.id.button)
         contact = vue.findViewById(R.id.contacter)
-
+        buttonRetour = vue.findViewById(R.id.btnRetour)
         button.setOnClickListener {
             val navController = findNavController()
             presentateur.allezVersPaiement(navController)
@@ -60,7 +61,7 @@ class EcranDetail : Fragment() {
                 presentateur.allezVersContact(navController, modeleSelectionne)
             }
         }
-
+        buttonRetour.setOnClickListener { presentateur.allezVersMarques() }
         val arguments = arguments
         if (arguments != null) {
             val modeleSelectionne = arguments.getString("modeleSelectionne")
@@ -99,5 +100,10 @@ class EcranDetail : Fragment() {
             }
         }
         return vue
+    }
+
+    fun marque(){
+        Navigation.findNavController(requireView()).navigate(R.id.action_écranDétail_to_marquesAuto)
+
     }
 }

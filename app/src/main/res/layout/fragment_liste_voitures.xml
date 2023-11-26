@@ -65,13 +65,25 @@
         android:textStyle="bold"
         android:visibility="invisible" />
 
-    <Button
-        android:id="@+id/boutonEnregistres"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:backgroundTint="#FF9800"
-        android:text="Voir les voitures enregistrées" />
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnRetour"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Retour" />
+
+        <Button
+            android:id="@+id/boutonEnregistres"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="#FF9800"
+            android:text="Voir les voitures enregistrées" />
+    </LinearLayout>
 
 
     <androidx.recyclerview.widget.RecyclerView
