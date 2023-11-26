@@ -1,0 +1,40 @@
+package com.example.louemonchar.sourceDonnees
+
+
+import io.ktor.client.*
+import io.ktor.client.engine.okhttp.*
+
+
+class SourceDonnéesHTTP : SourceVoitures {
+
+    private val client = HttpClient(OkHttp)
+
+    private val sourceDeVoituresBidon = SourceDeVoituresBidon()
+    override fun getModelesDeVoiture(): Map<String, List<String>> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getModelesEnregistres(): Map<String, List<String>> {
+        return sourceDeVoituresBidon.getModelesEnregistres()
+    }
+
+    override fun enregistrerModele(marque: String, modele: String) {
+        sourceDeVoituresBidon.enregistrerModele(marque, modele)
+    }
+
+    override fun effacerModele(marque: String, modele: String) {
+        sourceDeVoituresBidon.effacerModele(marque, modele)
+    }
+
+    override fun assignerProprietaire(marque: String, proprietaire: SourceDeVoituresBidon.Proprietaire) {
+        sourceDeVoituresBidon.assignerProprietaire(marque, proprietaire)
+    }
+
+    override fun obtenirProprietaire(marque: String): SourceDeVoituresBidon.Proprietaire? {
+        return sourceDeVoituresBidon.obtenirProprietaire(marque)
+    }
+
+    fun onDestroy() {
+        client.close()
+    }
+}

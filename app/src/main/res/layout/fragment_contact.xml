@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <ImageView
-        android:id="@+id/ownerImageView"
+        android:id="@+id/proprietaireImage"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:src="@drawable/elon_musk" />
@@ -78,7 +78,7 @@
 
                     <TextView
                         android:id="@+id/email"
-                        android:text="exemple@domaine.com"
+                        android:text=""
                         android:textSize="24sp" />
                 </TableRow>
 
@@ -95,7 +95,7 @@
 
                     <TextView
                         android:id="@+id/telephone"
-                        android:text="+1234567890"
+                        android:text="+1987654321"
                         android:textSize="24sp" />
                 </TableRow>
 
@@ -112,7 +112,7 @@
 
                     <TextView
                         android:id="@+id/horaireTravail"
-                        android:text="8h - 17h, Lun-Ven"
+                        android:text=""
                         android:textSize="24sp" />
                 </TableRow>
 

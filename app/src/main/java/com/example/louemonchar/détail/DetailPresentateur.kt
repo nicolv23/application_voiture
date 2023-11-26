@@ -1,14 +1,18 @@
 package com.example.louemonchar.détail
 
-import com.example.louemonchar.détail.EcranDetail
+import androidx.navigation.NavController
 
-class DetailPresentateur(var vue: EcranDetail) {
+class DetailPresentateur {
 
-    fun allezVersPaiement(){
-       vue.naviguerVersPaiement()
+    fun allezVersPaiement(navController: NavController){
+        val action =
+            EcranDetailDirections.actionÉcranDétailToVuePaiement()
+        navController.navigate(action)
     }
 
-    fun allezVersContact() {
-        vue.naviguerVersContact()
+    fun allezVersContact(navController: NavController, modeleSelectionne: String) {
+        val action =
+            EcranDetailDirections.actionÉcranDétailToContact(modeleSelectionne, modeleSelectionne)
+        navController.navigate(action)
     }
 }

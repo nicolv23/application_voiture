@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -19,20 +20,30 @@ import com.example.louemonchar.sourceDonnees.SourceDeVoituresBidon
 class VueContact : Fragment(), IContratVueContact.Vue {
 
     private lateinit var presentateurContact: IContratVueContact.Presentateur
+    private val sourceDeVoitures = SourceDeVoituresBidon()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        presentateurContact = PresentateurContact(this, sourceDeVoitures)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val marqueVoiture = arguments?.getString("marque")
+        val modeleVoiture = arguments?.getString("modele")
+        marqueVoiture?.let { marque ->
+            modeleVoiture?.let { modele ->
+                presentateurContact.recupererDetailsProprietaire(marque, modele)
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_contact, container, false)
-
-        val marqueVoiture = "Tesla"
-        val modeleVoiture = "Tesla Modele X"
-
-        // Instanciation du présentateur avec la vue et la source de données
-        presentateurContact = PresentateurContact(this, SourceDeVoituresBidon())
-
-        presentateurContact.recupererDetailsProprietaire(marqueVoiture, modeleVoiture)
 
         val boutonAppeler = view.findViewById<Button>(R.id.appelerProprietaire)
         boutonAppeler.setOnClickListener {
@@ -57,6 +68,10 @@ class VueContact : Fragment(), IContratVueContact.Vue {
         return view
     }
 
+    override fun recevoirDetailsProprietaire(marque: String, modele: String) {
+        presentateurContact.recupererDetailsProprietaire(marque, modele)
+    }
+
     private fun effectuerAppel() {
         val telephoneTextView = view?.findViewById<TextView>(R.id.telephone)
         val telephone = telephoneTextView?.text.toString()
@@ -66,11 +81,27 @@ class VueContact : Fragment(), IContratVueContact.Vue {
 
     override fun afficherDetailsProprietaire(proprietaire: ProprietaireModele?) {
         view?.apply {
+            findViewById<TextView>(R.id.nomProprietaire).text = proprietaire?.nom ?: "N/A"
             findViewById<TextView>(R.id.marqueVoiture).text = proprietaire?.marque ?: "N/A"
             findViewById<TextView>(R.id.email).text = proprietaire?.email ?: "N/A"
             findViewById<TextView>(R.id.telephone).text = proprietaire?.telephone ?: "N/A"
             findViewById<TextView>(R.id.horaireTravail).text = proprietaire?.horaireTravail ?: "N/A"
-            findViewById<TextView>(R.id.nomProprietaire).text = proprietaire?.nom ?: "N/A"
+        }
+
+        // Appel de la fonction pour afficher l'image du propriétaire en fonction de la marque de la voiture
+        if (proprietaire != null) {
+            afficherImageProprietaire(proprietaire.marque)
+        }
+    }
+
+    private fun afficherImageProprietaire(marque: String) {
+        val imageView = view?.findViewById<ImageView>(R.id.proprietaireImage)
+        when (marque) {
+            "Tesla" -> imageView?.setImageResource(R.drawable.elon_musk)
+            "Toyota" -> imageView?.setImageResource(R.drawable.robert_downey_jr)
+            "Honda" -> imageView?.setImageResource(R.drawable.keanu_reeves)
+            "Hyundai" -> imageView?.setImageResource(R.drawable.dwayne_johnson)
+            else -> imageView?.setImageResource(R.drawable.elon_musk) // Image par défaut
         }
     }
 

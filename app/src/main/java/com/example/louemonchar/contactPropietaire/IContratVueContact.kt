@@ -5,6 +5,7 @@ import com.example.louemonchar.sourceDonnees.ProprietaireModele
 interface IContratVueContact {
     interface Vue {
         fun afficherDetailsProprietaire(proprietaire: ProprietaireModele?)
+        fun recevoirDetailsProprietaire(marque: String, modele: String)
     }
 
     interface Presentateur {
