@@ -13,6 +13,10 @@ class MarquePresentateur(private val vue: IContratVueMarque.Vue) : IContratVueMa
         vue.setToolbarTitle(titre)
     }
 
+    override fun deconnexion() {
+        vue.allezVersConnexion()
+    }
+
 
 
 

@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,6 +27,7 @@ class EnregistrementModele : Fragment(), ModeleEnregistrement.ModeleClickListene
     private var marqueAuto: String = ""
     private var modeleEnregistres: MutableList<String> = mutableListOf()
     private lateinit var modeleListener: ModeleListener
+    lateinit var boutonRetour: Button
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -117,7 +119,8 @@ class EnregistrementModele : Fragment(), ModeleEnregistrement.ModeleClickListene
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_enregistrement, container, false)
-
+        boutonRetour = view.findViewById(R.id.btnRetour)
+        boutonRetour.setOnClickListener { Navigation.findNavController(requireView()).navigate(R.id.action_enregistrementsModele_to_marquesAuto) }
         recyclerView = view.findViewById(R.id.recyclerViewModele)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 

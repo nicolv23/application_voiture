@@ -28,6 +28,17 @@
 
         <TableRow
             android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <Button
+                android:id="@+id/btnRetour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Retour" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <EditText
@@ -90,6 +101,7 @@
                 android:inputType="textPersonName"
                 android:text="CVV"
                 tools:ignore="TouchTargetSizeCheck" />
+
         </TableRow>
     </TableLayout>
 

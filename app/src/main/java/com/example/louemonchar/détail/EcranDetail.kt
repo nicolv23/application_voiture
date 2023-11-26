@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.louemonchar.R
 
@@ -24,6 +25,7 @@ class EcranDetail : Fragment() {
     lateinit var image: ImageView
     lateinit var button: Button
     lateinit var contact: Button
+    lateinit var buttonRetour: Button
     var presentateur = DetailPresentateur(this)
 
 
@@ -41,9 +43,10 @@ class EcranDetail : Fragment() {
         image = vue.findViewById(R.id.imageView4)
         button = vue.findViewById(R.id.button)
         contact = vue.findViewById(R.id.contacter)
+        buttonRetour = vue.findViewById(R.id.btnRetour)
 
         button.setOnClickListener { presentateur.allezVersPaiement() }
-
+        buttonRetour.setOnClickListener { presentateur.allezVersMarques() }
         contact.setOnClickListener { presentateur.allezVersContact() }
         val arguments = arguments
         if (arguments != null) {
@@ -83,5 +86,9 @@ class EcranDetail : Fragment() {
         val action =
             com.example.louemonchar.détail.EcranDetailDirections.actionÉcranDétailToContact()
         findNavController().navigate(action)
+    }
+    fun marque(){
+        Navigation.findNavController(requireView()).navigate(R.id.action_écranDétail_to_marquesAuto)
+
     }
 }

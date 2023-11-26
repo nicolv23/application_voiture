@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import com.example.louemonchar.R
 import com.example.louemonchar.contactPropietaire.IContratVueContact
 import com.example.louemonchar.sourceDonnees.ProprietaireModele
@@ -19,13 +20,16 @@ import com.example.louemonchar.sourceDonnees.SourceDeVoituresBidon
 class VueContact : Fragment(), IContratVueContact.Vue {
 
     private lateinit var presentateurContact: IContratVueContact.Presentateur
+    lateinit var boutonRetour: Button
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_contact, container, false)
-
+        boutonRetour = view.findViewById(R.id.btnRetour)
+        boutonRetour.setOnClickListener { presentateurContact.retour() }
         val marqueVoiture = "Tesla"
         val modeleVoiture = "Tesla Modele X"
 
@@ -72,6 +76,9 @@ class VueContact : Fragment(), IContratVueContact.Vue {
             findViewById<TextView>(R.id.horaireTravail).text = proprietaire?.horaireTravail ?: "N/A"
             findViewById<TextView>(R.id.nomProprietaire).text = proprietaire?.nom ?: "N/A"
         }
+    }
+    override fun retour(){
+        Navigation.findNavController(requireView()).navigate(R.id.action_contactVue_to_marquesAuto)
     }
 
     companion object {

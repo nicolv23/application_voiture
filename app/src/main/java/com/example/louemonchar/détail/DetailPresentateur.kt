@@ -11,4 +11,7 @@ class DetailPresentateur(var vue: EcranDetail) {
     fun allezVersContact() {
         vue.naviguerVersContact()
     }
+    fun allezVersMarques(){
+        vue.marque()
+    }
 }

@@ -28,19 +28,31 @@
         android:layout_marginTop="10dp"
         android:padding="10dp"
         android:visibility="visible"
-        tools:listitem="@layout/modele_enregistrements" />
+        tools:listitem="@layout/modele_enregistrements" >
 
-    <Button
-        android:id="@+id/btnEffacer"
-        android:layout_width="wrap_content"
-        android:layout_height="52dp"
-        android:layout_marginBottom="60dp"
-        android:backgroundTint="#00A36C"
-        android:gravity="center"
-        android:text="Effacer modèle enregistré" />
+    </androidx.recyclerview.widget.RecyclerView>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="99dp"
+        android:orientation="horizontal">
 
+        <Button
+            android:id="@+id/btnEffacer"
+            android:layout_width="wrap_content"
+            android:layout_height="52dp"
+            android:layout_marginBottom="60dp"
+            android:backgroundTint="#00A36C"
+            android:gravity="center"
+            android:text="Effacer modèle enregistré" />
 
+        <Button
+            android:id="@+id/btnRetour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Retour" />
+    </LinearLayout>
 
 
 </LinearLayout>
