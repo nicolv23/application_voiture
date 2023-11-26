@@ -30,7 +30,7 @@ class SourceDonnéesHTTP : SourceVoitures {
         sourceDeVoituresBidon.assignerProprietaire(marque, proprietaire)
     }
 
-    override fun obtenirProprietaire(marque: String): SourceDeVoituresBidon.Proprietaire? {
+    override fun obtenirProprietaire(marque: String): ProprietaireModele? {
         return sourceDeVoituresBidon.obtenirProprietaire(marque)
     }
 

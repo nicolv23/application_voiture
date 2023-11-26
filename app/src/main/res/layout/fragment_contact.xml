@@ -38,7 +38,7 @@
 
                     <TextView
                         android:layout_column="1"
-                        android:text="Nom du propriétaire:"
+                        android:text="Adresse e-mail:"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
@@ -55,7 +55,7 @@
 
                     <TextView
                         android:layout_column="1"
-                        android:text="Marque de voiture:"
+                        android:text="Propriétaire:"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
@@ -72,7 +72,7 @@
 
                     <TextView
                         android:layout_column="1"
-                        android:text="Adresse e-mail:"
+                        android:text="Téléphone:"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
@@ -89,7 +89,7 @@
 
                     <TextView
                         android:layout_column="1"
-                        android:text="Téléphone:"
+                        android:text="Horaire:"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
@@ -106,7 +106,7 @@
 
                     <TextView
                         android:layout_column="1"
-                        android:text="Horaire de travail:"
+                        android:text="Modèle de voiture:"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 

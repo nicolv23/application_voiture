@@ -97,24 +97,19 @@ class VueContact : Fragment(), IContratVueContact.Vue {
             findViewById<TextView>(R.id.email).text = proprietaire?.email ?: "N/A"
             findViewById<TextView>(R.id.telephone).text = proprietaire?.telephone ?: "N/A"
             findViewById<TextView>(R.id.horaireTravail).text = proprietaire?.horaireTravail ?: "N/A"
-        }
 
-        // Appel de la fonction pour afficher l'image du propriétaire en fonction de la marque de la voiture
-        if (proprietaire != null) {
-            afficherImageProprietaire(proprietaire.marque)
+            // Affichage de l'image du propriétaire en fonction de la marque
+            afficherImageProprietaire(proprietaire?.cheminImage ?: R.drawable.dwayne_johnson)
         }
     }
 
-    private fun afficherImageProprietaire(marque: String) {
+
+
+    private fun afficherImageProprietaire(cheminImage: Int) {
         val imageView = view?.findViewById<ImageView>(R.id.proprietaireImage)
-        when (marque) {
-            "Tesla" -> imageView?.setImageResource(R.drawable.elon_musk)
-            "Toyota" -> imageView?.setImageResource(R.drawable.robert_downey_jr)
-            "Honda" -> imageView?.setImageResource(R.drawable.keanu_reeves)
-            "Hyundai" -> imageView?.setImageResource(R.drawable.dwayne_johnson)
-            else -> imageView?.setImageResource(R.drawable.elon_musk) // Image par défaut
-        }
+        imageView?.setImageResource(cheminImage)
     }
+
     override fun retour(){
         Navigation.findNavController(requireView()).navigate(R.id.action_contactVue_to_marquesAuto)
     }

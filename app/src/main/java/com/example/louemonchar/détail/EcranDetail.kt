@@ -74,7 +74,6 @@ class EcranDetail : Fragment() {
                 }
 
 
-                // Affichez les détails de la voiture
                 textview2.text = "5"
                 textview3.text = "Gaz"
                 textview4.text = "Automatique"
