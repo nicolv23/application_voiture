@@ -23,6 +23,7 @@ class EcranDetail : Fragment() {
     lateinit var textview6: TextView
     lateinit var image: ImageView
     lateinit var button: Button
+    lateinit var contact: Button
     var presentateur = DetailPresentateur(this)
 
 
@@ -39,9 +40,11 @@ class EcranDetail : Fragment() {
         textview6 = vue.findViewById(R.id.textView6)
         image = vue.findViewById(R.id.imageView4)
         button = vue.findViewById(R.id.button)
+        contact = vue.findViewById(R.id.contacter)
 
         button.setOnClickListener { presentateur.allezVersPaiement() }
 
+        contact.setOnClickListener { presentateur.allezVersContact() }
         val arguments = arguments
         if (arguments != null) {
             val modeleSelectionne = arguments.getString("modeleSelectionne")
@@ -74,5 +77,11 @@ class EcranDetail : Fragment() {
             com.example.louemonchar.détail.EcranDetailDirections.actionÉcranDétailToVuePaiement()
         findNavController().navigate(action)
 
+    }
+
+    fun naviguerVersContact(){
+        val action =
+            com.example.louemonchar.détail.EcranDetailDirections.actionÉcranDétailToContact()
+        findNavController().navigate(action)
     }
 }

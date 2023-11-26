@@ -74,11 +74,18 @@
         <action
             android:id="@+id/action_écranDétail_to_vuePaiement"
             app:destination="@id/vuePaiement" />
+        <action
+            android:id="@+id/action_écranDétail_to_contact"
+            app:destination="@id/contactVue" />
     </fragment>
     <fragment
         android:id="@+id/vuePaiement"
         android:name="com.example.louemonchar.vue.VuePaiement"
-        android:label="VuePaiement" />
+        android:label="VuePaiement" >
+        <action
+            android:id="@+id/action_vuePaiement_to_écranDétail"
+            app:destination="@id/écranDétail" />
+    </fragment>
     <fragment
         android:id="@+id/connexionVue2"
         android:name="com.example.louemonchar.presentation.connexion.ConnexionVue"
@@ -107,5 +114,13 @@
         <action
             android:id="@+id/action_inscriptionVue_to_connexionVue2"
             app:destination="@id/connexionVue2" />
+    </fragment>
+    <fragment
+        android:id="@+id/contactVue"
+        android:name="VueContact"
+        android:label="Contact" >
+        <action
+            android:id="@+id/action_contact_to_écranDétail"
+            app:destination="@id/écranDétail" />
     </fragment>
 </navigation>
