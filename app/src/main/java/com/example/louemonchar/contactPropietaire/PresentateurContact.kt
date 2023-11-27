@@ -1,3 +1,4 @@
+import com.example.louemonchar.R
 import com.example.louemonchar.contactPropietaire.IContratVueContact
 import com.example.louemonchar.sourceDonnees.ProprietaireModele
 import com.example.louemonchar.sourceDonnees.SourceDeVoituresBidon
@@ -8,34 +9,28 @@ class PresentateurContact(
 ) : IContratVueContact.Presentateur {
 
     override fun recupererDetailsProprietaire(marqueVoiture: String, modeleVoiture: String) {
-        val proprietaireAuto = sourceDonnees.obtenirProprietaire(marqueVoiture)
+        val proprietaireAuto = sourceDonnees.obtenirProprietaire(modeleVoiture)
 
         if (proprietaireAuto != null) {
-            val modelesVoiture = sourceDonnees.getModelesDeVoiture()[marqueVoiture]
-            val modeleExiste = modelesVoiture?.contains(modeleVoiture) ?: false
-            if (modeleExiste) {
-                val proprietaireModele = ProprietaireModele(
-                    proprietaireAuto.nom,
-                    proprietaireAuto.email,
-                    proprietaireAuto.telephone,
-                    proprietaireAuto.horaireTravail,
-                    marqueVoiture
-                )
-                view.afficherDetailsProprietaire(proprietaireModele)
-            } else {
-                view.afficherDetailsProprietaire(
-                    ProprietaireModele(
-                        "Tesla",
-                        "elonmusk@gmail.com",
-                        "+1987654321",
-                        "6h - 16h, Lun-Ven",
-                        "Elon Musk"
-                    )
-                )
-            }
+            view.afficherDetailsProprietaire(proprietaireAuto)
+        } else {
+            val proprietaireParDefaut = ProprietaireModele(
+                "Tesla",
+                "Elon Musk",
+                "elonmusk@gmail.com",
+                "+1987654321",
+                "6h - 16h, Lun-Ven",
+                R.drawable.elon_musk
+            )
+            afficherDetailsProprietaire(proprietaireParDefaut)
         }
     }
-    override fun retour(){
+
+    private fun afficherDetailsProprietaire(proprietaire: ProprietaireModele?) {
+        view.afficherDetailsProprietaire(proprietaire)
+    }
+
+    override fun retour() {
         view.retour()
     }
 }

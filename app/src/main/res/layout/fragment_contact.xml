@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <ImageView
-        android:id="@+id/ownerImageView"
+        android:id="@+id/proprietaireImage"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:src="@drawable/elon_musk" />
@@ -38,7 +38,7 @@
 
                     <TextView
                         android:layout_column="1"
-                        android:text="Nom du propriétaire:"
+                        android:text="Adresse e-mail:"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
@@ -55,7 +55,7 @@
 
                     <TextView
                         android:layout_column="1"
-                        android:text="Marque de voiture:"
+                        android:text="Propriétaire:"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
@@ -72,30 +72,13 @@
 
                     <TextView
                         android:layout_column="1"
-                        android:text="Adresse e-mail:"
-                        android:textSize="24sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/email"
-                        android:text="exemple@domaine.com"
-                        android:textSize="24sp" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center">
-
-                    <TextView
-                        android:layout_column="1"
                         android:text="Téléphone:"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/telephone"
-                        android:text="+1234567890"
+                        android:id="@+id/email"
+                        android:text=""
                         android:textSize="24sp" />
                 </TableRow>
 
@@ -106,13 +89,30 @@
 
                     <TextView
                         android:layout_column="1"
-                        android:text="Horaire de travail:"
+                        android:text="Horaire:"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/telephone"
+                        android:text="+1987654321"
+                        android:textSize="24sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
+
+                    <TextView
+                        android:layout_column="1"
+                        android:text="Modèle de voiture:"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/horaireTravail"
-                        android:text="8h - 17h, Lun-Ven"
+                        android:text=""
                         android:textSize="24sp" />
                 </TableRow>
 

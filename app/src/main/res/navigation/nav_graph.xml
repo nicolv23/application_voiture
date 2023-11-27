@@ -82,7 +82,14 @@
             app:destination="@id/vuePaiement" />
         <action
             android:id="@+id/action_écranDétail_to_contact"
-            app:destination="@id/contactVue" />
+            app:destination="@id/contactVue">
+            <argument
+                android:name="marque"
+                app:argType="string" />
+            <argument
+                android:name="modele"
+                app:argType="string" />
+        </action>
         <action
             android:id="@+id/action_écranDétail_to_marquesAuto"
             app:destination="@id/marquesAuto" />

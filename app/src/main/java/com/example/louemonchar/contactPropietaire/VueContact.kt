@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -20,8 +21,25 @@ import com.example.louemonchar.sourceDonnees.SourceDeVoituresBidon
 class VueContact : Fragment(), IContratVueContact.Vue {
 
     private lateinit var presentateurContact: IContratVueContact.Presentateur
+    private val sourceDeVoitures = SourceDeVoituresBidon()
     lateinit var boutonRetour: Button
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        presentateurContact = PresentateurContact(this, sourceDeVoitures)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val marqueVoiture = arguments?.getString("marque")
+        val modeleVoiture = arguments?.getString("modele")
+        marqueVoiture?.let { marque ->
+            modeleVoiture?.let { modele ->
+                presentateurContact.recupererDetailsProprietaire(marque, modele)
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,6 +79,10 @@ class VueContact : Fragment(), IContratVueContact.Vue {
         return view
     }
 
+    override fun recevoirDetailsProprietaire(marque: String, modele: String) {
+        presentateurContact.recupererDetailsProprietaire(marque, modele)
+    }
+
     private fun effectuerAppel() {
         val telephoneTextView = view?.findViewById<TextView>(R.id.telephone)
         val telephone = telephoneTextView?.text.toString()
@@ -70,13 +92,24 @@ class VueContact : Fragment(), IContratVueContact.Vue {
 
     override fun afficherDetailsProprietaire(proprietaire: ProprietaireModele?) {
         view?.apply {
+            findViewById<TextView>(R.id.nomProprietaire).text = proprietaire?.nom ?: "N/A"
             findViewById<TextView>(R.id.marqueVoiture).text = proprietaire?.marque ?: "N/A"
             findViewById<TextView>(R.id.email).text = proprietaire?.email ?: "N/A"
             findViewById<TextView>(R.id.telephone).text = proprietaire?.telephone ?: "N/A"
             findViewById<TextView>(R.id.horaireTravail).text = proprietaire?.horaireTravail ?: "N/A"
-            findViewById<TextView>(R.id.nomProprietaire).text = proprietaire?.nom ?: "N/A"
+
+            // Affichage de l'image du propriétaire en fonction de la marque
+            afficherImageProprietaire(proprietaire?.cheminImage ?: R.drawable.dwayne_johnson)
         }
     }
+
+
+
+    private fun afficherImageProprietaire(cheminImage: Int) {
+        val imageView = view?.findViewById<ImageView>(R.id.proprietaireImage)
+        imageView?.setImageResource(cheminImage)
+    }
+
     override fun retour(){
         Navigation.findNavController(requireView()).navigate(R.id.action_contactVue_to_marquesAuto)
     }
