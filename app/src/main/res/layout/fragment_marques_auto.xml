@@ -208,6 +208,15 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Deconnexion" />
+            <Button
+                android:id="@+id/btnAllerEnregistrer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Enregistrer"
+                android:textColor="#FFFFFF"
+                android:layout_gravity="center"
+                />
         </LinearLayout>
 
     </LinearLayout>

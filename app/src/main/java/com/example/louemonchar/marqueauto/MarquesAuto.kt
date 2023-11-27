@@ -36,7 +36,7 @@ class MarquesAuto : Fragment(), IContratVueMarque.Vue {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_marques_auto, container, false)
 
-
+        val btnAllerEnregistrer: Button = view.findViewById(R.id.btnAllerEnregistrer)
 
 
 
@@ -76,6 +76,10 @@ class MarquesAuto : Fragment(), IContratVueMarque.Vue {
         boutonDeconnexion.setOnClickListener { presentateur.deconnexion() }
         presentateur.setToolbarTitle()
 
+        btnAllerEnregistrer.setOnClickListener(){
+        allerVersEnregistrerUneVoiture()
+        }
+
         return view
 
     }
@@ -90,6 +94,11 @@ class MarquesAuto : Fragment(), IContratVueMarque.Vue {
 
     override fun allezVersConnexion(){
         Navigation.findNavController(requireView()).navigate(R.id.action_marquesAuto_to_connexionVue2)
+    }
+
+    override fun allerVersEnregistrerUneVoiture() {
+        val ecranEnregistrer = MarquesAutoDirections.actionMarquesAutoToEnregistrerVoitureFragment()
+        findNavController().navigate(ecranEnregistrer)
     }
 
     override fun setToolbarTitle(titre: String) {
