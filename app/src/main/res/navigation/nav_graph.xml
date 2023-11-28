@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_marquesAuto_to_connexionVue2"
             app:destination="@id/connexionVue2" />
+        <action
+            android:id="@+id/action_marquesAuto_to_enregistrer_Voiture_Fragment"
+            app:destination="@id/enregistrer_Voiture_Fragment" />
     </fragment>
     <fragment
         android:id="@+id/listeVoitures"
@@ -148,5 +151,26 @@
         <action
             android:id="@+id/action_contactVue_to_marquesAuto"
             app:destination="@id/marquesAuto" />
+    </fragment>
+    <fragment
+        android:id="@+id/enregistrer_Voiture_Fragment"
+        android:name="com.example.louemonchar.présentation.EnregistrerVoiture.enregistrerVoitureVue"
+        android:label="fragment_enregistrer__voiture_"
+        tools:layout="@layout/fragment_enregistrer__voiture_" >
+        <action
+            android:id="@+id/action_enregistrer_Voiture_Fragment_to_marquesAuto"
+            app:destination="@id/marquesAuto" />
+        <action
+            android:id="@+id/action_enregistrer_Voiture_Fragment_to_navCameraFragment"
+            app:destination="@id/navCameraFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/navCameraFragment"
+        android:name="com.example.louemonchar.présentation.Camera.cameraVue"
+        android:label="fragment_nav_camera"
+        tools:layout="@layout/fragment_nav_camera" >
+        <action
+            android:id="@+id/action_navCameraFragment_to_enregistrer_Voiture_Fragment"
+            app:destination="@id/enregistrer_Voiture_Fragment" />
     </fragment>
 </navigation>
