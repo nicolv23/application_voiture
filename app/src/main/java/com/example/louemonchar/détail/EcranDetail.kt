@@ -1,5 +1,6 @@
 package com.example.louemonchar.détail
 
+import BDVoitures
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -26,13 +27,12 @@ class EcranDetail : Fragment() {
     lateinit var image: ImageView
     lateinit var button: Button
     lateinit var contact: Button
-    private val sourceDeVoitures = SourceDeVoituresBidon(requireContext())
     lateinit var buttonRetour: Button
     private lateinit var presentateur: DetailPresentateur
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        presentateur = DetailPresentateur(this)
+        presentateur = DetailPresentateur(this) // Initialisation du présentateur
     }
 
     override fun onCreateView(
@@ -56,32 +56,41 @@ class EcranDetail : Fragment() {
         }
 
         contact.setOnClickListener {
-            arguments?.getString("modeleSelectionne")?.let { modeleSelectionne ->
+            val modeleSelectionne = requireArguments().getString("modeleSelectionne")
+
+            modeleSelectionne?.let {
                 val navController = findNavController()
                 presentateur.allezVersContact(navController, modeleSelectionne)
             }
         }
-        buttonRetour.setOnClickListener { presentateur.allezVersMarques() }
+
+        buttonRetour.setOnClickListener {
+            presentateur.allezVersMarques()
+        }
+
         val arguments = arguments
         if (arguments != null) {
-            val modeleSelectionne = arguments.getString("modeleSelectionne")
+            val modeleSelectionne = requireArguments().getString("modeleSelectionne")
 
             modeleSelectionne?.let {
                 Log.d("EcranDetail", "Modèle sélectionné : $modeleSelectionne")
-                val proprietaire = sourceDeVoitures.obtenirProprietaire(modeleSelectionne)
-                val detailsProprietaire = proprietaire?.let {
-                    sourceDeVoitures.obtenirDetailsProprietaire(it.nom)
-                }
 
+                val bdVoitures = BDVoitures(requireContext(), SourceDeVoituresBidon(requireContext()))
 
-                textview2.text = "5"
-                textview3.text = "Gaz"
-                textview4.text = "Automatique"
-                textview5.text = modeleSelectionne
-                textview6.text = detailsProprietaire?.nom ?: ""
+                // Obtention des détails de la voiture à partir de la base de données
+                val detailsVoiture = bdVoitures.obtenirDetailsVoiture(modeleSelectionne)
 
-                // Affichez l'image de la voiture
-                if (!modeleSelectionne.isNullOrEmpty()) {
+                detailsVoiture?.let {
+                    Log.d("EcranDetail", "Détails de la voiture : Marque : ${it.marque}, Modèle : ${it.modele}")
+
+                    // Affichage des détails de la voiture dans les TextViews par exemple
+                    textview2.text = "5"
+                    textview3.text = "Gaz"
+                    textview4.text = "Automatique"
+                    textview5.text = modeleSelectionne
+                    textview6.text = "${it.marque} - ${it.modele}"
+
+                    // Affichage de l'image de la voiture
                     val imageResourceId = resources.getIdentifier(
                         modeleSelectionne.toLowerCase().replace(" ", "_"),
                         "drawable",
@@ -93,16 +102,13 @@ class EcranDetail : Fragment() {
                     } else {
                         image.visibility = View.GONE
                     }
-                } else {
-                    image.visibility = View.GONE
                 }
             }
         }
         return vue
     }
 
-    fun marque(){
+    fun marque() {
         Navigation.findNavController(requireView()).navigate(R.id.action_écranDétail_to_marquesAuto)
-
     }
 }
