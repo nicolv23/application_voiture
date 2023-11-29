@@ -26,7 +26,7 @@ class EcranDetail : Fragment() {
     lateinit var image: ImageView
     lateinit var button: Button
     lateinit var contact: Button
-    private val sourceDeVoitures = SourceDeVoituresBidon()
+    private val sourceDeVoitures = SourceDeVoituresBidon(requireContext())
     lateinit var buttonRetour: Button
     private lateinit var presentateur: DetailPresentateur
 

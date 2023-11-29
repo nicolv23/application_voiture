@@ -51,7 +51,7 @@ class ListeVoitures : Fragment(), ModeleVoiture.ModeleClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        sourceVoitures = SourceDeVoituresBidon()
+        sourceVoitures = SourceDeVoituresBidon(requireContext())
         sauvegardeEntreFragments = requireActivity().getPreferences(Context.MODE_PRIVATE)
         if (parentFragment is ModeleListener) {
             modeleListener = parentFragment as ModeleListener

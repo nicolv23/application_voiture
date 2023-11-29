@@ -40,7 +40,7 @@ class EnregistrementModele : Fragment(), ModeleEnregistrement.ModeleClickListene
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sourceVoitures = SourceDeVoituresBidon()
+        sourceVoitures = SourceDeVoituresBidon(requireContext())
     }
 
     private fun chargerModelesEnregistres(marqueAuto: String) {

@@ -21,7 +21,7 @@ import com.example.louemonchar.sourceDonnees.SourceDeVoituresBidon
 class VueContact : Fragment(), IContratVueContact.Vue {
 
     private lateinit var presentateurContact: IContratVueContact.Presentateur
-    private val sourceDeVoitures = SourceDeVoituresBidon()
+    private val sourceDeVoitures = SourceDeVoituresBidon(requireContext())
     lateinit var boutonRetour: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,9 +52,10 @@ class VueContact : Fragment(), IContratVueContact.Vue {
         val modeleVoiture = "Tesla Modele X"
 
         // Instanciation du présentateur avec la vue et la source de données
-        presentateurContact = PresentateurContact(this, SourceDeVoituresBidon())
+        val sourceDeVoitures = SourceDeVoituresBidon(requireContext())
 
-        presentateurContact.recupererDetailsProprietaire(marqueVoiture, modeleVoiture)
+        presentateurContact = PresentateurContact(this, sourceDeVoitures)
+
 
         val boutonAppeler = view.findViewById<Button>(R.id.appelerProprietaire)
         boutonAppeler.setOnClickListener {
