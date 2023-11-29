@@ -82,6 +82,12 @@ class SourceDeVoituresBidon(private val context: Context) : SourceVoitures {
         }
     }
 
+    fun enregistrerModeleChoisi(marque: String, modele: String) {
+        val database = BDVoitures(context, this)
+        database.insererModelesDeVoiture(marque, modele)
+        Log.d("SourceDeVoituresBidon", "Modèle enregistré : $modele pour la marque $marque dans la base de données")
+    }
+
     override fun effacerModele(marque: String, modele: String) {
         val modelesMarque = modelesEnregistres[marque]
 

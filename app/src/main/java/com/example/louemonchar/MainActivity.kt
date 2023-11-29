@@ -1,5 +1,6 @@
 package com.example.louemonchar
 
+import BDVoitures
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -30,8 +31,8 @@ class MainActivity : AppCompatActivity(), IContratVueMain.Vue, ModeleListener {
             supportFragmentManager.findFragmentById(R.id.fragment) as NavHostFragment
         navController = navHostFragment.navController
 
-        val sourceDeVoituresBidon = SourceDeVoituresBidon(this)
-        sourceDeVoituresBidon.initialiserDonnees()
+        val bdVoitures = BDVoitures(this, SourceDeVoituresBidon(this))
+        bdVoitures.initialiserBD()
 
         // Ajoutez le Toast pour afficher un message si la base de données a été créée
         Log.d("Base de données", "La bd sqlite a été créée avec succès")

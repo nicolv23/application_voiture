@@ -1,5 +1,6 @@
 package com.example.louemonchar
 
+import BDVoitures
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -115,14 +116,19 @@ class ListeVoitures : Fragment(), ModeleVoiture.ModeleClickListener {
         val marque = marqueAuto ?: ""
         val modelesEnregistres = sourceVoitures.getModelesEnregistres()[marque]?.toMutableList() ?: mutableListOf()
 
-        if (!modelesEnregistres.contains(modele)) {
+        val bdVoitures = BDVoitures(requireContext(), SourceDeVoituresBidon(requireContext()))
+
+        if (!modelesEnregistres.contains(modele) && !bdVoitures.modeleEstEnregistre(marque, modele)) {
             sourceVoitures.enregistrerModele(marque, modele)
             modelesEnregistres.add(modele)
+
+            bdVoitures.enregistrerModele(marque, modele)
+
             chargerModelesEnregistres(marque)
             val parentFragment = parentFragment as? ModeleListener
             parentFragment?.onModeleEnregistre(marque, modele)
-
             modeleListener?.onModeleEnregistre(marque, modele)
+
             view?.let { Snackbar.make(it, "Le modèle: $modele a été enregistré", Snackbar.LENGTH_SHORT).show() }
         } else {
             view?.let { Snackbar.make(it, "Le modèle: $modele est déjà enregistré", Snackbar.LENGTH_SHORT).show() }

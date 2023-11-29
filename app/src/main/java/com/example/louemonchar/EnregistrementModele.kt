@@ -1,8 +1,11 @@
 package com.example.louemonchar
 
+import BDVoitures
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -90,28 +93,20 @@ class EnregistrementModele : Fragment(), ModeleEnregistrement.ModeleClickListene
         return modeleEnregistres.toList()
     }
 
-    private fun testerSourceDeVoitures() {
-        sourceVoitures.enregistrerModele("Toyota", "Toyota Prius")
-        sourceVoitures.enregistrerModele("Toyota", "Toyota Corolla")
-        sourceVoitures.enregistrerModele("Mercedes", "Mercedes Benz Classe S")
-        sourceVoitures.enregistrerModele("Mercedes", "Mercedes Benz AMG GT")
-        sourceVoitures.enregistrerModele("Mazda", "Mazda 3")
-        sourceVoitures.enregistrerModele("Mazda", "Mazda 6")
-        sourceVoitures.enregistrerModele("Tesla", "Tesla Modele X")
-        sourceVoitures.enregistrerModele("Tesla", "Tesla Cybertruck")
-        sourceVoitures.enregistrerModele("Tesla", "Tesla Semi")
-        sourceVoitures.enregistrerModele("BMW", "BMW Serie 3")
-        sourceVoitures.enregistrerModele("Hyundai", "Hyundai Tucson")
-        sourceVoitures.enregistrerModele("Hyundai", "Hyundai Kona")
-        sourceVoitures.enregistrerModele("Hyundai", "Hyundai Sonata")
-        sourceVoitures.enregistrerModele("Hyundai", "Hyundai Venue")
-        sourceVoitures.enregistrerModele("Hyundai", "Hyundai Elantra")
-        sourceVoitures.enregistrerModele("Hyundai", "Hyundai Santa Fe")
+    private fun chargerModelesDepuisSQLite() {
+        modeleEnregistres.clear()
+        val bdVoitures = BDVoitures(requireContext(), SourceDeVoituresBidon(requireContext()))
+        val modeleEnregistresSqlite = bdVoitures.lireModelesEnregistres()
+        Log.d("ModelesEnregistres", "Modèles enregistrés de la bd: $modeleEnregistresSqlite")
+        modeleEnregistres.addAll(modeleEnregistresSqlite)
+        majModelesEnregistres()
 
-        val listeModeles = sourceVoitures.getModelesEnregistres().flatMap { it.value }
-        modeleEnregistres.addAll(listeModeles)
+        // Afficher le message Toast avec les modèles enregistrés pendant 5 secondes
+        val toast = Toast.makeText(requireContext(), "Modèles enregistrés : $modeleEnregistresSqlite", Toast.LENGTH_LONG)
+        toast.show()
 
-        Log.d("EnregistrementModele", "Modèles chargés : $modeleEnregistres")
+        val handler = Handler(Looper.getMainLooper())
+        handler.postDelayed({ toast.cancel() }, 5000)
     }
 
     override fun onCreateView(
@@ -124,8 +119,10 @@ class EnregistrementModele : Fragment(), ModeleEnregistrement.ModeleClickListene
         recyclerView = view.findViewById(R.id.recyclerViewModele)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        adapteur = ModeleEnregistrement(requireContext(), modeleEnregistres, this)
-        recyclerView.adapter = adapteur
+        if (!::adapteur.isInitialized) {
+            adapteur = ModeleEnregistrement(requireContext(), modeleEnregistres, this)
+            recyclerView.adapter = adapteur
+        }
 
         val surlignerModele = RecyclerViewSurligne(recyclerView)
         recyclerView.addItemDecoration(surlignerModele)
@@ -137,7 +134,7 @@ class EnregistrementModele : Fragment(), ModeleEnregistrement.ModeleClickListene
         }
 
         // Appeler testerSourceDeVoitures après initialisation
-        testerSourceDeVoitures()
+        chargerModelesDepuisSQLite()
         return view
     }
 

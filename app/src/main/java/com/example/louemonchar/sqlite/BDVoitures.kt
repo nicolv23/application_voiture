@@ -2,6 +2,8 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.example.louemonchar.sourceDonnees.ProprietaireModele
 import com.example.louemonchar.sourceDonnees.SourceDeVoituresBidon
 
@@ -30,11 +32,21 @@ class BDVoitures(private val context: Context, private val sourceVoitures: Sourc
                     "$COL_EMAIL TEXT, " +
                     "$COL_HORAIRE_TRAVAIL TEXT)"
         )
+
+        db.execSQL(
+            "CREATE TABLE IF NOT EXISTS $TABLE_VOITURES_ENREGISTREES (" +
+                    "$COL_ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "$COL_MARQUE TEXT, " +
+                    "$COL_MODELE TEXT, " +
+                    "$COL_PROPRIETAIRE_ID INTEGER, " + // Clé étrangère vers la table des propriétaires
+                    "FOREIGN KEY($COL_PROPRIETAIRE_ID) REFERENCES $TABLE_PROPRIETAIRES($COL_ID))"
+        )
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("DROP TABLE IF EXISTS $TABLE_MODELES_VOITURE")
         db.execSQL("DROP TABLE IF EXISTS $TABLE_PROPRIETAIRES")
+        db.execSQL("DROP TABLE IF EXISTS $TABLE_VOITURES_ENREGISTREES")
         onCreate(db)
     }
 
@@ -81,6 +93,45 @@ class BDVoitures(private val context: Context, private val sourceVoitures: Sourc
         }
     }
 
+    fun enregistrerModele(marque: String, modele: String) {
+        writableDatabase.use { db ->
+            val values = ContentValues().apply {
+                put(COL_MARQUE, marque)
+                put(COL_MODELE, modele)
+            }
+            db.insert(TABLE_VOITURES_ENREGISTREES, null, values)
+        }
+    }
+
+    fun modeleEstEnregistre(marque: String, modele: String): Boolean {
+        val bdVoitures = BDVoitures(context, SourceDeVoituresBidon(context))
+        val modelesEnregistres = bdVoitures.lireModelesEnregistres()
+        return modelesEnregistres.contains(modele)
+    }
+
+
+    fun lireModelesEnregistres(): List<String> {
+        val modelesEnregistres = mutableListOf<String>()
+        val selectQuery = "SELECT $COL_MODELE FROM $TABLE_VOITURES_ENREGISTREES"
+        val db = this.readableDatabase
+
+        db.rawQuery(selectQuery, null)?.use { cursor ->
+            val modeleIndex = cursor.getColumnIndex(COL_MODELE)
+            if (modeleIndex != -1) {
+                cursor.moveToFirst()
+                while (!cursor.isAfterLast) {
+                    val modele = cursor.getString(modeleIndex)
+                    modelesEnregistres.add(modele)
+                    cursor.moveToNext()
+                }
+            } else {
+                Log.e("CursorError", "La colonne $COL_MODELE n'existe pas dans le Cursor.")
+                return emptyList()
+            }
+        }
+        return modelesEnregistres
+    }
+
     fun effacerModele(marque: String, modele: String) {
         writableDatabase.use { db ->
             val whereClause = "$COL_MARQUE = ? AND $COL_MODELE = ?"
@@ -96,6 +147,8 @@ class BDVoitures(private val context: Context, private val sourceVoitures: Sourc
         // Noms de tables et colonnes
         const val TABLE_MODELES_VOITURE = "modeles_voiture"
         const val TABLE_PROPRIETAIRES = "proprietaires"
+        const val TABLE_VOITURES_ENREGISTREES = "voitures_enregistrees"
+        const val COL_PROPRIETAIRE_ID = "proprietaire_id"
         const val COL_ID = "id"
         const val COL_MARQUE = "marque"
         const val COL_MODELE = "modele"
