@@ -1,9 +1,34 @@
 package com.example.louemonchar.sourceDonnees
 
+import BDVoitures
+import android.content.Context
 import android.util.Log
 import com.example.louemonchar.R
+import com.example.louemonchar.sqlite.BdManager
 
-class SourceDeVoituresBidon : SourceVoitures {
+class SourceDeVoituresBidon(private val context: Context) : SourceVoitures {
+
+    // Fonction pour initialiser la base de données depuis l'extérieur de la classe
+    fun initialiserDonnees() {
+        val database = BDVoitures(context, this)
+
+        // Insérer les modèles de voiture depuis la source de données dans la base de données
+        getModelesDeVoiture().forEach { (marque, modelesList) ->
+            modelesList.forEach { modele ->
+                database.insererModelesDeVoiture(marque, modele)
+            }
+        }
+
+        // Insérer les propriétaires des modèles enregistrés dans la base de données
+        getModelesEnregistres().forEach { (marque, modelesList) ->
+            modelesList.forEach { modele ->
+                val proprietaire = obtenirProprietaire(modele)
+                proprietaire?.let {
+                    database.insererProprietaires(it)
+                }
+            }
+        }
+    }
 
     private val modelesEnregistres: MutableMap<String, MutableList<String>> = mutableMapOf()
     private val proprietairesParModele: MutableMap<String, Proprietaire> = mutableMapOf()
@@ -55,6 +80,12 @@ class SourceDeVoituresBidon : SourceVoitures {
             modelesEnregistres[marque] = mutableListOf(modele)
             Log.d("SourceDeVoituresBidon", "Modèle enregistré : $modele pour la marque $marque")
         }
+    }
+
+    fun enregistrerModeleChoisi(marque: String, modele: String) {
+        val database = BDVoitures(context, this)
+        database.insererModelesDeVoiture(marque, modele)
+        Log.d("SourceDeVoituresBidon", "Modèle enregistré : $modele pour la marque $marque dans la base de données")
     }
 
     override fun effacerModele(marque: String, modele: String) {

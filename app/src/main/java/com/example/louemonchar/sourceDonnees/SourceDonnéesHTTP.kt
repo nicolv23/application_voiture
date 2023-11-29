@@ -1,15 +1,16 @@
 package com.example.louemonchar.sourceDonnees
 
 
+import android.content.Context
 import io.ktor.client.*
 import io.ktor.client.engine.okhttp.*
 
 
-class SourceDonnéesHTTP : SourceVoitures {
+class SourceDonnéesHTTP(private val context: Context) : SourceVoitures {
 
     private val client = HttpClient(OkHttp)
 
-    private val sourceDeVoituresBidon = SourceDeVoituresBidon()
+    private val sourceDeVoituresBidon = SourceDeVoituresBidon(context)
     override fun getModelesDeVoiture(): Map<String, List<String>> {
         TODO("Not yet implemented")
     }

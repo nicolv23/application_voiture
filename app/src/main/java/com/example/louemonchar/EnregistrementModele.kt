@@ -1,8 +1,11 @@
 package com.example.louemonchar
 
+import BDVoitures
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -24,7 +27,6 @@ class EnregistrementModele : Fragment(), ModeleEnregistrement.ModeleClickListene
     private lateinit var sourceVoitures: SourceVoitures
     private lateinit var adapteur: ModeleEnregistrement
     private lateinit var recyclerView: RecyclerView
-    private var marqueAuto: String = ""
     private var modeleEnregistres: MutableList<String> = mutableListOf()
     private lateinit var modeleListener: ModeleListener
     lateinit var boutonRetour: Button
@@ -40,14 +42,10 @@ class EnregistrementModele : Fragment(), ModeleEnregistrement.ModeleClickListene
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sourceVoitures = SourceDeVoituresBidon()
+        sourceVoitures = SourceDeVoituresBidon(requireContext())
     }
 
-    private fun chargerModelesEnregistres(marqueAuto: String) {
-        modeleEnregistres.clear()
-        modeleEnregistres.addAll(sourceVoitures.getModelesEnregistres()[marqueAuto] ?: emptyList())
-        majModelesEnregistres()
-    }
+
 
     private fun majModelesEnregistres() {
         if (!::adapteur.isInitialized) {
@@ -55,63 +53,65 @@ class EnregistrementModele : Fragment(), ModeleEnregistrement.ModeleClickListene
             recyclerView.adapter = adapteur
         } else {
             adapteur.updateModelesEnregistres(modeleEnregistres)
-            adapteur.notifyDataSetChanged()
         }
     }
 
-    private fun afficherDialogEffacerModele(modelesEnregistres: List<String>) {
-        AlertDialog.Builder(requireContext())
-            .setTitle("Choisir le modèle à effacer")
-            .setItems(modelesEnregistres.toTypedArray()) { _, which ->
+    private fun afficherDialogEffacerModele() {
+        val bdVoitures = BDVoitures(requireContext(), SourceDeVoituresBidon(requireContext()))
+        val modelesEnregistres = bdVoitures.lireModelesEnregistres()
+
+        if (modelesEnregistres.isNotEmpty()) {
+            val dialogBuilder = AlertDialog.Builder(requireContext())
+            dialogBuilder.setTitle("Choisir le modèle à effacer")
+            dialogBuilder.setItems(modelesEnregistres.toTypedArray()) { _, which ->
                 val modeleSelectionne = modelesEnregistres[which]
-                val marque = getMarqueDuModele(modeleSelectionne)
-                AlertDialog.Builder(requireContext())
-                    .setTitle("Confirmer la suppression")
-                    .setMessage("Voulez-vous effacer le modèle \"$modeleSelectionne\"?")
-                    .setPositiveButton("Oui") { _, _ ->
-                        if (marque.isNotEmpty()) {
-                            sourceVoitures.effacerModele(marque, modeleSelectionne)
-                            Toast.makeText(
-                                requireContext(),
-                                "Le modèle enregistré \"$modeleSelectionne\" a été effacé",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            chargerModelesEnregistres(marque)
-                        }
+                val marque = bdVoitures.getMarqueDuModele(modeleSelectionne)
+
+                val confirmationDialog = AlertDialog.Builder(requireContext())
+                confirmationDialog.setTitle("Confirmer la suppression")
+                confirmationDialog.setMessage("Voulez-vous effacer le modèle \"$modeleSelectionne\"?")
+                confirmationDialog.setPositiveButton("Oui") { _, _ ->
+                    if (marque.isNotEmpty()) {
+                        bdVoitures.effacerModele(marque, modeleSelectionne)
+                        Toast.makeText(
+                            requireContext(),
+                            "Le modèle enregistré \"$modeleSelectionne\" a été effacé",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        // Mettre à jour la liste des modèles après la suppression
+                        val nouvelleListeModeles = bdVoitures.lireModelesEnregistres()
+                        chargerModelesDepuisSQLite()
                     }
-                    .setNegativeButton("Non", null)
-                    .show()
+                }
+                confirmationDialog.setNegativeButton("Non", null)
+                confirmationDialog.show()
             }
-            .setNegativeButton("Annuler", null)
-            .show()
+            dialogBuilder.setNegativeButton("Annuler", null)
+            dialogBuilder.show()
+        } else {
+            // Gérer le cas où il n'y a aucun modèle enregistré dans la base de données
+            Toast.makeText(requireContext(), "Aucun modèle enregistré à effacer", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun getModelesEnregistres(marque: String): List<String> {
         return modeleEnregistres.toList()
     }
 
-    private fun testerSourceDeVoitures() {
-        sourceVoitures.enregistrerModele("Toyota", "Toyota Prius")
-        sourceVoitures.enregistrerModele("Toyota", "Toyota Corolla")
-        sourceVoitures.enregistrerModele("Mercedes", "Mercedes Benz Classe S")
-        sourceVoitures.enregistrerModele("Mercedes", "Mercedes Benz AMG GT")
-        sourceVoitures.enregistrerModele("Mazda", "Mazda 3")
-        sourceVoitures.enregistrerModele("Mazda", "Mazda 6")
-        sourceVoitures.enregistrerModele("Tesla", "Tesla Modele X")
-        sourceVoitures.enregistrerModele("Tesla", "Tesla Cybertruck")
-        sourceVoitures.enregistrerModele("Tesla", "Tesla Semi")
-        sourceVoitures.enregistrerModele("BMW", "BMW Serie 3")
-        sourceVoitures.enregistrerModele("Hyundai", "Hyundai Tucson")
-        sourceVoitures.enregistrerModele("Hyundai", "Hyundai Kona")
-        sourceVoitures.enregistrerModele("Hyundai", "Hyundai Sonata")
-        sourceVoitures.enregistrerModele("Hyundai", "Hyundai Venue")
-        sourceVoitures.enregistrerModele("Hyundai", "Hyundai Elantra")
-        sourceVoitures.enregistrerModele("Hyundai", "Hyundai Santa Fe")
+    private fun chargerModelesDepuisSQLite() {
+        modeleEnregistres.clear()
+        val bdVoitures = BDVoitures(requireContext(), SourceDeVoituresBidon(requireContext()))
+        val modeleEnregistresSqlite = bdVoitures.lireModelesEnregistres()
+        Log.d("ModelesEnregistres", "Modèles enregistrés de la bd: $modeleEnregistresSqlite")
+        modeleEnregistres.addAll(modeleEnregistresSqlite)
+        majModelesEnregistres()
 
-        val listeModeles = sourceVoitures.getModelesEnregistres().flatMap { it.value }
-        modeleEnregistres.addAll(listeModeles)
+        // Afficher le message Toast avec les modèles enregistrés pendant 5 secondes
+        val toast = Toast.makeText(requireContext(), "Modèles enregistrés : $modeleEnregistresSqlite", Toast.LENGTH_LONG)
+        toast.show()
 
-        Log.d("EnregistrementModele", "Modèles chargés : $modeleEnregistres")
+        val handler = Handler(Looper.getMainLooper())
+        handler.postDelayed({ toast.cancel() }, 5000)
     }
 
     override fun onCreateView(
@@ -124,36 +124,28 @@ class EnregistrementModele : Fragment(), ModeleEnregistrement.ModeleClickListene
         recyclerView = view.findViewById(R.id.recyclerViewModele)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        adapteur = ModeleEnregistrement(requireContext(), modeleEnregistres, this)
-        recyclerView.adapter = adapteur
+        if (!::adapteur.isInitialized) {
+            adapteur = ModeleEnregistrement(requireContext(), mutableListOf(), this)
+            recyclerView.adapter = adapteur
+        }
+
+        val bdVoitures = BDVoitures(requireContext(), SourceDeVoituresBidon(requireContext()))
+        val modelesEnregistres = bdVoitures.lireModelesEnregistres()
+
+        adapteur.updateModelesEnregistres(modelesEnregistres)
 
         val surlignerModele = RecyclerViewSurligne(recyclerView)
         recyclerView.addItemDecoration(surlignerModele)
-        majModelesEnregistres()
 
         val effacerButton: Button = view.findViewById(R.id.btnEffacer)
         effacerButton.setOnClickListener {
-            afficherDialogEffacerModele(modeleEnregistres)
+            afficherDialogEffacerModele()
         }
-
-        // Appeler testerSourceDeVoitures après initialisation
-        testerSourceDeVoitures()
         return view
     }
 
-    private fun getMarqueDuModele(modeleEfface: String?): String {
-        if (modeleEfface != null) {
-            for ((marque, modeles) in sourceVoitures.getModelesEnregistres()) {
-                if (modeles.contains(modeleEfface)) {
-                    return marque
-                }
-            }
-        }
-        return ""
-    }
-
     override fun onModeleEnregistre(marque: String, modele: String) {
-        chargerModelesEnregistres(marque)
+        chargerModelesDepuisSQLite()
     }
 
     override fun onModeleClick(modele: String) {

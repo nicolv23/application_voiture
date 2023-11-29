@@ -1,23 +1,24 @@
 package com.example.louemonchar
 
+import BDVoitures
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.View
+import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.louemonchar.main.IContratVueMain
 import com.example.louemonchar.marqueauto.ModeleListener
 import com.example.louemonchar.main.MainPresentateur
+import com.example.louemonchar.sourceDonnees.SourceDeVoituresBidon
 
 class MainActivity : AppCompatActivity(), IContratVueMain.Vue, ModeleListener {
 
     private lateinit var navController: NavController
     private lateinit var presentateur: IContratVueMain.Presentateur
-
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +31,19 @@ class MainActivity : AppCompatActivity(), IContratVueMain.Vue, ModeleListener {
             supportFragmentManager.findFragmentById(R.id.fragment) as NavHostFragment
         navController = navHostFragment.navController
 
-        //setupActionBarWithNavController(navController)
+        val bdVoitures = BDVoitures(this, SourceDeVoituresBidon(this))
+        bdVoitures.initialiserBD()
+
+        // Ajoutez le Toast pour afficher un message si la base de données a été créée
+        Log.d("Base de données", "La bd sqlite a été créée avec succès")
+        creationBD("La base de données a été créée avec succès")
+
+        // setupActionBarWithNavController(navController)
+    }
+
+    // Fonction pour afficher le Toast
+    private fun creationBD(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
 
