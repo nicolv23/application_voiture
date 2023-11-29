@@ -132,6 +132,22 @@ class BDVoitures(private val context: Context, private val sourceVoitures: Sourc
         return modelesEnregistres
     }
 
+    fun getMarqueDuModele(modele: String): String {
+        val db = readableDatabase
+        val selectQuery = "SELECT $COL_MARQUE FROM $TABLE_MODELES_VOITURE WHERE $COL_MODELE = ?"
+        val cursor = db.rawQuery(selectQuery, arrayOf(modele))
+
+        var marque = ""
+        cursor?.use {
+            if (it.moveToFirst()) {
+                val marqueIndex = it.getColumnIndex(COL_MARQUE)
+                marque = it.getString(marqueIndex)
+            }
+        }
+        cursor?.close()
+        return marque
+    }
+
     fun effacerModele(marque: String, modele: String) {
         writableDatabase.use { db ->
             val whereClause = "$COL_MARQUE = ? AND $COL_MODELE = ?"
