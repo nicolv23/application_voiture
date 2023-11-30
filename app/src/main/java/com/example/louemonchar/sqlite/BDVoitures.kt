@@ -1,9 +1,11 @@
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 import androidx.core.content.ContentProviderCompat.requireContext
+import com.example.louemonchar.détail.DetailsVoiture
 import com.example.louemonchar.sourceDonnees.ProprietaireModele
 import com.example.louemonchar.sourceDonnees.SourceDeVoituresBidon
 
@@ -30,7 +32,9 @@ class BDVoitures(private val context: Context, private val sourceVoitures: Sourc
                     "$COL_NOM TEXT, " +
                     "$COL_TELEPHONE TEXT, " +
                     "$COL_EMAIL TEXT, " +
-                    "$COL_HORAIRE_TRAVAIL TEXT)"
+                    "$COL_HORAIRE_TRAVAIL TEXT, " +
+                    "$COL_CHEMIN_IMAGE INTEGER, " +
+                    "$COL_MODELE TEXT)"
         )
 
         db.execSQL(
@@ -66,6 +70,7 @@ class BDVoitures(private val context: Context, private val sourceVoitures: Sourc
                 val proprietaire = sourceBidon.obtenirProprietaire(modele)
                 proprietaire?.let {
                     insererProprietaires(it)
+                    enregistrerModele(marque, modele)
                 }
             }
         }
@@ -88,9 +93,28 @@ class BDVoitures(private val context: Context, private val sourceVoitures: Sourc
                 put(COL_TELEPHONE, proprietaire.telephone)
                 put(COL_EMAIL, proprietaire.email)
                 put(COL_HORAIRE_TRAVAIL, proprietaire.horaireTravail)
+                put(COL_CHEMIN_IMAGE, proprietaire.cheminImage)
             }
             db.insert(TABLE_PROPRIETAIRES, null, values)
         }
+    }
+
+
+    fun obtenirIdDernierProprietaireInserer(): Long {
+        val db = readableDatabase
+        val query = "SELECT $COL_ID FROM $TABLE_PROPRIETAIRES ORDER BY $COL_ID DESC LIMIT 1"
+        val cursor = db.rawQuery(query, null)
+        var id: Long = -1
+
+        cursor?.use {
+            if (it.moveToFirst()) {
+                val idIndex = it.getColumnIndex(COL_ID)
+                id = it.getLong(idIndex)
+            }
+        }
+
+        cursor?.close()
+        return id
     }
 
     fun enregistrerModele(marque: String, modele: String) {
@@ -156,21 +180,83 @@ class BDVoitures(private val context: Context, private val sourceVoitures: Sourc
         }
     }
 
-    companion object {
-        private const val NOM_BASE_DE_DONNEES = "LoueMonCharBD"
-        private const val VERSION_BASE_DE_DONNEES = 1
+    fun obtenirProprietaire(modele: String): ProprietaireModele? {
+        val db = readableDatabase
+        val selectQuery = "SELECT * FROM $TABLE_PROPRIETAIRES WHERE $COL_MODELE = ?"
+        val cursor = db.rawQuery(selectQuery, arrayOf(modele))
 
-        // Noms de tables et colonnes
-        const val TABLE_MODELES_VOITURE = "modeles_voiture"
-        const val TABLE_PROPRIETAIRES = "proprietaires"
-        const val TABLE_VOITURES_ENREGISTREES = "voitures_enregistrees"
-        const val COL_PROPRIETAIRE_ID = "proprietaire_id"
-        const val COL_ID = "id"
-        const val COL_MARQUE = "marque"
-        const val COL_MODELE = "modele"
-        const val COL_NOM = "nom"
-        const val COL_TELEPHONE = "telephone"
-        const val COL_EMAIL = "email"
-        const val COL_HORAIRE_TRAVAIL = "horaire_travail"
+        var proprietaire: ProprietaireModele? = null
+
+        cursor?.use {
+            if (it.moveToFirst()) {
+                val nomIndex = it.getColumnIndex(COL_NOM)
+                val emailIndex = it.getColumnIndex(COL_EMAIL)
+                val telephoneIndex = it.getColumnIndex(COL_TELEPHONE)
+                val horaireTravailIndex = it.getColumnIndex(COL_HORAIRE_TRAVAIL)
+                val modeleIndex = it.getColumnIndex(COL_MODELE)
+                val cheminImageIndex = it.getColumnIndex(COL_CHEMIN_IMAGE)
+
+                val nomProprietaire = it.getString(nomIndex)
+                val email = it.getString(emailIndex)
+                val telephone = it.getString(telephoneIndex)
+                val horaireTravail = it.getString(horaireTravailIndex)
+                val cheminImage = it.getInt(cheminImageIndex)
+
+                proprietaire = ProprietaireModele(
+                    nomProprietaire,
+                    email,
+                    telephone,
+                    horaireTravail,
+                    modele,
+                    cheminImage
+                )
+            }
+        }
+
+        cursor?.close()
+        return proprietaire
+    }
+
+    @SuppressLint("Range")
+    fun obtenirDetailsVoiture(modele: String): DetailsVoiture? {
+        val db = readableDatabase
+        val selectQuery =
+            "SELECT $COL_MARQUE, $COL_MODELE FROM $TABLE_MODELES_VOITURE WHERE $COL_MODELE = ?"
+        val cursor = db.rawQuery(selectQuery, arrayOf(modele))
+
+        var detailsVoiture: DetailsVoiture? = null
+
+        cursor?.use {
+            if (it.moveToFirst()) {
+                // Récupération des détails de la voiture depuis le curseur
+                val marque = it.getString(it.getColumnIndex(COL_MARQUE))
+                val modele = it.getString(it.getColumnIndex(COL_MODELE))
+
+                // Création de l'objet DetailsVoiture
+                detailsVoiture = DetailsVoiture(marque, modele)
+            }
+        }
+        cursor?.close()
+        return detailsVoiture
+    }
+
+
+    companion object {
+    private const val NOM_BASE_DE_DONNEES = "LoueMonCharBD"
+    private const val VERSION_BASE_DE_DONNEES = 1
+
+    // Noms de tables et colonnes
+    const val TABLE_MODELES_VOITURE = "modeles_voiture"
+    const val TABLE_PROPRIETAIRES = "proprietaires"
+    const val TABLE_VOITURES_ENREGISTREES = "voitures_enregistrees"
+    const val COL_PROPRIETAIRE_ID = "proprietaire_id"
+    const val COL_ID = "id"
+    const val COL_MARQUE = "marque"
+    const val COL_MODELE = "modele"
+    const val COL_NOM = "nom"
+    const val COL_TELEPHONE = "telephone"
+    const val COL_EMAIL = "email"
+    const val COL_HORAIRE_TRAVAIL = "horaire_travail"
+    const val COL_CHEMIN_IMAGE = "chemin_image"
     }
 }

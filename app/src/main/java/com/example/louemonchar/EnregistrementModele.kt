@@ -78,8 +78,6 @@ class EnregistrementModele : Fragment(), ModeleEnregistrement.ModeleClickListene
                             "Le modèle enregistré \"$modeleSelectionne\" a été effacé",
                             Toast.LENGTH_SHORT
                         ).show()
-                        // Mettre à jour la liste des modèles après la suppression
-                        val nouvelleListeModeles = bdVoitures.lireModelesEnregistres()
                         chargerModelesDepuisSQLite()
                     }
                 }
