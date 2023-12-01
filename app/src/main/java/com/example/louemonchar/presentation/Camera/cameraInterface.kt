@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.camera.core.ImageCapture
-import androidx.camera.view.PreviewView
+
 
 interface cameraInterface {
 
