@@ -6,17 +6,17 @@ interface ConnexionInterface {
 
     interface Vue {
         fun navigationVersInscriptionFragment()
-       // fun navigationVersMarquesFragment()
+        // fun navigationVersMarquesFragment()
 
     }
 
-        interface Presentateur {
-            fun tenterConnexion()
-        }
+    interface Présentateur {
+        fun tenterConnexion()
+    }
 
-        interface Modele {
+    interface Modèle {
 
-        }
+    }
 
 
 

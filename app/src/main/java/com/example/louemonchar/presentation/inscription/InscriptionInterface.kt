@@ -8,11 +8,11 @@ interface InscriptionInterface {
         fun navigationVersConnexionFragment()
     }
 
-    interface Presentateur {
+    interface Présentateur {
         fun tenterInscription()
     }
 
-    interface Modele {
+    interface Modèle {
         fun enregistrerUtilisateur()
     }
 }

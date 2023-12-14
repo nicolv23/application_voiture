@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:background="@color/white"
+    android:id="@+id/item_voitures_disponible">
+
+    <ImageView
+        android:id="@+id/img_voitures_disponible"
+        android:layout_width="160dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/toyota_prius" />
+
+    <TextView
+        android:id="@+id/modèle_voitures_disponible"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="30dp"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/img_voitures_disponible"
+        app:layout_constraintTop_toTopOf="@id/img_voitures_disponible"
+        tools:text="TOYOTA" />
+
+    <TextView
+        android:id="@+id/année_voitures_disponible"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/modèle_voitures_disponible"
+        app:layout_constraintStart_toStartOf="@id/modèle_voitures_disponible"
+        app:layout_constraintTop_toBottomOf="@id/modèle_voitures_disponible"
+        tools:text="2017" />
+
+    <TextView
+        android:id="@+id/passagers_voitures_disponible"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/modèle_voitures_disponible"
+        app:layout_constraintStart_toStartOf="@id/modèle_voitures_disponible"
+        app:layout_constraintTop_toBottomOf="@id/année_voitures_disponible"
+        tools:text="6 passagers" />
+
+    <TextView
+        android:id="@+id/propriétaire_voitures_disponible"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/modèle_voitures_disponible"
+        app:layout_constraintStart_toStartOf="@id/modèle_voitures_disponible"
+        app:layout_constraintTop_toBottomOf="@id/passagers_voitures_disponible"
+        tools:text="John Doe" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="@id/modèle_voitures_disponible"
+        app:layout_constraintStart_toStartOf="@id/modèle_voitures_disponible"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/propriétaire_voitures_disponible">
+
+        <TextView
+            android:id="@+id/titre_datelocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@id/modèle_voitures_disponible"
+            app:layout_constraintStart_toStartOf="@id/modèle_voitures_disponible"
+            app:layout_constraintTop_toBottomOf="@id/année_voitures_disponible"
+            tools:text="Disponible le :" />
+
+        <TextView
+            android:id="@+id/date_de_location_disponible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@id/modèle_voitures_disponible"
+            app:layout_constraintStart_toStartOf="@id/modèle_voitures_disponible"
+            app:layout_constraintTop_toBottomOf="@id/année_voitures_disponible"
+            tools:text=" 00/00/00" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

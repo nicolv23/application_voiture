@@ -1,5 +1,6 @@
-package com.example.louemonchar.sqlite
 
+package com.example.louemonchar.sqlite
+/*
 import BDVoitures
 import android.content.Context
 import com.example.louemonchar.sourceDonnees.SourceDeVoituresBidon
@@ -21,3 +22,5 @@ object BdManager {
         return database!!
     }
 }
+
+ */
