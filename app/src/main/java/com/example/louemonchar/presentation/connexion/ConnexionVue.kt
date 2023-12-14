@@ -12,13 +12,13 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.example.louemonchar.R
 import android.view.MenuInflater
-
-
+import com.example.louemonchar.MainActivity
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 class ConnexionVue : Fragment(), ConnexionInterface.Vue {
 
-    private lateinit var presentateur: ConnexionInterface.Presentateur
+    private lateinit var presentateur: ConnexionInterface.Présentateur
 
     override fun onCreateView(
 
@@ -27,10 +27,33 @@ class ConnexionVue : Fragment(), ConnexionInterface.Vue {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_connexion, container, false)
-        presentateur = ConnexionPresentateur(this)
+        presentateur = ConnexionPrésentateur(this)
         initComponent(view)
         return view
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        Log.d("ConnexionVue", "onViewCreated called")
+
+        val leBoutonconnexion = view.findViewById<Button>(R.id.boutonconnexion)
+        leBoutonconnexion.setOnClickListener {
+            Log.d("ConnexionVue", "Boutonconnexion clicked")
+
+            try {
+                // Appeler l'action de navigation associée au clic du bouton
+                Navigation.findNavController(requireView()).navigate(R.id.vers_accueilFragment)
+            } catch (e: Exception) {
+                Log.e("ConnexionVue", "Exception while navigating", e)
+            }
+        }
+    }
+
+
+
+
+
 
     private fun initComponent(view: View) {
         val leTextCréerUnCompte = view.findViewById<View>(R.id.textCréerUnCompte)
@@ -45,13 +68,13 @@ class ConnexionVue : Fragment(), ConnexionInterface.Vue {
 
         leBoutonconnexion.setOnClickListener {
             // Appeler l'action de navigation associée au clic du bouton
-            Navigation.findNavController(requireView()).navigate(R.id.action_connexionVue2_to_marquesAuto)
+            Navigation.findNavController(requireView()).navigate(R.id.vers_accueilFragment)
         }
 
 
         leTextVoirGps.setOnClickListener {
             // Appeler l'action de navigation associée au clic du bouton
-            Navigation.findNavController(requireView()).navigate(R.id.action_connexionVue2_to_recuperationVue)
+            //Navigation.findNavController(requireView()).navigate(R.id.action_connexionVue2_to_recuperationVue)
         }
 
 
@@ -59,7 +82,7 @@ class ConnexionVue : Fragment(), ConnexionInterface.Vue {
 
     override fun navigationVersInscriptionFragment() {
         // Utiliser Navigation component pour naviguer vers InscriptionFragment
-        Navigation.findNavController(requireView()).navigate(R.id.action_connexionVue2_to_inscriptionVue)
+        Navigation.findNavController(requireView()).navigate(R.id.vers_inscriptionVue)
 
     }
 
@@ -82,5 +105,36 @@ class ConnexionVue : Fragment(), ConnexionInterface.Vue {
 
 
 
+    override fun onResume() {
+        super.onResume()
+
+        // Masquer le menu de navigation dans ce fragment
+        (activity as? MainActivity)?.apply {
+            hideBottomNavigation()
+
+            val fab = requireActivity().findViewById<FloatingActionButton>(R.id.floatingActionButton)
+            hideFloatingActionButton(fab)
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        // Réafficher le menu de navigation en quittant ce fragment
+        (activity as? MainActivity)?.apply {
+            showBottomNavigation()
+
+            val fab = requireActivity().findViewById<FloatingActionButton>(R.id.floatingActionButton)
+            showFloatingActionButton(fab)
+        }
+    }
+
+
 }
+
+
+
+
+
+
 

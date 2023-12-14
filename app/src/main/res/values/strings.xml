@@ -7,6 +7,8 @@
     <string name="fragment_marques_auto">fragment_marque</string>
     <string name="fragment_modele_auto">fragment_modele</string>
     <string name="effacer_modele">effacer_modele</string>
+    <string name="voyager_librement">Voyager librement</string>
+    <string name="d_tails_voitures">Détails voitures</string>
 
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>

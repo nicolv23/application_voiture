@@ -10,18 +10,18 @@ import androidx.fragment.app.Fragment
 import com.example.louemonchar.R
 import androidx.navigation.Navigation
 import com.example.louemonchar.presentation.connexion.ConnexionInterface
-import com.example.louemonchar.presentation.connexion.ConnexionPresentateur
+import com.example.louemonchar.presentation.connexion.ConnexionPrésentateur
 
 class InscriptionVue : Fragment(), InscriptionInterface.Vue {
 
-    private lateinit var presentateur: InscriptionInterface.Presentateur
+    private lateinit var presentateur: InscriptionInterface.Présentateur
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_inscription, container, false)
-        presentateur = InscriptionPresentateur(this)
+        presentateur = InscriptionPrésentateur(this)
         initComponent(view)
         return view
     }
@@ -38,7 +38,7 @@ class InscriptionVue : Fragment(), InscriptionInterface.Vue {
 
     override fun navigationVersConnexionFragment() {
         // Utiliser Navigation component pour naviguer vers InscriptionFragment
-        Navigation.findNavController(requireView()).navigate(R.id.action_inscriptionVue_to_connexionVue2)
+        Navigation.findNavController(requireView()).navigate(R.id.vers_connexionVue)
 
     }
 

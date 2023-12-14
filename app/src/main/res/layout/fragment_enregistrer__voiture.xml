@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/disponible_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".presentation.enregistrervoiture.EnregistrerVoitureVue">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/conteneur_enregistrer_voiture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FF9800"
+        android:gravity="center"
+        android:minHeight="160dp">
+
+        <ImageView
+            android:id="@+id/logoblanc"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:src="@drawable/logoblanc" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingTop="20dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Inscrire voiture"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                android:textColor="@android:color/white"
+                android:textSize="34sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_medium"
+                android:text="entrez vos informations de connexion"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/relative_recycle_reservees"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/conteneur_enregistrer_voiture"
+        >
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+
+                <EditText
+                    android:id="@+id/nom"
+                    android:layout_width="366dp"
+                    android:layout_height="60dp"
+                    android:ems="10"
+                    android:hint="Nom complet"
+                    android:inputType="text"
+                    android:textColor="#FFFFFF" />
+
+
+                <EditText
+                    android:id="@+id/marque"
+                    android:layout_width="366dp"
+                    android:layout_height="60dp"
+                    android:ems="10"
+                    android:hint="Marque "
+                    android:inputType="text"
+                    android:textColor="#FFFFFF" />
+
+                <EditText
+                    android:id="@+id/modele"
+                    android:layout_width="366dp"
+                    android:layout_height="60dp"
+                    android:ems="10"
+                    android:hint="Modèle "
+                    android:inputType="text"
+                    android:textColor="#FFFFFF" />
+
+                <EditText
+                    android:id="@+id/annee"
+                    android:layout_width="366dp"
+                    android:layout_height="60dp"
+                    android:ems="10"
+                    android:hint="Année :"
+                    android:inputType="number"
+                    android:textColor="#FFFFFF" />
+
+                <EditText
+                    android:id="@+id/siege"
+                    android:layout_width="366dp"
+                    android:layout_height="60dp"
+                    android:ems="10"
+                    android:hint="Nombre de place "
+                    android:inputType="number"
+                    android:textColor="#FFFFFF" />
+
+
+                <EditText
+                    android:id="@+id/prix"
+                    android:layout_width="366dp"
+                    android:layout_height="60dp"
+                    android:ems="10"
+                    android:hint="Prix par jour de réservation"
+                    android:inputType="numberDecimal"
+                    android:keepScreenOn="false"
+
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/img"
+                    android:layout_width="179dp"
+                    android:layout_height="51dp"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:inputType="text"
+                    android:text="Ajouter une image "
+                    android:textSize="20sp"
+                    tools:layout_editor_absoluteX="22dp"
+                    tools:layout_editor_absoluteY="507dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+
+                    <Button
+                        android:id="@+id/btnCamera"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginRight="15dp"
+                        android:text="Caméra"
+                        android:textColor="#FFFFFF"
+                        tools:layout_editor_absoluteX="300dp"
+                        tools:layout_editor_absoluteY="507dp" />
+
+                    <Button
+                        android:id="@+id/btnFichier"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginLeft="15dp"
+                        android:text="Gallery"
+                        android:textColor="#FFFFFF"
+                        tools:layout_editor_absoluteX="300dp"
+                        tools:layout_editor_absoluteY="507dp" />
+
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/image_view"
+                    android:layout_width="320dp"
+                    android:layout_height="160dp"
+                    android:src="@drawable/ic_launcher_foreground" />
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnEnregistrer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Enregistrer"
+                        android:textColor="#FFFFFF"
+                        tools:ignore="MissingConstraints"
+                        tools:layout_editor_absoluteX="137dp"
+                        tools:layout_editor_absoluteY="627dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+    </RelativeLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

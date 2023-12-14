@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ReserverVoitureFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/titre_conteneur"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FF9800"
+            android:gravity="center"
+            android:minHeight="160dp">
+
+            <ImageView
+                android:id="@+id/logoblanc"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:src="@drawable/logoblanc" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60dp"
+                android:layout_marginRight="60dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingTop="20dp"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Voitures résevées"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                    android:textColor="@android:color/white"
+                    android:textSize="34sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_medium"
+                    android:text="Voyager librement"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+
+
+
+
+        <!--Ajout d'un relativeLayout pour maintenir le recycleView endessous'-->
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@color/white">
+
+
+            <ImageView
+                android:id="@+id/img_voitures_reservees"
+                android:layout_width="160dp"
+                android:layout_height="120dp"
+                android:layout_marginStart="30dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/toyota_prius" />
+
+            <TextView
+                android:id="@+id/modèle_voitures_reservees"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="30dp"
+                android:textSize="22sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/img_voitures_reservees"
+                app:layout_constraintTop_toTopOf="@id/img_voitures_reservees"
+                tools:text="TOYOTA" />
+
+            <TextView
+                android:id="@+id/année_voitures_reservees"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@id/modèle_voitures_reservees"
+                app:layout_constraintStart_toStartOf="@id/modèle_voitures_reservees"
+                app:layout_constraintTop_toBottomOf="@id/modèle_voitures_reservees"
+                tools:text="2017" />
+
+            <TextView
+                android:id="@+id/passagers_voitures_reservees"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@id/modèle_voitures_reservees"
+                app:layout_constraintStart_toStartOf="@id/modèle_voitures_reservees"
+                app:layout_constraintTop_toBottomOf="@id/année_voitures_reservees"
+                tools:text="6 passagers" />
+
+            <TextView
+                android:id="@+id/propriétaire_voitures_reservees"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@id/modèle_voitures_reservees"
+                app:layout_constraintStart_toStartOf="@id/modèle_voitures_reservees"
+                app:layout_constraintTop_toBottomOf="@id/passagers_voitures_reservees"
+                tools:text="John Doe" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintEnd_toEndOf="@id/modèle_voitures_reservees"
+                app:layout_constraintStart_toStartOf="@id/modèle_voitures_reservees"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/propriétaire_voitures_reservees">
+
+                <TextView
+                    android:id="@+id/date_de_location_reservees"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@id/modèle_voitures_reservees"
+                    app:layout_constraintStart_toStartOf="@id/modèle_voitures_reservees"
+                    app:layout_constraintTop_toBottomOf="@id/année_voitures_reservees"
+                    tools:text=" 00/00/00" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                app:layout_constraintStart_toStartOf="@id/img_voitures_reservees"
+                app:layout_constraintTop_toBottomOf="@id/img_voitures_reservees"
+                android:orientation="horizontal">
+
+
+                <Button
+                    android:id="@+id/retirer"
+                    android:layout_width="40dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_weight="1"
+                    android:text="Retirer" />
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </LinearLayout>
+
+
+</FrameLayout>

@@ -1,3 +1,4 @@
+/*
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
@@ -260,3 +261,5 @@ class BDVoitures(private val context: Context, private val sourceVoitures: Sourc
     const val COL_CHEMIN_IMAGE = "chemin_image"
     }
 }
+
+ */

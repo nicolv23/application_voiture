@@ -2,135 +2,20 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"
-    app:startDestination="@id/connexionVue2">
-    <fragment
-        android:id="@+id/marquesAuto"
-        android:name="com.example.louemonchar.marqueauto.MarquesAuto"
-        android:label="fragment_marques_auto"
-        tools:layout="@layout/fragment_marques_auto">
-        <action
-            android:id="@+id/action_marquesAuto_to_listeVoitures"
-            app:destination="@id/listeVoitures">
-            <argument
-                android:name="marqueAuto"
-                app:argType="string" />
-        </action>
-        <action
-            android:id="@+id/action_marquesAuto_to_connexionVue2"
-            app:destination="@id/connexionVue2" />
-        <action
-            android:id="@+id/action_marquesAuto_to_enregistrer_Voiture_Fragment"
-            app:destination="@id/enregistrer_Voiture_Fragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/listeVoitures"
-        android:name="com.example.louemonchar.ListeVoitures"
-        android:label="fragment_liste_voitures"
-        tools:layout="@layout/fragment_liste_voitures">
-        <action
-            android:id="@+id/action_listeVoitures_to_marquesAuto"
-            app:destination="@id/marquesAuto"
-            app:popUpTo="@id/marquesAuto"
-            app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_listeVoitures_to_enregistrementsModele"
-            app:destination="@id/enregistrementsModele" />
-    </fragment>
-    <fragment
-        android:id="@+id/enregistrementsModele"
-        android:name="com.example.louemonchar.EnregistrementModele"
-        android:label="Enregistrements"
-        tools:layout="@layout/fragment_enregistrement">
-        <action
-            android:id="@+id/action_listeVoitures_to_enregistrementsModele"
-            app:destination="@id/enregistrementsModele">
-            <argument
-                android:name="marqueAuto"
-                app:argType="string" />
-            <argument
-                android:name="modeleEnregistres"
-                app:argType="string[]"
-                app:nullable="true"
-                android:defaultValue="@null" />
-        </action>
+    android:id="@+id/navigation"
+    app:startDestination="@id/connexionVue">
 
-        <action
-            android:id="@+id/action_enregistrementsFragment_to_listeVoitures"
-            app:destination="@id/listeVoitures"
-            app:popUpTo="@id/listeVoitures"
-            app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_enregistrementsFragment_to_écranDétail"
-            app:destination="@id/écranDétail">
-        <argument
-            android:name="modeleSelectionne"
-            app:argType="string" />
-        </action>
-        <action
-            android:id="@+id/action_enregistrementsModele_to_marquesAuto"
-            app:destination="@id/marquesAuto" />
-    </fragment>
     <fragment
-        android:id="@+id/écranDétail"
-        android:name="com.example.louemonchar.détail.EcranDetail"
-        android:label="fragment_écran_détail"
-        tools:layout="@layout/detail_auto">
-
-        <action
-            android:id="@+id/action_enregistrementsFragment_to_écranDétail"
-            app:destination="@id/enregistrementsModele"/>
-        <action
-            android:id="@+id/action_écranDétail_to_vuePaiement"
-            app:destination="@id/vuePaiement" />
-        <action
-            android:id="@+id/action_écranDétail_to_contact"
-            app:destination="@id/contactVue">
-            <argument
-                android:name="marque"
-                app:argType="string" />
-            <argument
-                android:name="modele"
-                app:argType="string" />
-        </action>
-        <action
-            android:id="@+id/action_écranDétail_to_marquesAuto"
-            app:destination="@id/marquesAuto" />
-    </fragment>
-    <fragment
-        android:id="@+id/vuePaiement"
-        android:name="com.example.louemonchar.vue.VuePaiement"
-        android:label="VuePaiement" >
-        <action
-            android:id="@+id/action_vuePaiement_to_écranDétail"
-            app:destination="@id/écranDétail" />
-        <action
-            android:id="@+id/action_vuePaiement_to_marquesAuto"
-            app:destination="@id/marquesAuto" />
-    </fragment>
-    <fragment
-        android:id="@+id/connexionVue2"
+        android:id="@+id/connexionVue"
         android:name="com.example.louemonchar.presentation.connexion.ConnexionVue"
         android:label="fragment_connexion"
         tools:layout="@layout/fragment_connexion" >
         <action
-            android:id="@+id/action_connexionVue2_to_inscriptionVue"
+            android:id="@+id/vers_inscriptionVue"
             app:destination="@id/inscriptionVue" />
         <action
-            android:id="@+id/action_connexionVue2_to_recuperationVue"
-            app:destination="@id/recuperationVue" />
-        <action
-            android:id="@+id/action_connexionVue2_to_marquesAuto"
-            app:destination="@id/marquesAuto" />
-    </fragment>
-    <fragment
-        android:id="@+id/recuperationVue"
-        android:name="com.example.louemonchar.presentation.recuperation.RecuperationVue"
-        android:label="fragment_recuperation"
-        tools:layout="@layout/fragment_recuperation" >
-        <action
-            android:id="@+id/action_recuperationVue_to_connexionVue2"
-            app:destination="@id/connexionVue2" />
+            android:id="@+id/vers_accueilFragment"
+            app:destination="@id/accueilVue" />
     </fragment>
     <fragment
         android:id="@+id/inscriptionVue"
@@ -138,39 +23,118 @@
         android:label="fragment_inscription"
         tools:layout="@layout/fragment_inscription" >
         <action
-            android:id="@+id/action_inscriptionVue_to_connexionVue2"
-            app:destination="@id/connexionVue2" />
+            android:id="@+id/vers_connexionVue"
+            app:destination="@id/connexionVue" />
     </fragment>
     <fragment
-        android:id="@+id/contactVue"
-        android:name="VueContact"
-        android:label="Contact" >
+        android:id="@+id/dateLocationFragment"
+        android:name="com.example.louemonchar.DateLocationFragment"
+        android:label="fragment_date_location"
+        tools:layout="@layout/fragment_date_location" >
         <action
-            android:id="@+id/action_contact_to_écranDétail"
-            app:destination="@id/écranDétail" />
-        <action
-            android:id="@+id/action_contactVue_to_marquesAuto"
-            app:destination="@id/marquesAuto" />
+            android:id="@+id/vers_voituresDisponiblesFragment"
+            app:destination="@id/voituresDisponiblesVue" />
+
+
+
+
+
     </fragment>
     <fragment
-        android:id="@+id/enregistrer_Voiture_Fragment"
-        android:name="com.example.louemonchar.présentation.EnregistrerVoiture.enregistrerVoitureVue"
-        android:label="fragment_enregistrer__voiture_"
-        tools:layout="@layout/fragment_enregistrer__voiture_" >
+        android:id="@+id/enregistrerVoitureVue"
+        android:name="com.example.louemonchar.presentation.enregistrervoiture.EnregistrerVoitureVue"
+        android:label="fragment_enregistrer__voiture"
+        tools:layout="@layout/fragment_enregistrer__voiture" >
         <action
-            android:id="@+id/action_enregistrer_Voiture_Fragment_to_marquesAuto"
-            app:destination="@id/marquesAuto" />
-        <action
-            android:id="@+id/action_enregistrer_Voiture_Fragment_to_navCameraFragment"
-            app:destination="@id/navCameraFragment" />
+            android:id="@+id/vers_cameraVue"
+            app:destination="@id/cameraVue" />
     </fragment>
     <fragment
-        android:id="@+id/navCameraFragment"
-        android:name="com.example.louemonchar.présentation.Camera.cameraVue"
+        android:id="@+id/cameraVue"
+        android:name="com.example.louemonchar.presentation.camera.CameraVue"
         android:label="fragment_nav_camera"
         tools:layout="@layout/fragment_nav_camera" >
         <action
-            android:id="@+id/action_navCameraFragment_to_enregistrer_Voiture_Fragment"
-            app:destination="@id/enregistrer_Voiture_Fragment" />
+            android:id="@+id/vers_enregistrerVoitureVue"
+            app:destination="@id/enregistrerVoitureVue" />
     </fragment>
+    <fragment
+        android:id="@+id/detailsVoitureFragment"
+        android:name="com.example.louemonchar.DetailsVoitureFragment"
+        android:label="fragment_details_voiture"
+        tools:layout="@layout/fragment_details_voiture" >
+        <action
+            android:id="@+id/vers_reserverVoitureFragment"
+            app:destination="@id/reserverVoitureFragment">
+
+        <argument
+            android:name="modèle_voitures_reservees"
+            app:argType="string" />
+        <argument
+            android:name="passagers_voitures_reservees"
+            app:argType="string" />
+        <argument
+            android:name="propriétaire_voitures_reservees"
+            app:argType="string" />
+        <argument
+            android:name="img_voitures_reservees"
+            app:argType="integer" />
+        <argument
+            android:name="année_voitures_reservees"
+            app:argType="string" />
+        <argument
+            android:name="date_de_location_reservees"
+            app:argType="string" />
+        </action>
+        <action
+            android:id="@+id/action_detailsVoitureFragment_to_voituresDisponiblesVue"
+            app:destination="@id/voituresDisponiblesVue" />
+        <action
+            android:id="@+id/action_detailsVoitureFragment_to_enregistrerVoitureVue"
+            app:destination="@id/enregistrerVoitureVue" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/reserverVoitureFragment"
+        android:name="com.example.louemonchar.ReserverVoitureFragment"
+        android:label="fragment_reserver_voiture"
+        tools:layout="@layout/fragment_reserver_voiture" />
+    <fragment
+        android:id="@+id/accueilVue"
+        android:name="com.example.louemonchar.presentation.accueil.AccueilVue"
+        android:label="fragment_accueil"
+        tools:layout="@layout/fragment_accueil" >
+        <action
+            android:id="@+id/versDatelocation"
+            app:destination="@id/dateLocationFragment" >
+
+        <argument
+            android:name="nomVoitures"
+            app:argType="string" />
+        <argument
+            android:name="logoVoitures"
+            app:argType="integer" />
+        </action>
+
+
+        <action
+            android:id="@+id/action_accueilFragment_to_enregistrerVoitureVue"
+            app:destination="@id/enregistrerVoitureVue" />
+        <action
+            android:id="@+id/action_accueilVue_to_voituresDisponiblesVue"
+            app:destination="@id/voituresDisponiblesVue" />
+    </fragment>
+    <fragment
+        android:id="@+id/voituresDisponiblesVue"
+        android:name="com.example.louemonchar.presentation.voituresdisponibles.VoituresDisponiblesVue"
+        android:label="fragment_voitures_disponibles"
+        tools:layout="@layout/fragment_voitures_disponibles" >
+        <action
+            android:id="@+id/vers_detailsVoitureFragment"
+            app:destination="@id/detailsVoitureFragment" />
+        <action
+            android:id="@+id/action_voituresDisponiblesVue_to_enregistrerVoitureVue"
+            app:destination="@id/enregistrerVoitureVue" />
+    </fragment>
+
 </navigation>
