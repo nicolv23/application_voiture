@@ -9,8 +9,8 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.louemonchar.R
 import com.example.louemonchar.VoitureAdapter
@@ -39,6 +39,20 @@ class VoituresDisponiblesVue : Fragment(), VoituresDisponiblesInterface.View,
 
         return binding.root
     }
+
+
+    //code temporaire
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        // ... configuration initiale ...
+
+        // Récupérer le nom du modèle de voiture passé
+        val nomModèle = arguments?.getString("nomModèle")
+        presenter.chargerVoituresParModèle(nomModèle)
+    }
+
+
+
 
     private fun setupRecyclerView() {
         binding.recyclerView.adapter = voitureAdapter
@@ -69,9 +83,7 @@ class VoituresDisponiblesVue : Fragment(), VoituresDisponiblesInterface.View,
         voitureAdapter.notifyDataSetChanged()
     }
 
-    override fun afficherErreur(message: String) {
-        // Affichez une erreur à l'utilisateur, par exemple un Toast ou une Snackbar
-    }
+
 
     fun naviguerVersDétails(voiture: VoitureUiModèle) {
         val bundle = Bundle().apply {
@@ -103,5 +115,9 @@ class VoituresDisponiblesVue : Fragment(), VoituresDisponiblesInterface.View,
             calendar.get(Calendar.DAY_OF_MONTH)
         )
         datePickerDialog.show()
+    }
+
+    override fun afficherErreur(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
     }
 }

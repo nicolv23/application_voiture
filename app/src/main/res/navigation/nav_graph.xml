@@ -99,6 +99,8 @@
         android:name="com.example.louemonchar.ReserverVoitureFragment"
         android:label="fragment_reserver_voiture"
         tools:layout="@layout/fragment_reserver_voiture" />
+
+
     <fragment
         android:id="@+id/accueilVue"
         android:name="com.example.louemonchar.presentation.accueil.AccueilVue"
@@ -114,15 +116,27 @@
         <argument
             android:name="logoVoitures"
             app:argType="integer" />
+
+
         </action>
 
 
         <action
             android:id="@+id/action_accueilFragment_to_enregistrerVoitureVue"
             app:destination="@id/enregistrerVoitureVue" />
+        <!--
         <action
             android:id="@+id/action_accueilVue_to_voituresDisponiblesVue"
             app:destination="@id/voituresDisponiblesVue" />
+            -->
+        <action
+            android:id="@+id/action_accueilVue_to_voituresDisponiblesVue"
+            app:destination="@id/voituresDisponiblesVue">
+            <argument
+                android:name="nomModèle"
+                app:argType="string" />
+        </action>
+
     </fragment>
     <fragment
         android:id="@+id/voituresDisponiblesVue"

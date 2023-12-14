@@ -25,4 +25,17 @@ class VoituresDisponiblesPresentateur(private val view: VoituresDisponiblesInter
         val voituresFiltrées = voitureList.filter { it.location == dateLocation }
         view.afficherVoitures(voituresFiltrées)
     }
+
+
+    //code temporaire
+    override fun chargerVoituresParModèle(nomModèle: String?) {
+        nomModèle?.let {
+            val voituresFiltrées = voitureList.filter { it.modèle.equals(nomModèle, ignoreCase = true) }
+            if (voituresFiltrées.isNotEmpty()) {
+                view.afficherVoitures(voituresFiltrées)
+            } else {
+                view.afficherErreur("Modèle $nomModèle non disponible. Voici les modèles disponibles.")
+            }
+        } ?: view.afficherErreur("Modèle non disponible")
+    }
 }
