@@ -57,8 +57,31 @@
         </LinearLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
+        <ProgressBar
+            android:id="@+id/barreProgression"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/messageChargement"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <RelativeLayout
+        <TextView
+            android:id="@+id/messageChargement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Chargement en cours..."
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/barreProgression" />
+
+
+        <RelativeLayout
         android:id="@+id/relative_recycle_reservees"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
