@@ -17,6 +17,9 @@ interface EnregistrerVoitureInterface {
 
         fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray)
 
+         fun montrerBarreChargement()
+
+         fun cacherBarreChargement()
     }
 
     interface Presentateur {

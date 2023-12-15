@@ -20,6 +20,7 @@ import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.example.louemonchar.R
 import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
@@ -27,6 +28,9 @@ import com.example.louemonchar.MainActivity
 import com.example.louemonchar.databinding.FragmentEnregistrerVoitureBinding
 import com.example.louemonchar.databinding.FragmentVoituresDisponiblesBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.util.Date
 import java.util.Locale
 
@@ -48,13 +52,23 @@ class EnregistrerVoitureVue : Fragment(), EnregistrerVoitureInterface.Vue {
         binding = FragmentEnregistrerVoitureBinding.inflate(inflater, container, false)
        image_view = binding.imageView.findViewById(R.id.image_view)
         presentateur = EnregistrerVoiturePresentateur(this)
+
         setupListeners()
+
         val btnFichier: Button = binding.btnFichier.findViewById(R.id.btnFichier)
         btnFichier.setOnClickListener {
+            montrerBarreChargement()
+            lifecycleScope.launch {
+                // Simulation de chargement pendant 2 secondes
+                delay(2000)
             val fichierIntent = Intent(Intent.ACTION_GET_CONTENT)
             fichierIntent.type = "image/*"
             startActivityForResult(fichierIntent, FILE_PICK_REQUEST_CODE)
+                cacherBarreChargement()
+                afficherMessageChargementTermine()
+            }
         }
+
         val btnCamera: Button = binding.btnCamera.findViewById(R.id.btnCamera)
         btnCamera.setOnClickListener {
             if (allPermissionsGranted()) {
@@ -76,8 +90,15 @@ class EnregistrerVoitureVue : Fragment(), EnregistrerVoitureInterface.Vue {
         Glide.with(this).load(image).into(image_view)
     }
 
+
     override fun navigationVersCamera() {
+        montrerBarreChargement()
+        lifecycleScope.launch {
+            delay(2000)
         Navigation.findNavController(requireView()).navigate(R.id.vers_cameraVue)
+            cacherBarreChargement()
+            afficherMessageChargementTermine()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -130,9 +151,15 @@ class EnregistrerVoitureVue : Fragment(), EnregistrerVoitureInterface.Vue {
 
     private fun setupListeners() {
         binding.choisirDate.setOnClickListener {
+            montrerBarreChargement()
+            lifecycleScope.launch {
+                delay(2000)
             showDatePickerDialog { selectedDate ->
                 presentateur.setDateLocation(selectedDate)
                 binding.date.setText(selectedDate.toString())
+                cacherBarreChargement()
+                afficherMessageChargementTermine()
+            }
             }
         }
     }
@@ -150,6 +177,17 @@ class EnregistrerVoitureVue : Fragment(), EnregistrerVoitureInterface.Vue {
             calendar.get(Calendar.DAY_OF_MONTH)
         )
         datePickerDialog.show()
+    }
+
+    override fun montrerBarreChargement() {
+        binding.barreProgression.visibility = View.VISIBLE
+    }
+
+    override fun cacherBarreChargement() {
+        binding.barreProgression.visibility = View.GONE
+    }
+    private fun afficherMessageChargementTermine() {
+        Snackbar.make(binding.root, "Chargement en cours...", Snackbar.LENGTH_SHORT).show()
     }
 }
 
