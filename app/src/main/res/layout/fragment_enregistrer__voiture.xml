@@ -81,7 +81,7 @@
                 <EditText
                     android:id="@+id/nom"
                     android:layout_width="366dp"
-                    android:layout_height="60dp"
+                    android:layout_height="40dp"
                     android:ems="10"
                     android:hint="Nom complet"
                     android:inputType="text"
@@ -91,7 +91,7 @@
                 <EditText
                     android:id="@+id/marque"
                     android:layout_width="366dp"
-                    android:layout_height="60dp"
+                    android:layout_height="40dp"
                     android:ems="10"
                     android:hint="Marque "
                     android:inputType="text"
@@ -100,7 +100,7 @@
                 <EditText
                     android:id="@+id/modele"
                     android:layout_width="366dp"
-                    android:layout_height="60dp"
+                    android:layout_height="40dp"
                     android:ems="10"
                     android:hint="Modèle "
                     android:inputType="text"
@@ -109,7 +109,7 @@
                 <EditText
                     android:id="@+id/annee"
                     android:layout_width="366dp"
-                    android:layout_height="60dp"
+                    android:layout_height="40dp"
                     android:ems="10"
                     android:hint="Année :"
                     android:inputType="number"
@@ -118,7 +118,7 @@
                 <EditText
                     android:id="@+id/siege"
                     android:layout_width="366dp"
-                    android:layout_height="60dp"
+                    android:layout_height="40dp"
                     android:ems="10"
                     android:hint="Nombre de place "
                     android:inputType="number"
@@ -128,7 +128,7 @@
                 <EditText
                     android:id="@+id/prix"
                     android:layout_width="366dp"
-                    android:layout_height="60dp"
+                    android:layout_height="40dp"
                     android:ems="10"
                     android:hint="Prix par jour de réservation"
                     android:inputType="numberDecimal"
@@ -183,7 +183,7 @@
                     android:id="@+id/image_view"
                     android:layout_width="320dp"
                     android:layout_height="160dp"
-                    android:src="@drawable/ic_launcher_foreground" />
+                    android:src="@drawable/bmw_serie_3" />
 
 
                 <LinearLayout

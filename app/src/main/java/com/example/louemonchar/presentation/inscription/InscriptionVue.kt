@@ -4,13 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
 import androidx.fragment.app.Fragment
-import com.example.louemonchar.R
 import androidx.navigation.Navigation
-import com.example.louemonchar.presentation.connexion.ConnexionInterface
-import com.example.louemonchar.presentation.connexion.ConnexionPrésentateur
+import com.example.louemonchar.MainActivity
+import com.example.louemonchar.R
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class InscriptionVue : Fragment(), InscriptionInterface.Vue {
 
@@ -40,6 +38,31 @@ class InscriptionVue : Fragment(), InscriptionInterface.Vue {
         // Utiliser Navigation component pour naviguer vers InscriptionFragment
         Navigation.findNavController(requireView()).navigate(R.id.vers_connexionVue)
 
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+
+        // Masquer le menu de navigation dans ce fragment
+        (activity as? MainActivity)?.apply {
+            hideBottomNavigation()
+
+            val fab = requireActivity().findViewById<FloatingActionButton>(R.id.floatingActionButton)
+            hideFloatingActionButton(fab)
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        // Réafficher le menu de navigation en quittant ce fragment
+        (activity as? MainActivity)?.apply {
+            showBottomNavigation()
+
+            val fab = requireActivity().findViewById<FloatingActionButton>(R.id.floatingActionButton)
+            showFloatingActionButton(fab)
+        }
     }
 
 }

@@ -11,6 +11,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class AccueilPresentateur(private val accueilVue: AccueilVue, private val accueilModèle: AccueilModèle) {
+    /*
     fun onItemClick(position: Int) {
         accueilVue.montrerChargement()
 
@@ -25,5 +26,14 @@ class AccueilPresentateur(private val accueilVue: AccueilVue, private val accuei
             val action = AccueilVueDirections.actionAccueilVueToVoituresDisponiblesVue()
             accueilVue.findNavController().navigate(action)
         }
+    }
+}
+
+     */
+
+    fun onItemClick(position: Int) {
+        val nomVoiture = accueilModèle.getNomVoiture(position)
+        val action = AccueilVueDirections.actionAccueilVueToVoituresDisponiblesVue(nomVoiture)
+        accueilVue.findNavController().navigate(action)
     }
 }

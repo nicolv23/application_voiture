@@ -3,8 +3,7 @@ package com.example.louemonchar
 
 import com.example.louemonchar.modèle.VoitureUiModèle
 import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.Lazy
+import java.util.Locale
 
 
 object VoitureMock  { //temp
