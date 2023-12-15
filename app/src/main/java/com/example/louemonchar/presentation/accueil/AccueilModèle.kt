@@ -1,5 +1,6 @@
 package com.example.louemonchar.presentation.accueil
 
+import android.view.View
 import com.example.louemonchar.R
 
 class AccueilModèle : AccueilInterface {
@@ -27,6 +28,11 @@ class AccueilModèle : AccueilInterface {
         return nomVoiture.size
     }
 
+    override fun montrerChargement() {
+    }
+
+    override fun cacherChargement() {
+    }
 
 
 

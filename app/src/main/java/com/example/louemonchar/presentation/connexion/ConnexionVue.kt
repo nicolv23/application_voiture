@@ -2,6 +2,8 @@ package com.example.louemonchar.presentation.connexion
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.*
 import android.widget.Button
@@ -12,13 +14,16 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.example.louemonchar.R
 import android.view.MenuInflater
+import android.widget.ProgressBar
 import com.example.louemonchar.MainActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 
 
 class ConnexionVue : Fragment(), ConnexionInterface.Vue {
 
     private lateinit var presentateur: ConnexionInterface.Présentateur
+    private lateinit var barreProgression: ProgressBar
 
     override fun onCreateView(
 
@@ -28,6 +33,7 @@ class ConnexionVue : Fragment(), ConnexionInterface.Vue {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_connexion, container, false)
         presentateur = ConnexionPrésentateur(this)
+        barreProgression = view.findViewById(R.id.barreCirculaire)
         initComponent(view)
         return view
     }
@@ -50,11 +56,6 @@ class ConnexionVue : Fragment(), ConnexionInterface.Vue {
         }
     }
 
-
-
-
-
-
     private fun initComponent(view: View) {
         val leTextCréerUnCompte = view.findViewById<View>(R.id.textCréerUnCompte)
         val leTextVoirGps = view.findViewById<View>(R.id.voirGPS)
@@ -67,17 +68,40 @@ class ConnexionVue : Fragment(), ConnexionInterface.Vue {
 
 
         leBoutonconnexion.setOnClickListener {
-            // Appeler l'action de navigation associée au clic du bouton
+            onButtonClick(it)
             Navigation.findNavController(requireView()).navigate(R.id.vers_accueilFragment)
         }
 
 
         leTextVoirGps.setOnClickListener {
-            // Appeler l'action de navigation associée au clic du bouton
-            //Navigation.findNavController(requireView()).navigate(R.id.action_connexionVue2_to_recuperationVue)
+            if (fragmentDisponible()) {
+                onButtonClick(it)
+            } else {
+                showSnackbarError(view, "Fragment non disponible")
+            }
         }
 
 
+    }
+
+    private fun fragmentDisponible(): Boolean {
+        return isAdded && isVisible
+    }
+
+    private fun showSnackbarError(view: View, message: String) {
+        Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show()
+    }
+
+    private fun montrerBarreProgression() {
+        barreProgression.visibility = View.VISIBLE
+        Handler(Looper.getMainLooper()).postDelayed({
+            cacherBarreProgression()
+        }, 4000)
+    }
+
+
+    private fun cacherBarreProgression() {
+        barreProgression.visibility = View.INVISIBLE
     }
 
     override fun navigationVersInscriptionFragment() {
@@ -126,6 +150,14 @@ class ConnexionVue : Fragment(), ConnexionInterface.Vue {
 
             val fab = requireActivity().findViewById<FloatingActionButton>(R.id.floatingActionButton)
             showFloatingActionButton(fab)
+        }
+    }
+
+    fun onButtonClick(view: View) {
+        when (view.id) {
+            R.id.boutonconnexion, R.id.textCréerUnCompte, R.id.voirGPS -> {
+                montrerBarreProgression()
+            }
         }
     }
 
