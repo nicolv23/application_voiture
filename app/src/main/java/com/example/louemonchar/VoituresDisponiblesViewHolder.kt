@@ -8,8 +8,9 @@ import com.example.louemonchar.databinding.ItemVoituresDisponiblesBinding
 import com.example.louemonchar.http.Auto
 import com.example.louemonchar.modèle.VoitureUiModèle
 import com.example.louemonchar.presentation.voituresdisponibles.VoituresDisponiblesVue
+import java.sql.Date
 import java.text.DateFormat
-
+import java.text.SimpleDateFormat
 
 
 /*
@@ -41,7 +42,7 @@ class VoituresDisponiblesViewHolder(
     private val clickListener: VoitureAdapter.OnItemClickListener
 ) : RecyclerView.ViewHolder(binding.root) {
 
-
+    val format = SimpleDateFormat("yyyy.MM.dd HH:mm")
 
     fun bind(item: Auto, clickListener: VoitureAdapter.OnItemClickListener) {
 
@@ -51,7 +52,7 @@ class VoituresDisponiblesViewHolder(
         Glide.with(itemView.context).load(item.image).into(binding.imgVoituresDisponible)
         binding.modLeVoituresDisponible.text =item.modèle
         binding.annEVoituresDisponible.text = item.année.toString()
-        binding.dateDeLocationDisponible.text = "Disponilbe"
+        binding.dateDeLocationDisponible.text = item.location
         binding.passagersVoituresDisponible.text = "Passgers : "+ 5.toString()
         binding.propriTaireVoituresDisponible.text = "Proprio : "+item.code_propriétaire
 

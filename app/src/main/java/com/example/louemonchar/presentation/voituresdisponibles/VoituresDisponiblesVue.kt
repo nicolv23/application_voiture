@@ -55,7 +55,7 @@ class VoituresDisponiblesVue : Fragment(), VoituresDisponiblesInterface.View,
         binding.boutonDate.setOnClickListener {
             showDatePickerDialog { selectedDate ->
                 presenter.setDateLocation(selectedDate)
-               // presenter.searchByDateRange()
+                presenter.searchByDateRange()
             }
         }
 
@@ -101,7 +101,7 @@ class VoituresDisponiblesVue : Fragment(), VoituresDisponiblesInterface.View,
             putSerializable("annee_details_voiture", voiture.année)
             putString("nombre_details_passager", 5.toString())
             putString("details_nom_propriétaire", voiture.code_propriétaire)
-            putString("details_date_location", "Disponible")
+            putString("details_date_location", voiture.location)
             putString("img_details_voiture", voiture.image)
         }
         findNavController().navigate(R.id.vers_detailsVoitureFragment, bundle)
