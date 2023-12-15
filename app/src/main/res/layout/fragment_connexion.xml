@@ -73,7 +73,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
                 android:orientation="vertical"
                 android:paddingTop="40dp">
 
@@ -124,6 +123,7 @@
                     android:layout_marginTop="@dimen/spacing_xlarge"
                     android:background="@color/background"
                     android:backgroundTint="@color/background"
+                    android:onClick="onButtonClick"
                     android:text="Connexion"
                     android:textColor="@android:color/white"
                     app:rippleColor="#FF9800" />
@@ -132,6 +132,7 @@
                     android:id="@+id/textCréerUnCompte"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:onClick="onButtonClick"
                     android:paddingTop="20dp"
                     android:text="Créer un compte"
                     android:textAlignment="center"
@@ -141,10 +142,21 @@
                     android:id="@+id/voirGPS"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:onClick="onButtonClick"
                     android:paddingTop="20dp"
                     android:text="Voir le gps"
                     android:textAlignment="center"
                     android:textSize="20sp" />
+
+                <ProgressBar
+                    android:id="@+id/barreCirculaire"
+                    style="?android:attr/progressBarStyleLarge"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    android:visibility="gone" />
+
 
             </LinearLayout>
 

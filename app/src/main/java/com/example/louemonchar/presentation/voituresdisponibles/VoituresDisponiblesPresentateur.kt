@@ -13,8 +13,12 @@ class VoituresDisponiblesPresentateur(private val view: VoituresDisponiblesInter
     }
 
     override fun rechercherParModèle(query: String) {
+        montrerBarreChargement()
+
         val filtreVoiture = voitureList.filter { it.modèle.contains(query, true) }
         view.afficherVoitures(filtreVoiture)
+
+        cacherBarreChargement()
     }
 
     override fun setDateLocation(date: java.util.Date) {
@@ -24,5 +28,13 @@ class VoituresDisponiblesPresentateur(private val view: VoituresDisponiblesInter
     override fun searchByDateRange() {
         val voituresFiltrées = voitureList.filter { it.location == dateLocation }
         view.afficherVoitures(voituresFiltrées)
+    }
+
+    private fun montrerBarreChargement() {
+        view.montrerBarreChargement()
+    }
+
+    private fun cacherBarreChargement() {
+        view.cacherBarreChargement()
     }
 }
