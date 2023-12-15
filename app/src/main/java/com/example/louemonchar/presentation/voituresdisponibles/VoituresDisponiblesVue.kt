@@ -95,14 +95,14 @@ class VoituresDisponiblesVue : Fragment(), VoituresDisponiblesInterface.View,
         Snackbar.make(binding.root, "Erreur dans la liste des voitures, veuillez réesayer", Snackbar.LENGTH_LONG).show()
     }
 
-    fun naviguerVersDétails(voiture: VoitureUiModèle) {
+    fun naviguerVersDétails(voiture: Auto) {
         val bundle = Bundle().apply {
             putString("marque_modèle_details_voiture", voiture.modèle)
             putSerializable("annee_details_voiture", voiture.année)
-            putString("nombre_details_passager", voiture.passagers)
-            putString("details_nom_propriétaire", voiture.propriétaire)
-            putSerializable("details_date_location", voiture.location.time) // Date en millisecondes
-            putInt("img_details_voiture", voiture.imageRes)
+            putString("nombre_details_passager", 5.toString())
+            putString("details_nom_propriétaire", voiture.code_propriétaire)
+            putString("details_date_location", "Disponible")
+            putString("img_details_voiture", voiture.image)
         }
         findNavController().navigate(R.id.vers_detailsVoitureFragment, bundle)
     }
@@ -113,7 +113,7 @@ class VoituresDisponiblesVue : Fragment(), VoituresDisponiblesInterface.View,
         lifecycleScope.launch {
             // Simulation de chargement pendant 2 secondes
             delay(2000)
-           // naviguerVersDétails(voiture)
+            naviguerVersDétails(voiture)
             cacherBarreChargement()
             afficherMessageChargementTermine()
         }
