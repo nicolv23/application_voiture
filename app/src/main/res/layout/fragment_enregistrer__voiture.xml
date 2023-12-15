@@ -78,14 +78,7 @@
                 android:orientation="vertical">
 
 
-                <EditText
-                    android:id="@+id/nom"
-                    android:layout_width="366dp"
-                    android:layout_height="40dp"
-                    android:ems="10"
-                    android:hint="Nom complet"
-                    android:inputType="text"
-                    android:textColor="#FFFFFF" />
+
 
 
                 <EditText
@@ -93,16 +86,7 @@
                     android:layout_width="366dp"
                     android:layout_height="40dp"
                     android:ems="10"
-                    android:hint="Marque "
-                    android:inputType="text"
-                    android:textColor="#FFFFFF" />
-
-                <EditText
-                    android:id="@+id/modele"
-                    android:layout_width="366dp"
-                    android:layout_height="40dp"
-                    android:ems="10"
-                    android:hint="Modèle "
+                    android:hint="Marque et modele"
                     android:inputType="text"
                     android:textColor="#FFFFFF" />
 
@@ -123,18 +107,35 @@
                     android:hint="Nombre de place "
                     android:inputType="number"
                     android:textColor="#FFFFFF" />
-
-
                 <EditText
-                    android:id="@+id/prix"
+                    android:id="@+id/nom"
                     android:layout_width="366dp"
                     android:layout_height="40dp"
                     android:ems="10"
-                    android:hint="Prix par jour de réservation"
-                    android:inputType="numberDecimal"
-                    android:keepScreenOn="false"
-
+                    android:hint="Nom complet"
+                    android:inputType="text"
                     android:textColor="#FFFFFF" />
+
+
+
+                <Button
+                    android:id="@+id/choisirDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_weight="1"
+                    android:text="Choisir date de disponibilité" />
+
+                <EditText
+                    android:id="@+id/date"
+                    android:layout_width="366dp"
+                    android:layout_height="40dp"
+                    android:editable="false"
+                    android:ems="10"
+                    android:hint="Date de diponibilité"
+                    android:inputType="none"
+                    android:keepScreenOn="false" />
 
                 <TextView
                     android:id="@+id/img"

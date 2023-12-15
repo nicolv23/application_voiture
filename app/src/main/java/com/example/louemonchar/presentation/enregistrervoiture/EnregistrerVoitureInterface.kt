@@ -14,11 +14,15 @@ interface EnregistrerVoitureInterface {
         fun afficherImage(image:String?)
         fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
         fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
+
+        fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray)
+
     }
 
     interface Presentateur {
         fun utilisationCamera ()
         fun onImageSelectionnee(imageURI:String)
+        fun setDateLocation(date: java.util.Date)
 
     }
 

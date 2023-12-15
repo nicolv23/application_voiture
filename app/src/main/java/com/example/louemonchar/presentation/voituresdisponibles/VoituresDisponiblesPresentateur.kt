@@ -30,6 +30,10 @@ class VoituresDisponiblesPresentateur(private val view: VoituresDisponiblesInter
         view.afficherVoitures(voituresFiltrées)
     }
 
+    override fun chargerVoituresParModèle(nomModèle: String?) {
+        TODO("Not yet implemented")
+    }
+
     private fun montrerBarreChargement() {
         view.montrerBarreChargement()
     }
