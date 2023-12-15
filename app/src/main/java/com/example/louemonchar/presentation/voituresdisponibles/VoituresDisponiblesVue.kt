@@ -9,12 +9,17 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.louemonchar.R
 import com.example.louemonchar.VoitureAdapter
 import com.example.louemonchar.databinding.FragmentVoituresDisponiblesBinding
 import com.example.louemonchar.modèle.VoitureUiModèle
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import java.util.Date
 import java.util.Locale
 
 class VoituresDisponiblesVue : Fragment(), VoituresDisponiblesInterface.View,
@@ -61,15 +66,30 @@ class VoituresDisponiblesVue : Fragment(), VoituresDisponiblesInterface.View,
                 presenter.rechercherParModèle(query)
             }
         })
+
+        binding.rechercheModLe.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                val query = binding.rechercheModLe.text.toString()
+                presenter.rechercherParModèle(query)
+                true
+            } else {
+                false
+            }
+        }
     }
 
     override fun afficherVoitures(voitures: List<VoitureUiModèle>) {
         voitureAdapter.setItems(voitures)
         voitureAdapter.notifyDataSetChanged()
+
+        // Vérifier si la liste de voitures n'est pas vide pour cacher la barre de progression
+        if (voitures.isNotEmpty()) {
+            cacherBarreChargement()
+        }
     }
 
     override fun afficherErreur(message: String) {
-        // Affichez une erreur à l'utilisateur, par exemple un Toast ou une Snackbar
+        Snackbar.make(binding.root, "Erreur dans la liste des voitures, veuillez réesayer", Snackbar.LENGTH_LONG).show()
     }
 
     fun naviguerVersDétails(voiture: VoitureUiModèle) {
@@ -85,10 +105,30 @@ class VoituresDisponiblesVue : Fragment(), VoituresDisponiblesInterface.View,
     }
 
     override fun onItemClick(voiture: VoitureUiModèle) {
-        naviguerVersDétails(voiture)
+        montrerBarreChargement()
+
+        lifecycleScope.launch {
+            // Simulation de chargement pendant 2 secondes
+            delay(2000)
+            naviguerVersDétails(voiture)
+            cacherBarreChargement()
+            afficherMessageChargementTermine()
+        }
     }
 
-    private fun showDatePickerDialog(onDateSelected: (java.util.Date) -> Unit) {
+    override fun montrerBarreChargement() {
+        binding.barreProgression.visibility = View.VISIBLE
+    }
+
+    override fun cacherBarreChargement() {
+        binding.barreProgression.visibility = View.GONE
+    }
+
+    private fun afficherMessageChargementTermine() {
+        Snackbar.make(binding.root, "Chargement du véhicule terminé", Snackbar.LENGTH_SHORT).show()
+    }
+
+    private fun showDatePickerDialog(onDateSelected: (Date) -> Unit) {
         val calendar = Calendar.getInstance()
         val datePickerDialog = DatePickerDialog(
             requireContext(),

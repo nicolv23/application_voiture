@@ -7,6 +7,9 @@ interface VoituresDisponiblesInterface {
     interface View {
         fun afficherVoitures(voitures: List<VoitureUiModèle>)
         fun afficherErreur(message: String)
+        fun montrerBarreChargement()
+        fun cacherBarreChargement()
+
     }
 
     interface Presenter {

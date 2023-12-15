@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.GridView
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.louemonchar.MainActivity
@@ -35,8 +36,23 @@ class AccueilVue : Fragment(), AccueilInterface {
         gridView.adapter = customAdapter
 
         gridView.setOnItemClickListener { _, _, position, _ ->
+            montrerChargement() // Afficher le ProgressBar avant la navigation
             AccueilPresentateur(this, accueilModèle).onItemClick(position)
         }
+    }
+
+    // Méthode pour afficher le ProgressBar
+    override fun montrerChargement() {
+        // Afficher le ProgressBar circulaire
+        val progressBar = view?.findViewById<ProgressBar>(R.id.progressBar)
+        progressBar?.visibility = View.VISIBLE
+    }
+
+    // Méthode pour masquer le ProgressBar
+    override fun cacherChargement() {
+        // Masquer le ProgressBar circulaire
+        val progressBar = view?.findViewById<ProgressBar>(R.id.progressBar)
+        progressBar?.visibility = View.GONE
     }
 
     private inner class CustomAdapter : BaseAdapter() {

@@ -33,4 +33,11 @@
     <dimen name="spacing_xxlarge">50dp</dimen>
     <dimen name="spacing_xxxlarge">55dp</dimen>
     <dimen name="appbar_padding_top">8dp</dimen>
+
+    <style name="CustomProgressBar" parent="android:Widget.ProgressBar.Horizontal">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">4dp</item>
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:progressDrawable">@drawable/demarrage_application</item>
+    </style>
 </resources>

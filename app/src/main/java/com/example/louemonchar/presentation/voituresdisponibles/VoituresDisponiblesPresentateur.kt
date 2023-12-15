@@ -13,8 +13,12 @@ class VoituresDisponiblesPresentateur(private val view: VoituresDisponiblesInter
     }
 
     override fun rechercherParModèle(query: String) {
+        montrerBarreChargement()
+
         val filtreVoiture = voitureList.filter { it.modèle.contains(query, true) }
         view.afficherVoitures(filtreVoiture)
+
+        cacherBarreChargement()
     }
 
     override fun setDateLocation(date: java.util.Date) {
@@ -26,16 +30,11 @@ class VoituresDisponiblesPresentateur(private val view: VoituresDisponiblesInter
         view.afficherVoitures(voituresFiltrées)
     }
 
+    private fun montrerBarreChargement() {
+        view.montrerBarreChargement()
+    }
 
-    //code temporaire
-    override fun chargerVoituresParModèle(nomModèle: String?) {
-        nomModèle?.let {
-            val voituresFiltrées = voitureList.filter { it.modèle.equals(nomModèle, ignoreCase = true) }
-            if (voituresFiltrées.isNotEmpty()) {
-                view.afficherVoitures(voituresFiltrées)
-            } else {
-                view.afficherErreur("Modèle $nomModèle non disponible. Voici les modèles disponibles.")
-            }
-        } ?: view.afficherErreur("Modèle non disponible")
+    private fun cacherBarreChargement() {
+        view.cacherBarreChargement()
     }
 }
