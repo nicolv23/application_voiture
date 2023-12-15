@@ -3,13 +3,13 @@ package com.example.louemonchar
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -63,31 +63,19 @@ class DetailsVoitureFragment : Fragment() {
         imageVoiture.setImageResource(imageResArg)
 
 
-
-
-        //Poure passer les informations à réservée
-        boutonReserver = view.findViewById(R.id.détails) // Assurez-vous que l'ID est correct
-
-        // Ajoutez un OnClickListener au bouton
+        //Fontion sur le bouton pour passer les infos vers réserver
+        boutonReserver = view.findViewById(R.id.détails)
         boutonReserver.setOnClickListener {
-            // Récupérer les informations à transmettre
-            val marqueModele = marqueModèle.text.toString()
-            val annee = année.text.toString()
-            val passagers = nbrPassagers.text.toString()
-            val proprietaire = propriétaire.text.toString()
-            val dateLocation = dateLocation.text.toString()
-            val imageRes = R.id.img_voitures_reservees/* Obtenez l'ID de la ressource de l'image, si nécessaire */
+            val bundle = Bundle().apply {
+                putString("modèle_voitures_reservees", marqueModèle.text.toString())
+                putString("année_voitures_reservees", année.text.toString())
+                putString("passagers_voitures_reservees", nbrPassagers.text.toString())
+                putString("propriétaire_voitures_reservees", propriétaire.text.toString())
+                putString("date_de_location_reservees", dateLocation.text.toString())
+                // Remplacer 'R.drawable.default_image' par votre ressource d'image par défaut
+                putInt("img_voitures_reservees", imageResArg ?: R.drawable.toyota_prius)
+            }
 
-            // Créer un objet Bundle pour transmettre les informations au fragment suivant
-            val bundle = Bundle()
-            bundle.putString("modèle_voitures_reservees", marqueModele)
-            bundle.putString("année_voitures_reservees", annee)
-            bundle.putString("passagers_voitures_reservees", passagers)
-            bundle.putString("propriétaire_voitures_reservees", proprietaire)
-            bundle.putString("date_de_location_reservees", dateLocation)
-            bundle.putInt("img_voitures_reservees", imageRes)
-
-            // Naviguer vers le fragment VoituresReseveesFragment avec les arguments
             view.findNavController().navigate(R.id.vers_reserverVoitureFragment, bundle)
         }
 
