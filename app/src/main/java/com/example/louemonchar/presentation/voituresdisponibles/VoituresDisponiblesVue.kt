@@ -11,10 +11,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.example.louemonchar.MainActivity
 import com.example.louemonchar.R
 import com.example.louemonchar.VoitureAdapter
 import com.example.louemonchar.databinding.FragmentVoituresDisponiblesBinding
+import com.example.louemonchar.http.Auto
 import com.example.louemonchar.modèle.VoitureUiModèle
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.delay
@@ -48,11 +51,11 @@ class VoituresDisponiblesVue : Fragment(), VoituresDisponiblesInterface.View,
         binding.recyclerView.adapter = voitureAdapter
     }
 
-    private fun setupListeners() {
+   private fun setupListeners() {
         binding.boutonDate.setOnClickListener {
             showDatePickerDialog { selectedDate ->
                 presenter.setDateLocation(selectedDate)
-                presenter.searchByDateRange()
+               // presenter.searchByDateRange()
             }
         }
 
@@ -78,7 +81,7 @@ class VoituresDisponiblesVue : Fragment(), VoituresDisponiblesInterface.View,
         }
     }
 
-    override fun afficherVoitures(voitures: List<VoitureUiModèle>) {
+    override fun afficherVoitures(voitures: List<Auto>) {
         voitureAdapter.setItems(voitures)
         voitureAdapter.notifyDataSetChanged()
 
@@ -104,13 +107,13 @@ class VoituresDisponiblesVue : Fragment(), VoituresDisponiblesInterface.View,
         findNavController().navigate(R.id.vers_detailsVoitureFragment, bundle)
     }
 
-    override fun onItemClick(voiture: VoitureUiModèle) {
+    override fun onItemClick(voiture: Auto) {
         montrerBarreChargement()
 
         lifecycleScope.launch {
             // Simulation de chargement pendant 2 secondes
             delay(2000)
-            naviguerVersDétails(voiture)
+           // naviguerVersDétails(voiture)
             cacherBarreChargement()
             afficherMessageChargementTermine()
         }
@@ -142,5 +145,9 @@ class VoituresDisponiblesVue : Fragment(), VoituresDisponiblesInterface.View,
             calendar.get(Calendar.DAY_OF_MONTH)
         )
         datePickerDialog.show()
+    }
+
+    override fun getListe(): List<Auto>{
+        return (activity as MainActivity).liste
     }
 }

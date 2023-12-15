@@ -1,11 +1,12 @@
 package com.example.louemonchar.presentation.voituresdisponibles
 
 import com.example.louemonchar.VoitureMock
+import com.example.louemonchar.http.Auto
 import com.example.louemonchar.modèle.VoitureUiModèle
 
 
 class VoituresDisponiblesPresentateur(private val view: VoituresDisponiblesInterface.View) : VoituresDisponiblesInterface.Presenter {
-    private val voitureList: List<VoitureUiModèle> = VoitureMock.getListeVoiture()
+    private val voitureList: List<Auto> = view.getListe()
     private var dateLocation: java.util.Date? = null
 
     override fun chargerVoitures() {
@@ -25,10 +26,10 @@ class VoituresDisponiblesPresentateur(private val view: VoituresDisponiblesInter
         dateLocation = date
     }
 
-    override fun searchByDateRange() {
+    /*override fun searchByDateRange() {
         val voituresFiltrées = voitureList.filter { it.location == dateLocation }
         view.afficherVoitures(voituresFiltrées)
-    }
+    }*/
 
     private fun montrerBarreChargement() {
         view.montrerBarreChargement()
