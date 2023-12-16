@@ -7,11 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.louemonchar.http.Auto
 
 class ReserverVoitureFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: VoitureReserveeAdapter
+
     private val voituresReservees = mutableListOf<VoitureReservee>()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +39,7 @@ class ReserverVoitureFragment : Fragment() {
                 bundle.getString("passagers_voitures_reservees", ""),
                 bundle.getString("propriétaire_voitures_reservees", ""),
                 bundle.getString("date_de_location_reservees", ""),
-                bundle.getInt("img_voitures_reservees", 0)
+                bundle.getString("img_voitures_reservees", "")
             )
 
             // Ajouter la voiture à la liste si elle n'est pas déjà présente

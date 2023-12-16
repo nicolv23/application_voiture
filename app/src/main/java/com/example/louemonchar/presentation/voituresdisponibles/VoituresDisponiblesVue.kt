@@ -11,10 +11,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.example.louemonchar.MainActivity
 import com.example.louemonchar.R
 import com.example.louemonchar.VoitureAdapter
 import com.example.louemonchar.databinding.FragmentVoituresDisponiblesBinding
+import com.example.louemonchar.http.Auto
 import com.example.louemonchar.modèle.VoitureUiModèle
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.delay
@@ -48,7 +51,7 @@ class VoituresDisponiblesVue : Fragment(), VoituresDisponiblesInterface.View,
         binding.recyclerView.adapter = voitureAdapter
     }
 
-    private fun setupListeners() {
+   private fun setupListeners() {
         binding.boutonDate.setOnClickListener {
             showDatePickerDialog { selectedDate ->
                 presenter.setDateLocation(selectedDate)
@@ -78,7 +81,7 @@ class VoituresDisponiblesVue : Fragment(), VoituresDisponiblesInterface.View,
         }
     }
 
-    override fun afficherVoitures(voitures: List<VoitureUiModèle>) {
+    override fun afficherVoitures(voitures: List<Auto>) {
         voitureAdapter.setItems(voitures)
         voitureAdapter.notifyDataSetChanged()
 
@@ -92,19 +95,19 @@ class VoituresDisponiblesVue : Fragment(), VoituresDisponiblesInterface.View,
         Snackbar.make(binding.root, "Erreur dans la liste des voitures, veuillez réesayer", Snackbar.LENGTH_LONG).show()
     }
 
-    fun naviguerVersDétails(voiture: VoitureUiModèle) {
+    fun naviguerVersDétails(voiture: Auto) {
         val bundle = Bundle().apply {
             putString("marque_modèle_details_voiture", voiture.modèle)
             putSerializable("annee_details_voiture", voiture.année)
-            putString("nombre_details_passager", voiture.passagers)
-            putString("details_nom_propriétaire", voiture.propriétaire)
-            putSerializable("details_date_location", voiture.location.time) // Date en millisecondes
-            putInt("img_details_voiture", voiture.imageRes)
+            putString("nombre_details_passager", 5.toString())
+            putString("details_nom_propriétaire", voiture.code_propriétaire)
+            putString("details_date_location", voiture.location)
+            putString("img_details_voiture", voiture.image)
         }
         findNavController().navigate(R.id.vers_detailsVoitureFragment, bundle)
     }
 
-    override fun onItemClick(voiture: VoitureUiModèle) {
+    override fun onItemClick(voiture: Auto) {
         montrerBarreChargement()
 
         lifecycleScope.launch {
@@ -142,5 +145,9 @@ class VoituresDisponiblesVue : Fragment(), VoituresDisponiblesInterface.View,
             calendar.get(Calendar.DAY_OF_MONTH)
         )
         datePickerDialog.show()
+    }
+
+    override fun getListe(): List<Auto>{
+        return (activity as MainActivity).liste
     }
 }

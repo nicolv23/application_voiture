@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.louemonchar.databinding.ItemVoituresDisponiblesBinding
+import com.example.louemonchar.http.Auto
 import com.example.louemonchar.modèle.VoitureUiModèle
 
 
@@ -11,13 +12,13 @@ import com.example.louemonchar.modèle.VoitureUiModèle
 
 class VoitureAdapter(private val clickListener: OnItemClickListener) : RecyclerView.Adapter<VoituresDisponiblesViewHolder>() {
 
-    private val mItemList = mutableListOf<VoitureUiModèle>()
+    private val mItemList = mutableListOf<Auto>()
 
     interface OnItemClickListener {
-        fun onItemClick(voiture: VoitureUiModèle)
+        fun onItemClick(voiture: Auto)
     }
 
-    fun setItems(itemList: List<VoitureUiModèle>) {
+    fun setItems(itemList: List<Auto>) {
         mItemList.clear()
         mItemList.addAll(itemList)
         notifyDataSetChanged()

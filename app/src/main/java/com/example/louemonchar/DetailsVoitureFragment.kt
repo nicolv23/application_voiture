@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.bumptech.glide.Glide
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -48,19 +49,20 @@ class DetailsVoitureFragment : Fragment() {
         // Récupérer les arguments passés au fragment
         val arguments = requireArguments()
         val marqueModèleArg = arguments.getString("marque_modèle_details_voiture")
-        val annéeArg = arguments.getSerializable("annee_details_voiture") as? Date
+        val annéeArg = arguments.getInt("annee_details_voiture")
         val passagersArg = arguments.getString("nombre_details_passager")
         val proprietaireArg = arguments.getString("details_nom_propriétaire")
-        val dateLocationArg = arguments.getSerializable("details_date_location") as? Date
-        val imageResArg = arguments.getInt("img_details_voiture")
+        val dateLocationArg = arguments.getString("details_date_location")
+        val imageResArg = arguments.getString("img_details_voiture")
 
         // Utiliser les arguments pour mettre à jour les vues du fragment DetailsVoitureFragment
         marqueModèle.text = marqueModèleArg
-        année.text = annéeArg?.let { SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(it) } ?: ""
+        année.text = annéeArg.toString()
         nbrPassagers.text = passagersArg
         propriétaire.text = proprietaireArg
-        dateLocation.text = dateLocationArg?.let { SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(it) } ?: ""
-        imageVoiture.setImageResource(imageResArg)
+        dateLocation.text = dateLocationArg
+        Glide.with(view.context).load(imageResArg).into(imageVoiture)
+
 
 
         //Fontion sur le bouton pour passer les infos vers réserver
@@ -73,7 +75,7 @@ class DetailsVoitureFragment : Fragment() {
                 putString("propriétaire_voitures_reservees", propriétaire.text.toString())
                 putString("date_de_location_reservees", dateLocation.text.toString())
                 // Remplacer 'R.drawable.default_image' par votre ressource d'image par défaut
-                putInt("img_voitures_reservees", imageResArg ?: R.drawable.toyota_prius)
+                putString("img_voitures_reservees", imageResArg)
             }
 
             view.findNavController().navigate(R.id.vers_reserverVoitureFragment, bundle)
