@@ -7,6 +7,8 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.louemonchar.http.Auto
 
 class VoitureReserveeAdapter(
     private val voitures: MutableList<VoitureReservee>,
@@ -29,12 +31,13 @@ class VoitureReserveeAdapter(
         }
 
         fun bind(voiture: VoitureReservee) {
-            imageView.setImageResource(voiture.imageRes)
+
+            Glide.with(itemView.context).load(voiture.imageRes).into(imageView)
             marqueModèleView.text = voiture.marqueModèle
             annéeView.text = voiture.année
-            passagersView.text = voiture.passagers
+            passagersView.text = 5.toString()
             propriétaireView.text = voiture.propriétaire
-            dateLocationView.text = voiture.dateLocation
+            dateLocationView.text = "Disponible"
         }
     }
 
