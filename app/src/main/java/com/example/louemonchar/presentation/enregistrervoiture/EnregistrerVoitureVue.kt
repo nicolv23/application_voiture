@@ -1,14 +1,13 @@
 package com.example.louemonchar.presentation.enregistrervoiture
 
 import android.Manifest
-import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.app.DatePickerDialog
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,7 +15,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -26,7 +24,6 @@ import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.example.louemonchar.MainActivity
 import com.example.louemonchar.databinding.FragmentEnregistrerVoitureBinding
-import com.example.louemonchar.databinding.FragmentVoituresDisponiblesBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.delay
@@ -34,16 +31,15 @@ import kotlinx.coroutines.launch
 import java.util.Date
 import java.util.Locale
 
-
 class EnregistrerVoitureVue : Fragment(), EnregistrerVoitureInterface.Vue {
 
     private lateinit var presentateur: EnregistrerVoitureInterface.Presentateur
     private val FILE_PICK_REQUEST_CODE = 123
     private lateinit var image_view : ImageView
     val REQUEST_CODE_PERMISSIONS = 10
-    val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
+    val REQUETE_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
     private lateinit var binding: FragmentEnregistrerVoitureBinding
-
+    private var imageSelectionné: Uri? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -77,9 +73,37 @@ class EnregistrerVoitureVue : Fragment(), EnregistrerVoitureInterface.Vue {
             {
                 ActivityCompat.requestPermissions(
                     requireActivity(),
-                    REQUIRED_PERMISSIONS,
+                    REQUETE_PERMISSIONS,
                     REQUEST_CODE_PERMISSIONS
                 )
+            }
+        }
+
+        val btnEnregister:Button = binding.btnEnregistrer.findViewById(R.id.btnEnregistrer)
+        btnEnregister.setOnClickListener{
+
+            montrerBarreChargement()
+            lifecycleScope.launch {
+                delay(2000)
+                val code = ""
+                val code_propriétaire= ""
+                val marque = binding.marque.text.toString()
+                val modele = binding.modele.text.toString()
+                val transmission = binding.transmission.text.toString()
+                val annee = binding.annee.text.toString().toIntOrNull() ?: 0
+                val prix = binding.prix.text.toString().toIntOrNull() ?: 0
+                val etat = binding.etat.text.toString()
+                val passagers = binding.siege.text.toString()
+                val proprietaire = binding.nom.text.toString()
+                val locationDate = binding.date.toString()
+                val imageRes = imageSelectionné?.toString() ?: ""
+                val nouvelleVoiture = EnregistrerVoitureModele.nouvelleVoiture(
+                  code, code_propriétaire ,  marque,modele, transmission, annee, prix,etat, passagers, proprietaire, locationDate, imageRes
+                )
+                   presentateur.enregistrerNouvelleVoiture(nouvelleVoiture)
+
+                cacherBarreChargement()
+                afficherMessageChargementTermine()
             }
         }
 
@@ -107,7 +131,9 @@ class EnregistrerVoitureVue : Fragment(), EnregistrerVoitureInterface.Vue {
             val selectedFileUri = data?.data
             Log.d("EnregistrerFragment", "Selected File URI: $selectedFileUri")
             selectedFileUri?.let {
-                presentateur.onImageSelectionnee(it.toString())
+                imageSelectionné = it
+                Glide.with(this).load(imageSelectionné).into(binding.imageView)
+
             }
         }
     }
@@ -135,14 +161,14 @@ class EnregistrerVoitureVue : Fragment(), EnregistrerVoitureInterface.Vue {
             showFloatingActionButton(fab)
         }
     }
-
+//Donne les permissions
     private fun allPermissionsGranted(): Boolean {
-        return REQUIRED_PERMISSIONS.all {
+        return REQUETE_PERMISSIONS.all {
             ContextCompat.checkSelfPermission(requireContext(), it) == PackageManager.PERMISSION_GRANTED
         }
     }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray)
+//Requete de permission
+    override fun requetePermission(requestCode: Int, permissions: Array<out String>, grantResults: IntArray)
     {
         if (requestCode == REQUEST_CODE_PERMISSIONS) {
             presentateur.utilisationCamera()
@@ -155,7 +181,7 @@ class EnregistrerVoitureVue : Fragment(), EnregistrerVoitureInterface.Vue {
             lifecycleScope.launch {
                 delay(2000)
             showDatePickerDialog { selectedDate ->
-                presentateur.setDateLocation(selectedDate)
+                presentateur.mettreDate(selectedDate)
                 binding.date.setText(selectedDate.toString())
                 cacherBarreChargement()
                 afficherMessageChargementTermine()
@@ -178,6 +204,7 @@ class EnregistrerVoitureVue : Fragment(), EnregistrerVoitureInterface.Vue {
         )
         datePickerDialog.show()
     }
+
 
     override fun montrerBarreChargement() {
         binding.barreProgression.visibility = View.VISIBLE
