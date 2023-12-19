@@ -37,8 +37,6 @@ class CameraVue : Fragment(),CameraInterface.Vue {
     private lateinit var viewFinder: PreviewView
     private lateinit var imageCapture: ImageCapture
     private lateinit var presentateur: CameraPresentateur
-    val REQUEST_CODE_PERMISSIONS = 10
-    val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
     private var job: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,15 +47,8 @@ class CameraVue : Fragment(),CameraInterface.Vue {
         val modele = CameraModele(requireContext())
         presentateur = CameraPresentateur(modele,this,requireContext())
         job = CoroutineScope( Dispatchers.IO ).launch {
-            if (allPermissionsGranted()) {
+
                 ouvrirCamera()
-            } else {
-                ActivityCompat.requestPermissions(
-                    requireActivity(),
-                    REQUIRED_PERMISSIONS,
-                    REQUEST_CODE_PERMISSIONS
-                )
-            }
         }
 
     }
@@ -120,20 +111,6 @@ class CameraVue : Fragment(),CameraInterface.Vue {
                 Log.e(ContentValues.TAG, "Binding ne pas fonctionner", exc)
             }
         }, ContextCompat.getMainExecutor(requireContext()))
-    }
-
-    private fun allPermissionsGranted(): Boolean {
-        return REQUIRED_PERMISSIONS.all {
-            ContextCompat.checkSelfPermission(requireContext(), it) == PackageManager.PERMISSION_GRANTED
-        }
-    }
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray)
-    {
-        if (requestCode == REQUEST_CODE_PERMISSIONS) {
-            job = CoroutineScope( Dispatchers.IO ).launch {
-                ouvrirCamera()
-            }
-        }
     }
 
     override fun messagePhotoSauvegarder(savedUri: Uri) {

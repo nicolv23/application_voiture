@@ -18,8 +18,7 @@ interface CameraInterface {
         fun onCreate(savedInstanceState: Bundle?)
         fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?):View?
         fun onViewCreated(view: View, savedInstanceState: Bundle?)
-        fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray)
-    }
+        }
 
     interface Presentateur {
         fun prendrePhoto(imageCapture:ImageCapture)

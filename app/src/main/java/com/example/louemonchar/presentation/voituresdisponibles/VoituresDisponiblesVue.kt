@@ -6,12 +6,14 @@ import android.icu.util.Calendar
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.louemonchar.MainActivity
@@ -20,6 +22,7 @@ import com.example.louemonchar.VoitureAdapter
 import com.example.louemonchar.databinding.FragmentVoituresDisponiblesBinding
 import com.example.louemonchar.http.Auto
 import com.example.louemonchar.modèle.VoitureUiModèle
+import com.example.louemonchar.presentation.enregistrervoiture.PartageVueModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -28,6 +31,7 @@ import java.util.Locale
 
 class VoituresDisponiblesVue : Fragment(), VoituresDisponiblesInterface.View,
     VoitureAdapter.OnItemClickListener {
+    private val partageVueModel: PartageVueModel by viewModels()
 
     private lateinit var binding: FragmentVoituresDisponiblesBinding
     private lateinit var presenter: VoituresDisponiblesInterface.Presenter
@@ -37,11 +41,14 @@ class VoituresDisponiblesVue : Fragment(), VoituresDisponiblesInterface.View,
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         binding = FragmentVoituresDisponiblesBinding.inflate(inflater, container, false)
         presenter = VoituresDisponiblesPresentateur(this)
 
         setupRecyclerView()
         setupListeners()
+
+
 
         presenter.chargerVoitures()
 
@@ -98,7 +105,13 @@ class VoituresDisponiblesVue : Fragment(), VoituresDisponiblesInterface.View,
         }
     }
 
-    override fun afficherVoitures(voitures: List<Auto>) {
+    override fun afficherVoitures(voitures: MutableList<Auto>) {
+        partageVueModel.nouvelleVoiture.observe(viewLifecycleOwner) { nouvVoiture ->
+            if (nouvVoiture != null) {
+                voitureAdapter.addItem(nouvVoiture)
+                partageVueModel.clearNouvelleVoiture()
+            }
+        }
         voitureAdapter.setItems(voitures)
         voitureAdapter.notifyDataSetChanged()
 
@@ -165,7 +178,7 @@ class VoituresDisponiblesVue : Fragment(), VoituresDisponiblesInterface.View,
         datePickerDialog.show()
     }
 
-    override fun getListe(): List<Auto>{
-        return (activity as MainActivity).liste
+    override fun getListe(): MutableList<Auto>{
+        return (activity as MainActivity).liste.toMutableList()
     }
 }

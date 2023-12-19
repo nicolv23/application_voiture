@@ -18,9 +18,15 @@ class VoitureAdapter(private val clickListener: OnItemClickListener) : RecyclerV
         fun onItemClick(voiture: Auto)
     }
 
-    fun setItems(itemList: List<Auto>) {
+    fun setItems(itemList: MutableList<Auto>) {
         mItemList.clear()
         mItemList.addAll(itemList)
+        notifyDataSetChanged()
+    }
+
+    fun addItem(item: Auto) {
+        mItemList.add(item)
+        notifyItemInserted(mItemList.size - 1)
         notifyDataSetChanged()
     }
 

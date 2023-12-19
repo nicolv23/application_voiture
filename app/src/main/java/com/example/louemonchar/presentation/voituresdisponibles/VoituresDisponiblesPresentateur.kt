@@ -11,7 +11,7 @@ import java.util.Locale
 
 
 class VoituresDisponiblesPresentateur(private val view: VoituresDisponiblesInterface.View) : VoituresDisponiblesInterface.Presenter {
-    private val voitureList: List<Auto> = view.getListe()
+    private val voitureList: MutableList<Auto> = view.getListe()
     private var dateLocation: java.util.Date? = null
 
     override fun chargerVoitures() {
@@ -21,8 +21,10 @@ class VoituresDisponiblesPresentateur(private val view: VoituresDisponiblesInter
     override fun rechercherParModèle(query: String) {
         montrerBarreChargement()
 
-        val filtreVoiture = voitureList.filter { it.marque.contains(query, true) }
-        view.afficherVoitures(filtreVoiture)
+
+        val filtreVoiture = voitureList.filter { it.modèle.contains(query, true) }
+        view.afficherVoitures(filtreVoiture.toMutableList())
+
 
         cacherBarreChargement()
     }
@@ -33,8 +35,9 @@ class VoituresDisponiblesPresentateur(private val view: VoituresDisponiblesInter
 
     override fun searchByDateRange() {
         val voituresFiltrées = voitureList.filter {Date(it.location.toDateFormat().time) == dateLocation }
-        view.afficherVoitures(voituresFiltrées)
+        view.afficherVoitures(voituresFiltrées.toMutableList())
     }
+    
 
 
     private fun montrerBarreChargement() {
@@ -55,7 +58,7 @@ class VoituresDisponiblesPresentateur(private val view: VoituresDisponiblesInter
         nomModèle?.let {
             val voituresFiltrées = voitureList.filter { it.marque.equals(nomModèle, ignoreCase = true) }
             if (voituresFiltrées.isNotEmpty()) {
-                view.afficherVoitures(voituresFiltrées)
+                view.afficherVoitures(voituresFiltrées.toMutableList())
             } else {
                 view.afficherErreur("Marque $nomModèle non disponible. Voici les modèles disponibles.")
             }
