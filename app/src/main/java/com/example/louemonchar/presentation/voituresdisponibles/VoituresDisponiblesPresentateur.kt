@@ -11,7 +11,7 @@ import java.util.Locale
 
 
 class VoituresDisponiblesPresentateur(private val view: VoituresDisponiblesInterface.View) : VoituresDisponiblesInterface.Presenter {
-    private val voitureList: List<Auto> = view.getListe()
+    private val voitureList: MutableList<Auto> = view.getListe()
     private var dateLocation: java.util.Date? = null
 
     override fun chargerVoitures() {
@@ -22,7 +22,7 @@ class VoituresDisponiblesPresentateur(private val view: VoituresDisponiblesInter
         montrerBarreChargement()
 
         val filtreVoiture = voitureList.filter { it.modèle.contains(query, true) }
-        view.afficherVoitures(filtreVoiture)
+        view.afficherVoitures(filtreVoiture.toMutableList())
 
         cacherBarreChargement()
     }
@@ -33,12 +33,9 @@ class VoituresDisponiblesPresentateur(private val view: VoituresDisponiblesInter
 
     override fun searchByDateRange() {
         val voituresFiltrées = voitureList.filter {Date(it.location.toDateFormat().time) == dateLocation }
-        view.afficherVoitures(voituresFiltrées)
+        view.afficherVoitures(voituresFiltrées.toMutableList())
     }
-
-    override fun chargerVoituresParModèle(nomModèle: String?) {
-        TODO("Not yet implemented")
-    }
+    
 
     private fun montrerBarreChargement() {
         view.montrerBarreChargement()

@@ -18,12 +18,14 @@ import android.widget.ImageView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.louemonchar.R
 import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.example.louemonchar.MainActivity
 import com.example.louemonchar.databinding.FragmentEnregistrerVoitureBinding
+import com.example.louemonchar.http.Auto
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.delay
@@ -32,6 +34,7 @@ import java.util.Date
 import java.util.Locale
 
 class EnregistrerVoitureVue : Fragment(), EnregistrerVoitureInterface.Vue {
+    private val partageVueModel: PartageVueModel by viewModels()
 
     private lateinit var presentateur: EnregistrerVoitureInterface.Presentateur
     private val FILE_PICK_REQUEST_CODE = 123
@@ -84,8 +87,10 @@ class EnregistrerVoitureVue : Fragment(), EnregistrerVoitureInterface.Vue {
 
             montrerBarreChargement()
             lifecycleScope.launch {
+
                 delay(2000)
-                val code = ""
+
+                    val code = ""
                 val code_propriétaire= ""
                 val marque = binding.marque.text.toString()
                 val modele = binding.modele.text.toString()
@@ -93,16 +98,17 @@ class EnregistrerVoitureVue : Fragment(), EnregistrerVoitureInterface.Vue {
                 val annee = binding.annee.text.toString().toIntOrNull() ?: 0
                 val prix = binding.prix.text.toString().toIntOrNull() ?: 0
                 val etat = binding.etat.text.toString()
-                val passagers = binding.siege.text.toString()
-                val proprietaire = binding.nom.text.toString()
-                val locationDate = binding.date.toString()
-                val imageRes = imageSelectionné?.toString() ?: ""
-                val nouvelleVoiture = EnregistrerVoitureModele.nouvelleVoiture(
-                  code, code_propriétaire ,  marque,modele, transmission, annee, prix,etat, passagers, proprietaire, locationDate, imageRes
-                )
-                   presentateur.enregistrerNouvelleVoiture(nouvelleVoiture)
+                //val passagers = binding.siege.text.toString()
+               // val proprietaire = binding.nom.text.toString()
+                val locationDate = binding.choisirDate.toString()
+                val image = imageSelectionné?.toString() ?: ""
 
-                cacherBarreChargement()
+                val nouvelleVoiture = Auto(
+                  code, code_propriétaire ,  marque,transmission,modele , annee,image,etat,prix,locationDate
+                )
+                  // presentateur.enregistrerNouvelleVoiture(nouvelleVoiture)
+                partageVueModel.voitureEnregistrer(nouvelleVoiture)
+               cacherBarreChargement()
                 afficherMessageChargementTermine()
             }
         }
@@ -216,5 +222,7 @@ class EnregistrerVoitureVue : Fragment(), EnregistrerVoitureInterface.Vue {
     private fun afficherMessageChargementTermine() {
         Snackbar.make(binding.root, "Chargement en cours...", Snackbar.LENGTH_SHORT).show()
     }
+
+
 }
 

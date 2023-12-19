@@ -5,7 +5,7 @@ import java.sql.Date
 
 
 class EnregistrerVoitureModele : EnregistrerVoitureInterface.Modele {
-
+/*
 
     data class nouvelleVoiture(
         val code :String,
@@ -21,9 +21,11 @@ class EnregistrerVoitureModele : EnregistrerVoitureInterface.Modele {
         val location: String,
         val imgage: String
     )
-
     override fun enregistrerNouvelleVoiture(voiture: EnregistrerVoitureModele.nouvelleVoiture, callback: Callback<nouvelleVoiture>) {
         val call = Api.retrofitService.enregistrerVoirure(voiture)
         call.enqueue(callback)
     }
+    */
+
+
 }

@@ -32,11 +32,11 @@ interface EnregistrerVoitureInterface {
         fun onImageSelectionnee(imageURI:String)
         fun mettreDate(date: java.util.Date)
 
-        fun enregistrerNouvelleVoiture(voiture: EnregistrerVoitureModele.nouvelleVoiture)
+       // fun enregistrerNouvelleVoiture(voiture: EnregistrerVoitureModele.nouvelleVoiture)
 
     }
 
     interface Modele {
-        fun enregistrerNouvelleVoiture(voiture: EnregistrerVoitureModele.nouvelleVoiture, callback: Callback<EnregistrerVoitureModele.nouvelleVoiture>)
+    //    fun enregistrerNouvelleVoiture(voiture: EnregistrerVoitureModele.nouvelleVoiture, callback: Callback<EnregistrerVoitureModele.nouvelleVoiture>)
      }
 }

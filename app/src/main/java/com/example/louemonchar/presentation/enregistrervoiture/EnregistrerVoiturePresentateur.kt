@@ -22,7 +22,7 @@ class EnregistrerVoiturePresentateur (private val vue : EnregistrerVoitureInterf
     override fun mettreDate(date: java.util.Date) {
         dateLocation = date
     }
-
+/*
     override fun enregistrerNouvelleVoiture(voiture: EnregistrerVoitureModele.nouvelleVoiture) {
         modele.enregistrerNouvelleVoiture(voiture, object :
             Callback<EnregistrerVoitureModele.nouvelleVoiture> {
@@ -41,6 +41,8 @@ class EnregistrerVoiturePresentateur (private val vue : EnregistrerVoitureInterf
             }
         })
     }
+
+
 
     private fun reponse(response: Response<EnregistrerVoitureModele.nouvelleVoiture>) {
         if (response.isSuccessful) {
@@ -62,6 +64,8 @@ class EnregistrerVoiturePresentateur (private val vue : EnregistrerVoitureInterf
     companion object {
         private const val TAG = "EnregistrerVoiturePresentateur"
     }
+    */
+
 }
 
 
