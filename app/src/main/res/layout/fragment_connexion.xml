@@ -133,20 +133,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick="onButtonClick"
-                    android:paddingTop="20dp"
+                    android:paddingTop="40dp"
                     android:text="Créer un compte"
                     android:textAlignment="center"
                     android:textSize="20sp" />
 
-                <TextView
-                    android:id="@+id/voirGPS"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="onButtonClick"
-                    android:paddingTop="20dp"
-                    android:text="Voir le gps"
-                    android:textAlignment="center"
-                    android:textSize="20sp" />
 
                 <ProgressBar
                     android:id="@+id/barreCirculaire"

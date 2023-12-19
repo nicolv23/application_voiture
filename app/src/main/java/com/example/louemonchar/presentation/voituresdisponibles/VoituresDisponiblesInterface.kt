@@ -20,6 +20,7 @@ interface VoituresDisponiblesInterface {
         fun rechercherParModèle(query: String)
         fun setDateLocation(date: java.util.Date)
         fun searchByDateRange()
+        fun chargerVoituresParModèle(nomModèle: String?)
 
 
         //temp

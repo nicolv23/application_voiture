@@ -21,7 +21,7 @@ class VoituresDisponiblesPresentateur(private val view: VoituresDisponiblesInter
     override fun rechercherParModèle(query: String) {
         montrerBarreChargement()
 
-        val filtreVoiture = voitureList.filter { it.modèle.contains(query, true) }
+        val filtreVoiture = voitureList.filter { it.marque.contains(query, true) }
         view.afficherVoitures(filtreVoiture)
 
         cacherBarreChargement()
@@ -36,6 +36,7 @@ class VoituresDisponiblesPresentateur(private val view: VoituresDisponiblesInter
         view.afficherVoitures(voituresFiltrées)
     }
 
+
     private fun montrerBarreChargement() {
         view.montrerBarreChargement()
     }
@@ -47,6 +48,18 @@ class VoituresDisponiblesPresentateur(private val view: VoituresDisponiblesInter
     fun String.toDateFormat(): Date {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         return dateFormat.parse(this) ?: throw ParseException("Invalid date format", 0)
+    }
+
+    //code temporaire
+    override fun chargerVoituresParModèle(nomModèle: String?) {
+        nomModèle?.let {
+            val voituresFiltrées = voitureList.filter { it.marque.equals(nomModèle, ignoreCase = true) }
+            if (voituresFiltrées.isNotEmpty()) {
+                view.afficherVoitures(voituresFiltrées)
+            } else {
+                view.afficherErreur("Marque $nomModèle non disponible. Voici les modèles disponibles.")
+            }
+        }
     }
 
 }

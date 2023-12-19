@@ -52,7 +52,7 @@ class IntroVue : AppCompatActivity(), IntroInterface.Vue {
         startEnterAnimation()
         Handler().postDelayed({
             startExitAnimation()
-        }, 3000)
+        }, 1500)
 
         // Démarrer la progression de la barre de progression après l'animation de sortie
         Handler().postDelayed({
@@ -85,7 +85,7 @@ class IntroVue : AppCompatActivity(), IntroInterface.Vue {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
-        }, 6800)
+        }, 5000)
     }
 
     private fun startEnterAnimation() {

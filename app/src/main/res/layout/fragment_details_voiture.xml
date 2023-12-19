@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/detailsfragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".presentation.detailsvoiture.DetailsVoitureVue">
+    android:layout_height="match_parent">
 
 
 
@@ -80,118 +79,119 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:gravity="center"
                 android:orientation="vertical"
                 android:paddingTop="30dp">
 
 
-        <ImageView
-            android:id="@+id/img_details_voiture"
-            android:layout_width="match_parent"
-            android:layout_height="180dp"
+                <ImageView
+                    android:id="@+id/img_details_voiture"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
 
-            tools:src="@drawable/toyota_prius" />
+                    tools:src="@drawable/toyota_prius" />
 
-        <TextView
-            android:id="@+id/marque_modèle_details_voiture"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:gravity="center"
-            android:text="Marque voiture"
-            tools:textSize="22sp" />
+                <TextView
+                    android:id="@+id/marque_modèle_details_voiture"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center"
+                    android:text="Marque voiture"
+                    tools:textSize="22sp" />
 
-        <LinearLayout
-            android:id="@+id/modèle"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
-            android:gravity="center"
-            android:orientation="horizontal">
+                <LinearLayout
+                    android:id="@+id/modèle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/label_details_modele"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:text="Année : " />
+                    <TextView
+                        android:id="@+id/label_details_modele"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="Année : " />
 
-            <TextView
-                android:id="@+id/annee_details_voiture"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="2017" />
-        </LinearLayout>
+                    <TextView
+                        android:id="@+id/annee_details_voiture"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="2017" />
+                </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/passagers"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
+                <LinearLayout
+                    android:id="@+id/passagers"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:text="Passagers : " />
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="Passagers : " />
 
-            <TextView
-                android:id="@+id/nombre_details_passager"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="6" />
-        </LinearLayout>
+                    <TextView
+                        android:id="@+id/nombre_details_passager"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="6" />
+                </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/prpriétaire"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
+                <LinearLayout
+                    android:id="@+id/prpriétaire"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:text="Propriétaire : " />
+                    <TextView
+                        android:id="@+id/textView6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="Propriétaire : " />
 
-            <TextView
-                android:id="@+id/details_nom_propriétaire"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="John Doe" />
-        </LinearLayout>
+                    <TextView
+                        android:id="@+id/details_nom_propriétaire"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="John Doe" />
+                </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/location"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
+                <LinearLayout
+                    android:id="@+id/location"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:text="Date de location : " />
+                    <TextView
+                        android:id="@+id/textView8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="Date de location : " />
 
-            <TextView
-                android:id="@+id/details_date_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text=" 00/00/00" />
-        </LinearLayout>
+                    <TextView
+                        android:id="@+id/details_date_location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=" 00/00/00" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -199,7 +199,8 @@
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal"
                     app:layout_constraintStart_toStartOf="@id/img_voitures_disponible"
-                    app:layout_constraintTop_toBottomOf="@id/img_voitures_disponible">
+                    app:layout_constraintTop_toBottomOf="@id/img_voitures_disponible"
+                    tools:layout_marginBottom="10dp">
 
 
                     <Button
@@ -212,7 +213,15 @@
                         android:text="réserver" />
 
                 </LinearLayout>
-    </LinearLayout>
+
+                <TextView
+                    android:id="@+id/localiser"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Localiser voiture" />
+
+            </LinearLayout>
 
         </RelativeLayout>
     </LinearLayout>

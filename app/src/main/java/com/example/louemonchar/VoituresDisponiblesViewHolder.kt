@@ -13,29 +13,7 @@ import java.text.DateFormat
 import java.text.SimpleDateFormat
 
 
-/*
-class VoituresDisponiblesViewHolder (private val binding: ItemVoituresDisponiblesBinding) : RecyclerView.ViewHolder(binding.root) {
 
-    //temp
-
-        //fin
-
-    fun bind(item: VoitureUiModèle) {
-        binding.imgVoituresDisponible.setImageDrawable(ContextCompat.getDrawable(binding.root.context, item.imageRes))
-        binding.modLeVoituresDisponible.text = item.modèle
-        binding.annEVoituresDisponible.text = DateFormat.getDateInstance(DateFormat.MEDIUM).format(item.année)
-        binding.dateDeLocationDisponible.text = DateFormat.getDateInstance(DateFormat.MEDIUM).format(item.location)
-        binding.passagersVoituresDisponible.text = item.passagers
-        binding.propriTaireVoituresDisponible.text = item.propriétaire
-
-
-        //binding.dateDeLocation.text = itemView.findViewById(R.id.date_de_location)
-
-
-    }
-}
-
- */
 
 class VoituresDisponiblesViewHolder(
     private val binding: ItemVoituresDisponiblesBinding,
@@ -50,11 +28,11 @@ class VoituresDisponiblesViewHolder(
 
 
         Glide.with(itemView.context).load(item.image).into(binding.imgVoituresDisponible)
-        binding.modLeVoituresDisponible.text =item.modèle
-        binding.annEVoituresDisponible.text = item.année.toString()
-        binding.dateDeLocationDisponible.text = item.location
+        binding.modLeVoituresDisponible.text = item.marque + " " + item.modèle
+        binding.annEVoituresDisponible.text = "Année : " + " " + item.année.toString()
+        binding.dateDeLocationDisponible.text = "Date location :" + " " + item.location
         binding.passagersVoituresDisponible.text = "Passgers : "+ 5.toString()
-        binding.propriTaireVoituresDisponible.text = "Proprio : "+item.code_propriétaire
+        binding.propriTaireVoituresDisponible.text = "Proprio : " + " " + item.code_propriétaire
 
         // Ajoutez un listener sur l'itemView pour gérer les clics
         itemView.setOnClickListener {

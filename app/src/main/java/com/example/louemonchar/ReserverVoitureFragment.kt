@@ -1,3 +1,4 @@
+
 package com.example.louemonchar
 
 import android.os.Bundle
@@ -5,16 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.louemonchar.http.Auto
 
 class ReserverVoitureFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: VoitureReserveeAdapter
-
-    private val voituresReservees = mutableListOf<VoitureReservee>()
-
+    private lateinit var viewModel: ReserverVoitureViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -22,11 +21,13 @@ class ReserverVoitureFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_reserver_voiture, container, false)
 
+        viewModel = ViewModelProvider(requireActivity()).get(ReserverVoitureViewModel::class.java)
+
         recyclerView = view.findViewById(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(context)
 
-        adapter = VoitureReserveeAdapter(voituresReservees) { position ->
-            voituresReservees.removeAt(position)
+        adapter = VoitureReserveeAdapter(viewModel.voituresReservees) { position ->
+            viewModel.voituresReservees.removeAt(position)
             adapter.notifyItemRemoved(position)
         }
 
@@ -42,13 +43,13 @@ class ReserverVoitureFragment : Fragment() {
                 bundle.getString("img_voitures_reservees", "")
             )
 
-            // Ajouter la voiture à la liste si elle n'est pas déjà présente
-            if (!voituresReservees.contains(nouvelleVoiture)) {
-                voituresReservees.add(nouvelleVoiture)
-                adapter.notifyItemInserted(voituresReservees.size - 1)
+            if (!viewModel.voituresReservees.contains(nouvelleVoiture)) {
+                viewModel.voituresReservees.add(nouvelleVoiture)
+                adapter.notifyItemInserted(viewModel.voituresReservees.size - 1)
             }
         }
 
         return view
     }
 }
+

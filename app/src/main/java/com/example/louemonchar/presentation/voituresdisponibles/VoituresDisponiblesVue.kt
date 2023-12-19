@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -46,6 +47,22 @@ class VoituresDisponiblesVue : Fragment(), VoituresDisponiblesInterface.View,
 
         return binding.root
     }
+
+
+
+
+    //code temporaire
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        // ... configuration initiale ...
+
+        // Récupérer le nom du modèle de voiture passé
+        val nomModèle = arguments?.getString("nomModèle")
+        presenter.chargerVoituresParModèle(nomModèle)
+    }
+
+
+
 
     private fun setupRecyclerView() {
         binding.recyclerView.adapter = voitureAdapter
@@ -92,7 +109,8 @@ class VoituresDisponiblesVue : Fragment(), VoituresDisponiblesInterface.View,
     }
 
     override fun afficherErreur(message: String) {
-        Snackbar.make(binding.root, "Erreur dans la liste des voitures, veuillez réesayer", Snackbar.LENGTH_LONG).show()
+        //Snackbar.make(binding.root, "Erreur dans la liste des voitures, veuillez réesayer", Snackbar.LENGTH_LONG).show()
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
     }
 
     fun naviguerVersDétails(voiture: Auto) {

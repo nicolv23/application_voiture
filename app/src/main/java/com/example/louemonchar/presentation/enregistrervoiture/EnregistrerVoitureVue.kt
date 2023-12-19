@@ -1,8 +1,6 @@
 package com.example.louemonchar.presentation.enregistrervoiture
 
-import android.app.Activity
 import android.app.Activity.RESULT_OK
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -11,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.louemonchar.R
 import androidx.navigation.Navigation
@@ -31,7 +28,7 @@ class EnregistrerVoitureVue : Fragment(), EnregistrerVoitureInterface.Vue {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_enregistrer__voiture, container, false)
-        image_view = view.findViewById(R.id.image_view)
+        image_view = view.findViewById(R.id.image_réserver)
         presentateur = EnregistrerVoiturePresentateur(this)
         initComponent(view)
 
