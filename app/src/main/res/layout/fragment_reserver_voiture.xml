@@ -44,7 +44,7 @@
                     android:text="Voitures résevées"
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                     android:textColor="@android:color/white"
-                    android:textSize="34sp"
+                    android:textSize="28sp"
                     android:textStyle="bold" />
 
                 <TextView

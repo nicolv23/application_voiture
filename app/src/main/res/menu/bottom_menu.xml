@@ -3,8 +3,8 @@
 
     <item
         android:id="@+id/home"
-        android:title="Home"
-        android:icon="@drawable/ic_baseline_home_24"/>
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="Accueil" />
 
     <item
         android:id="@+id/deconnecter"
@@ -18,8 +18,8 @@
 
     <item
         android:id="@+id/enregistrer"
-        android:title="Favoris"
-        android:icon="@drawable/ic_baseline_car_rental_24"/>
+        android:icon="@drawable/ic_baseline_car_rental_24"
+        android:title="Réserver" />
 
     <item
         android:id="@+id/disponible"

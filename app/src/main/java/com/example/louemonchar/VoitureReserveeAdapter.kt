@@ -1,5 +1,6 @@
 package com.example.louemonchar
 
+// Importations nécessaires
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,11 +11,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.louemonchar.http.Auto
 
+// Définition de l'adaptateur personnalisé pour RecyclerView
 class VoitureReserveeAdapter(
-    private val voitures: MutableList<VoitureReservee>,
-    private val onRetirerClicked: (Int) -> Unit
-) : RecyclerView.Adapter<VoitureReserveeAdapter.VoitureViewHolder>() {
+    private val voitures: MutableList<VoitureReservee>,// Liste des voitures réservées
+    private val onRetirerClicked: (Int) -> Unit// Fonction d'appel lorsqu'un bouton est cliqué
+) : RecyclerView.Adapter<VoitureReserveeAdapter.VoitureViewHolder>() {// Hérite de RecyclerView.Adapter
 
+    // Définition du ViewHolder personnalisé
     class VoitureViewHolder(view: View, onRetirerClicked: (Int) -> Unit) : RecyclerView.ViewHolder(view) {
         val imageView: ImageView = view.findViewById(R.id.img_voitures_disponible)
         val marqueModèleView: TextView = view.findViewById(R.id.modèle_voitures_disponible)
@@ -25,11 +28,13 @@ class VoitureReserveeAdapter(
         private val btnRetirer: Button = view.findViewById(R.id.retirer)
 
         init {
+            // Gestion de l'événement de clic sur le bouton de retrait
             btnRetirer.setOnClickListener {
                 onRetirerClicked(adapterPosition)
             }
         }
 
+        // Méthode pour lier les données de voiture à la vue
         fun bind(voiture: VoitureReservee) {
 
             Glide.with(itemView.context).load(voiture.imageRes).into(imageView)
@@ -41,16 +46,19 @@ class VoitureReserveeAdapter(
         }
     }
 
+    // Création du ViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VoitureViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_voiture_reservee, parent, false)
         return VoitureViewHolder(view, onRetirerClicked)
     }
 
+    // Association des données avec le ViewHolder
     override fun onBindViewHolder(holder: VoitureViewHolder, position: Int) {
         val voiture = voitures[position]
         holder.bind(voiture)
     }
 
+    // Obtention du nombre total d'éléments dans la liste
     override fun getItemCount() = voitures.size
 }
 

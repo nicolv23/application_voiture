@@ -58,24 +58,17 @@
         app:layout_constraintTop_toBottomOf="@id/passagers_voitures_disponible"
         tools:text="John Doe" />
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        app:layout_constraintEnd_toEndOf="@id/modèle_voitures_disponible"
-        app:layout_constraintStart_toStartOf="@id/modèle_voitures_disponible"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/propriétaire_voitures_disponible">
 
         <TextView
             android:id="@+id/date_de_location_disponible"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="@id/modèle_voitures_disponible"
             app:layout_constraintStart_toStartOf="@id/modèle_voitures_disponible"
-            app:layout_constraintTop_toBottomOf="@id/année_voitures_disponible"
+            app:layout_constraintTop_toBottomOf="@id/propriétaire_voitures_disponible"
             tools:text=" 00/00/00" />
 
-    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"

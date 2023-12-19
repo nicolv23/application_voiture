@@ -58,27 +58,12 @@ class ConnexionVue : Fragment(), ConnexionInterface.Vue {
 
     private fun initComponent(view: View) {
         val leTextCréerUnCompte = view.findViewById<View>(R.id.textCréerUnCompte)
-        val leTextVoirGps = view.findViewById<View>(R.id.voirGPS)
+
         val leBoutonconnexion = view.findViewById<View>(R.id.boutonconnexion)
 
         leTextCréerUnCompte.setOnClickListener {
             // Appeler la fonction pour changer de fragment
             presentateur.tenterConnexion()
-        }
-
-
-        leBoutonconnexion.setOnClickListener {
-            onButtonClick(it)
-            Navigation.findNavController(requireView()).navigate(R.id.vers_accueilFragment)
-        }
-
-
-        leTextVoirGps.setOnClickListener {
-            if (fragmentDisponible()) {
-                onButtonClick(it)
-            } else {
-                showSnackbarError(view, "Fragment non disponible")
-            }
         }
 
 
@@ -96,7 +81,7 @@ class ConnexionVue : Fragment(), ConnexionInterface.Vue {
         barreProgression.visibility = View.VISIBLE
         Handler(Looper.getMainLooper()).postDelayed({
             cacherBarreProgression()
-        }, 4000)
+        }, 5000)
     }
 
 
@@ -109,22 +94,6 @@ class ConnexionVue : Fragment(), ConnexionInterface.Vue {
         Navigation.findNavController(requireView()).navigate(R.id.vers_inscriptionVue)
 
     }
-
-
-
-
-
-
-
-    /*
-        override fun navigationVersMarquesFragment() {
-            // Utiliser Navigation component pour naviguer vers InscriptionFragment
-            Navigation.findNavController(requireView()).navigate(R.id.Navigation_Vers_MarquesFragment)
-
-        }
-
-     */
-
 
 
 
@@ -153,13 +122,7 @@ class ConnexionVue : Fragment(), ConnexionInterface.Vue {
         }
     }
 
-    fun onButtonClick(view: View) {
-        when (view.id) {
-            R.id.boutonconnexion, R.id.textCréerUnCompte, R.id.voirGPS -> {
-                montrerBarreProgression()
-            }
-        }
-    }
+
 
 
 }

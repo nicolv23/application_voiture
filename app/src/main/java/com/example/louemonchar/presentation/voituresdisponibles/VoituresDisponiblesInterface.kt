@@ -6,11 +6,11 @@ import com.example.louemonchar.modèle.VoitureUiModèle
 interface VoituresDisponiblesInterface {
 
     interface View {
-        fun afficherVoitures(voitures: List<Auto>)
+        fun afficherVoitures(voitures: MutableList<Auto>)
         fun afficherErreur(message: String)
         fun montrerBarreChargement()
         fun cacherBarreChargement()
-        fun getListe(): List<Auto>
+        fun getListe(): MutableList<Auto>
 
 
     }
@@ -20,6 +20,7 @@ interface VoituresDisponiblesInterface {
         fun rechercherParModèle(query: String)
         fun setDateLocation(date: java.util.Date)
         fun searchByDateRange()
+        fun chargerVoituresParModèle(nomModèle: String?)
 
 
         //temp
