@@ -210,7 +210,7 @@
                         android:layout_marginStart="30dp"
                         android:layout_marginEnd="15dp"
                         android:layout_weight="1"
-                        android:text="réserver" />
+                        android:text="@string/Book" />
 
                 </LinearLayout>
 

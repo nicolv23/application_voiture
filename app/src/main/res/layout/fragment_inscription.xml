@@ -42,7 +42,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Inscription"
+                    android:text="@string/inscription"
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                     android:textColor="@android:color/white"
                     android:textSize="34sp"
@@ -175,7 +175,7 @@
                         android:layout_marginTop="@dimen/spacing_large"
                         android:background="@color/background"
                         android:gravity="center"
-                        android:text="S'enregistrer"
+                        android:text="@string/inscription"
                         android:textColor="@android:color/white" />
 
                     <TextView

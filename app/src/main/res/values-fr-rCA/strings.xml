@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Louemonchar</string>
+    <string name="marque_de_voiture">Marque</string>
+    <string name="voyager_librement">Voyager Librement</string>
+    <string name="d_tails_voitures">Détails voitures</string>
+    <string name="connexion">Connexion</string>
+    <string name="inscription">Inscription</string>
+    <string name="Accueil">Accueil</string>
+    <string name="SearchByDate">Filtrer par Date</string>
+    <string name="Book">Réserver</string>
+    <string name="slogan">VOYAGER LIBREMENT</string>
+    <string name="chargement">Chargement De Louemonchar...</string>
+
+</resources>

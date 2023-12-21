@@ -44,7 +44,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Connexion"
+                    android:text="@string/connexion"
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                     android:textColor="@android:color/white"
                     android:textSize="34sp"
@@ -124,7 +124,7 @@
                     android:background="@color/background"
                     android:backgroundTint="@color/background"
                     android:onClick="onButtonClick"
-                    android:text="Connexion"
+                    android:text="@string/connexion"
                     android:textColor="@android:color/white"
                     app:rippleColor="#FF9800" />
 

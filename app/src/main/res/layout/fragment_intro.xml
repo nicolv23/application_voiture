@@ -20,14 +20,14 @@
         android:id="@+id/texteProgression"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Démarrage de LoueMonChar..."
+        android:layout_above="@id/barreDemarrage"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="25dp"
+        android:text="@string/chargement"
         android:textColor="@android:color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:layout_marginBottom="25dp"
-        android:layout_centerHorizontal="true"
-        android:visibility="invisible"
-        android:layout_above="@id/barreDemarrage" />
+        android:visibility="invisible" />
 
     <TextView
         android:id="@+id/pourcentage"
@@ -100,7 +100,7 @@
                 android:layout_marginStart="50dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginBottom="15dp"
-                android:text="LOUEMONCHAR"
+                android:text="@string/app_name"
                 android:textColor="@color/background"
                 android:textSize="24sp"
                 android:visibility="invisible"
@@ -120,7 +120,7 @@
                 android:layout_marginStart="50dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginBottom="50dp"
-                android:text="VOYAGER LIBREMENT"
+                android:text="@string/slogan"
                 android:textColor="@color/background"
                 android:textSize="18sp"
                 android:visibility="invisible"
