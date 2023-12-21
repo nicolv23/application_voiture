@@ -65,7 +65,10 @@
         </com.google.android.material.appbar.AppBarLayout>
 
 
-
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp">
 
 
         <RelativeLayout
@@ -99,6 +102,29 @@
                     android:gravity="center"
                     android:text="Marque voiture"
                     tools:textSize="22sp" />
+                <LinearLayout
+                    android:id="@+id/code"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/label_details_code_voiture"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="Code : " />
+
+                    <TextView
+                        android:id="@+id/code_details_voiture"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="code" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/modèleVoiture"
@@ -123,8 +149,9 @@
                         android:layout_weight="1"
                         android:text="modèle" />
                 </LinearLayout>
+
                 <LinearLayout
-                    android:id="@+id/modèle"
+                    android:id="@+id/transmission"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="5dp"
@@ -132,7 +159,31 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/label_details_modele"
+                        android:id="@+id/label_details_tranmission_voiture"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="Transmission : " />
+
+                    <TextView
+                        android:id="@+id/transmission_details_voiture"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="trasmission" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/année"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/label_details_année"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -171,7 +222,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/prpriétaire"
+                    android:id="@+id/propriétaire"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="5dp"
@@ -191,6 +242,50 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="John Doe" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/prix"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="Prix : " />
+
+                    <TextView
+                        android:id="@+id/details_prix"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="prix" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/état"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="État : " />
+
+                    <TextView
+                        android:id="@+id/details_état"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Disponible" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -235,6 +330,17 @@
                         android:layout_weight="1"
                         android:text="réserver" />
 
+                    <ImageButton
+
+                        android:id="@+id/ajouterFavoris"
+                        android:layout_width="30dp"
+                        android:layout_height="40dp"
+                        android:backgroundTint="#FF9800"
+                        android:src="@drawable/ic_baseline_whatshot_24"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/img_voitures_disponible" />
+
+
                 </LinearLayout>
 
                 <TextView
@@ -247,6 +353,7 @@
             </LinearLayout>
 
         </RelativeLayout>
+        </ScrollView>
     </LinearLayout>
 
 

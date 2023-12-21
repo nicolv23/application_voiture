@@ -8,6 +8,8 @@
     android:background="@color/white"
     android:id="@+id/item_voitures_disponible">
 
+
+
     <ImageView
         android:id="@+id/img_voitures_disponible"
         android:layout_width="160dp"

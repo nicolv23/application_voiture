@@ -1,265 +1,125 @@
-/*
-import android.annotation.SuppressLint
+
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import android.util.Log
-import androidx.core.content.ContentProviderCompat.requireContext
-import com.example.louemonchar.détail.DetailsVoiture
-import com.example.louemonchar.sourceDonnees.ProprietaireModele
-import com.example.louemonchar.sourceDonnees.SourceDeVoituresBidon
+import com.example.louemonchar.http.Auto
 
-interface SourceVoitures {
-    fun getModelesDeVoiture(): Map<String, List<String>>
-    fun getModelesEnregistres(): Map<String, List<String>>
-    fun obtenirProprietaire(modele: String): ProprietaireModele?
-}
 
-class BDVoitures(private val context: Context, private val sourceVoitures: SourceDeVoituresBidon) :
+class BDVoitures(private val context: Context) :
     SQLiteOpenHelper(context, NOM_BASE_DE_DONNEES, null, VERSION_BASE_DE_DONNEES) {
 
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(
-            "CREATE TABLE IF NOT EXISTS $TABLE_MODELES_VOITURE (" +
-                    "$COL_ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    "$COL_MARQUE TEXT, " +
-                    "$COL_MODELE TEXT)"
-        )
+            "CREATE TABLE IF NOT EXISTS $NOM_TABLE (" +
 
-        db.execSQL(
-            "CREATE TABLE IF NOT EXISTS $TABLE_PROPRIETAIRES (" +
-                    "$COL_ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    "$COL_NOM TEXT, " +
-                    "$COL_TELEPHONE TEXT, " +
-                    "$COL_EMAIL TEXT, " +
-                    "$COL_HORAIRE_TRAVAIL TEXT, " +
-                    "$COL_CHEMIN_IMAGE INTEGER, " +
-                    "$COL_MODELE TEXT)"
-        )
-
-        db.execSQL(
-            "CREATE TABLE IF NOT EXISTS $TABLE_VOITURES_ENREGISTREES (" +
-                    "$COL_ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    "$COL_MARQUE TEXT, " +
-                    "$COL_MODELE TEXT, " +
-                    "$COL_PROPRIETAIRE_ID INTEGER, " + // Clé étrangère vers la table des propriétaires
-                    "FOREIGN KEY($COL_PROPRIETAIRE_ID) REFERENCES $TABLE_PROPRIETAIRES($COL_ID))"
+                    "$COL_CODE TEXT PRIMARY KEY NOT NULL , " +
+                    "$COL_PROPRIETAIRE_CODE TEXT NOT NULL, " +
+                    "$COL_MARQUE TEXT NOT NULL, " +
+                    "$COL_TRANSMISSION TEXT NOT NULL, " +
+                    "$COL_MODELE TEXT NOT NULL, " +
+                    "$COL_ANNEE INTEGER NOT NULL, " +
+                    "$COL_IMAGE TEXT NOT NULL, " +
+                    "$COL_ETAT TEXT NOT NULL, " +
+                    "$COL_PRIX INTEGER NOT NULL, " +
+                    "$COL_LOCATION TEXT NOT NULL)"
         )
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        db.execSQL("DROP TABLE IF EXISTS $TABLE_MODELES_VOITURE")
-        db.execSQL("DROP TABLE IF EXISTS $TABLE_PROPRIETAIRES")
-        db.execSQL("DROP TABLE IF EXISTS $TABLE_VOITURES_ENREGISTREES")
+        db.execSQL("DROP TABLE IF EXISTS $NOM_TABLE")
         onCreate(db)
     }
+    fun insererVoiture (voiture: Auto) :Long{
+        val db = this.writableDatabase
+        val contentValues = ContentValues()
 
-    fun initialiserBD() {
-        val sourceBidon = SourceDeVoituresBidon(context)
+        contentValues.put(COL_CODE,voiture.code)
+        contentValues.put(COL_PROPRIETAIRE_CODE,voiture.code_propriétaire)
+        contentValues.put(COL_MARQUE,voiture.marque)
+        contentValues.put(COL_TRANSMISSION,voiture.transmission)
+        contentValues.put(COL_MODELE,voiture.modèle)
+        contentValues.put(COL_ANNEE,voiture.année)
+        contentValues.put(COL_IMAGE,voiture.image)
+        contentValues.put(COL_ETAT,voiture.etat)
+        contentValues.put(COL_PRIX,voiture.prix)
+        contentValues.put(COL_LOCATION,voiture.location)
 
-        // Insérer les modèles de voiture depuis la source de données bidon dans la base de données
-        sourceBidon.getModelesDeVoiture().forEach { (marque, modelesList) ->
-            modelesList.forEach { modele ->
-                insererModelesDeVoiture(marque, modele)
-            }
-        }
-
-        // Insérer les propriétaires des modèles enregistrés dans la base de données
-        sourceBidon.getModelesEnregistres().forEach { (marque, modelesList) ->
-            modelesList.forEach { modele ->
-                val proprietaire = sourceBidon.obtenirProprietaire(modele)
-                proprietaire?.let {
-                    insererProprietaires(it)
-                    enregistrerModele(marque, modele)
-                }
-            }
-        }
+        val succes = db.insert(NOM_TABLE, null,contentValues)
+        db.close()
+        return succes
     }
 
-    fun insererModelesDeVoiture(marque: String, modele: String) {
-        writableDatabase.use { db ->
-            val values = ContentValues().apply {
-                put(COL_MARQUE, marque)
-                put(COL_MODELE, modele)
-            }
-            db.insert(TABLE_MODELES_VOITURE, null, values)
-        }
-    }
-
-    fun insererProprietaires(proprietaire: ProprietaireModele) {
-        writableDatabase.use { db ->
-            val values = ContentValues().apply {
-                put(COL_NOM, proprietaire.nom)
-                put(COL_TELEPHONE, proprietaire.telephone)
-                put(COL_EMAIL, proprietaire.email)
-                put(COL_HORAIRE_TRAVAIL, proprietaire.horaireTravail)
-                put(COL_CHEMIN_IMAGE, proprietaire.cheminImage)
-            }
-            db.insert(TABLE_PROPRIETAIRES, null, values)
-        }
-    }
-
-
-    fun obtenirIdDernierProprietaireInserer(): Long {
+    fun getLesVoitureFavoris(): List<Auto> {
+        val voitureFavoris = mutableListOf<Auto>()
         val db = readableDatabase
-        val query = "SELECT $COL_ID FROM $TABLE_PROPRIETAIRES ORDER BY $COL_ID DESC LIMIT 1"
-        val cursor = db.rawQuery(query, null)
-        var id: Long = -1
+        val cursor = db.query(NOM_TABLE, null, null, null, null, null, null)
 
         cursor?.use {
-            if (it.moveToFirst()) {
-                val idIndex = it.getColumnIndex(COL_ID)
-                id = it.getLong(idIndex)
-            }
-        }
-
-        cursor?.close()
-        return id
-    }
-
-    fun enregistrerModele(marque: String, modele: String) {
-        writableDatabase.use { db ->
-            val values = ContentValues().apply {
-                put(COL_MARQUE, marque)
-                put(COL_MODELE, modele)
-            }
-            db.insert(TABLE_VOITURES_ENREGISTREES, null, values)
-        }
-    }
-
-    fun modeleEstEnregistre(marque: String, modele: String): Boolean {
-        val bdVoitures = BDVoitures(context, SourceDeVoituresBidon(context))
-        val modelesEnregistres = bdVoitures.lireModelesEnregistres()
-        return modelesEnregistres.contains(modele)
-    }
-
-
-    fun lireModelesEnregistres(): List<String> {
-        val modelesEnregistres = mutableListOf<String>()
-        val selectQuery = "SELECT $COL_MODELE FROM $TABLE_VOITURES_ENREGISTREES"
-        val db = this.readableDatabase
-
-        db.rawQuery(selectQuery, null)?.use { cursor ->
-            val modeleIndex = cursor.getColumnIndex(COL_MODELE)
-            if (modeleIndex != -1) {
-                cursor.moveToFirst()
-                while (!cursor.isAfterLast) {
-                    val modele = cursor.getString(modeleIndex)
-                    modelesEnregistres.add(modele)
-                    cursor.moveToNext()
+            val nomColonne = cursor.columnNames
+            while (it.moveToNext()) {
+                val values = ContentValues()
+                for (colonne_nom in nomColonne) {
+                    val columnIndex = cursor.getColumnIndex(colonne_nom)
+                    when (cursor.getType(columnIndex)) {
+                        Cursor.FIELD_TYPE_NULL -> values.putNull(colonne_nom)
+                        Cursor.FIELD_TYPE_INTEGER -> values.put(colonne_nom, cursor.getInt(columnIndex))
+                        Cursor.FIELD_TYPE_FLOAT -> values.put(colonne_nom, cursor.getFloat(columnIndex))
+                        Cursor.FIELD_TYPE_STRING -> values.put(colonne_nom, cursor.getString(columnIndex))
+                        Cursor.FIELD_TYPE_BLOB -> values.put(colonne_nom, cursor.getBlob(columnIndex))
+                    }
                 }
-            } else {
-                Log.e("CursorError", "La colonne $COL_MODELE n'existe pas dans le Cursor.")
-                return emptyList()
-            }
-        }
-        return modelesEnregistres
-    }
+                val code = values.getAsString(COL_CODE)
+                val code_proprio = values.getAsString(COL_PROPRIETAIRE_CODE)
+                val marque = values.getAsString(COL_MARQUE)
+                val transmission = values.getAsString(COL_TRANSMISSION)
+                val modele = values.getAsString(COL_MODELE)
+                val prix = values.getAsInteger(COL_PRIX)
+                val location = values.getAsString(COL_LOCATION)
+                val etat = values.getAsString(COL_ETAT)
+                val img = values.getAsString(COL_IMAGE)
+                val annee = values.getAsInteger(COL_ANNEE)
 
-    fun getMarqueDuModele(modele: String): String {
-        val db = readableDatabase
-        val selectQuery = "SELECT $COL_MARQUE FROM $TABLE_MODELES_VOITURE WHERE $COL_MODELE = ?"
-        val cursor = db.rawQuery(selectQuery, arrayOf(modele))
-
-        var marque = ""
-        cursor?.use {
-            if (it.moveToFirst()) {
-                val marqueIndex = it.getColumnIndex(COL_MARQUE)
-                marque = it.getString(marqueIndex)
+                val favoris = Auto(code, code_proprio, marque, transmission, modele, annee, img, etat, prix, location)
+                voitureFavoris.add(favoris)
             }
         }
         cursor?.close()
-        return marque
+        db.close()
+        return voitureFavoris
     }
+
+
 
     fun effacerModele(marque: String, modele: String) {
         writableDatabase.use { db ->
             val whereClause = "$COL_MARQUE = ? AND $COL_MODELE = ?"
             val whereArgs = arrayOf(marque, modele)
-            db.delete(TABLE_MODELES_VOITURE, whereClause, whereArgs)
+            db.delete(NOM_TABLE, whereClause, whereArgs)
         }
     }
 
-    fun obtenirProprietaire(modele: String): ProprietaireModele? {
-        val db = readableDatabase
-        val selectQuery = "SELECT * FROM $TABLE_PROPRIETAIRES WHERE $COL_MODELE = ?"
-        val cursor = db.rawQuery(selectQuery, arrayOf(modele))
-
-        var proprietaire: ProprietaireModele? = null
-
-        cursor?.use {
-            if (it.moveToFirst()) {
-                val nomIndex = it.getColumnIndex(COL_NOM)
-                val emailIndex = it.getColumnIndex(COL_EMAIL)
-                val telephoneIndex = it.getColumnIndex(COL_TELEPHONE)
-                val horaireTravailIndex = it.getColumnIndex(COL_HORAIRE_TRAVAIL)
-                val modeleIndex = it.getColumnIndex(COL_MODELE)
-                val cheminImageIndex = it.getColumnIndex(COL_CHEMIN_IMAGE)
-
-                val nomProprietaire = it.getString(nomIndex)
-                val email = it.getString(emailIndex)
-                val telephone = it.getString(telephoneIndex)
-                val horaireTravail = it.getString(horaireTravailIndex)
-                val cheminImage = it.getInt(cheminImageIndex)
-
-                proprietaire = ProprietaireModele(
-                    nomProprietaire,
-                    email,
-                    telephone,
-                    horaireTravail,
-                    modele,
-                    cheminImage
-                )
-            }
-        }
-
-        cursor?.close()
-        return proprietaire
-    }
-
-    @SuppressLint("Range")
-    fun obtenirDetailsVoiture(modele: String): DetailsVoiture? {
-        val db = readableDatabase
-        val selectQuery =
-            "SELECT $COL_MARQUE, $COL_MODELE FROM $TABLE_MODELES_VOITURE WHERE $COL_MODELE = ?"
-        val cursor = db.rawQuery(selectQuery, arrayOf(modele))
-
-        var detailsVoiture: DetailsVoiture? = null
-
-        cursor?.use {
-            if (it.moveToFirst()) {
-                // Récupération des détails de la voiture depuis le curseur
-                val marque = it.getString(it.getColumnIndex(COL_MARQUE))
-                val modele = it.getString(it.getColumnIndex(COL_MODELE))
-
-                // Création de l'objet DetailsVoiture
-                detailsVoiture = DetailsVoiture(marque, modele)
-            }
-        }
-        cursor?.close()
-        return detailsVoiture
-    }
 
 
     companion object {
-    private const val NOM_BASE_DE_DONNEES = "LoueMonCharBD"
+        // Noms de tables et colonnes
+    private const val NOM_BASE_DE_DONNEES = "voitureFavoris"
     private const val VERSION_BASE_DE_DONNEES = 1
 
-    // Noms de tables et colonnes
-    const val TABLE_MODELES_VOITURE = "modeles_voiture"
-    const val TABLE_PROPRIETAIRES = "proprietaires"
-    const val TABLE_VOITURES_ENREGISTREES = "voitures_enregistrees"
-    const val COL_PROPRIETAIRE_ID = "proprietaire_id"
-    const val COL_ID = "id"
-    const val COL_MARQUE = "marque"
-    const val COL_MODELE = "modele"
-    const val COL_NOM = "nom"
-    const val COL_TELEPHONE = "telephone"
-    const val COL_EMAIL = "email"
-    const val COL_HORAIRE_TRAVAIL = "horaire_travail"
-    const val COL_CHEMIN_IMAGE = "chemin_image"
+        const val NOM_TABLE = "voiture_favorite"
+        const val ID = "id"
+        const val COL_CODE = "code"
+        const val COL_PROPRIETAIRE_CODE = "code_proprietaire"
+        const val COL_MARQUE = "marque"
+        const val COL_TRANSMISSION = "transmission"
+        const val COL_MODELE = "modele"
+        const val COL_ANNEE = "annee"
+        const val COL_IMAGE = "image"
+        const val COL_ETAT = "etat"
+        const val COL_PRIX = "prix"
+        const val COL_LOCATION = "location"
     }
 }
 
- */
+

@@ -28,6 +28,7 @@ class VoituresDisponiblesViewHolder(
 
 
         Glide.with(itemView.context).load(item.image).into(binding.imgVoituresDisponible)
+
         binding.modLeVoituresDisponible.text = item.marque// + " " + item.modèle
         binding.annEVoituresDisponible.text = "Année : " + " " + item.année.toString()
         binding.modelVoiture.text=  "Modèle : "+item.modèle
