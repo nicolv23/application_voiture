@@ -3,7 +3,6 @@ package com.example.louemonchar.presentation.enregistrervoiture
 import android.app.Activity.RESULT_OK
 
 import android.Manifest
-import android.app.Activity.RESULT_OK
 import android.app.DatePickerDialog
 
 import android.content.Intent
@@ -96,24 +95,22 @@ class EnregistrerVoitureVue : Fragment(), EnregistrerVoitureInterface.Vue {
 
                 delay(2000)
 
-                    val code = ""
-                val code_propriétaire= ""
+                val code = binding.id.toString()
+                val code_propriétaire= binding.IdPropio.toString()
                 val marque = binding.marque.text.toString()
-                val modele = binding.modele.text.toString()
                 val transmission = binding.transmission.text.toString()
+                val modele = binding.modele.text.toString()
                 val annee = binding.annee.text.toString().toIntOrNull() ?: 0
-                val prix = binding.prix.text.toString().toIntOrNull() ?: 0
-                val etat = binding.etat.text.toString()
-                //val passagers = binding.siege.text.toString()
-               // val proprietaire = binding.nom.text.toString()
-                val locationDate = binding.choisirDate.toString()
                 val image = imageSelectionné?.toString() ?: ""
+                val etat = binding.etat.text.toString()
+                val prix = binding.prix.text.toString().toIntOrNull() ?: 0
+                val locationDate = binding.choisirDate.toString()
 
                 val nouvelleVoiture = Auto(
-                  code, code_propriétaire ,  marque,transmission,modele , annee,image,etat,prix,locationDate
-                )
-                  // presentateur.enregistrerNouvelleVoiture(nouvelleVoiture)
-                partageVueModel.voitureEnregistrer(nouvelleVoiture)
+                  code,code_propriétaire,marque,transmission,modele , annee,image,etat,prix,locationDate)
+                   presentateur.enregistrerNouvelleVoiture(nouvelleVoiture)
+
+               // partageVueModel.voitureEnregistrer(nouvelleVoiture)
                cacherBarreChargement()
                 afficherMessageChargementTermine()
             }
