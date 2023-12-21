@@ -31,7 +31,7 @@ import java.util.Locale
 
 class VoituresDisponiblesVue : Fragment(), VoituresDisponiblesInterface.View,
     VoitureAdapter.OnItemClickListener {
-    private val partageVueModel: PartageVueModel by viewModels()
+   // private val partageVueModel: PartageVueModel by viewModels()
 
     private lateinit var binding: FragmentVoituresDisponiblesBinding
     private lateinit var presenter: VoituresDisponiblesInterface.Presenter
@@ -47,8 +47,6 @@ class VoituresDisponiblesVue : Fragment(), VoituresDisponiblesInterface.View,
 
         setupRecyclerView()
         setupListeners()
-
-
 
         presenter.chargerVoitures()
 
@@ -93,25 +91,60 @@ class VoituresDisponiblesVue : Fragment(), VoituresDisponiblesInterface.View,
                 presenter.rechercherParModèle(query)
             }
         })
+       binding.rechercheMarque.addTextChangedListener(object : TextWatcher {
+           override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
-        binding.rechercheModLe.setOnEditorActionListener { _, actionId, _ ->
+           override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+           override fun afterTextChanged(s: Editable?) {
+               val query = s.toString()
+               presenter.rechercherParMarque(query)
+           }
+       })
+        binding.rechercheTransmission.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                val query = s.toString()
+                presenter.rechercherParTransmission(query)
+            }
+        })
+
+        binding.rechercheMarque.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                val query = binding.rechercheModLe.text.toString()
-                presenter.rechercherParModèle(query)
+                val query = binding.rechercheMarque.text.toString()
+                presenter.rechercherParTransmission(query)
                 true
             } else {
                 false
             }
         }
+
+        binding.rechercheModLe.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                val query = binding.rechercheModLe.text.toString()
+                presenter.rechercherParModèle(query)
+
+                true
+            } else {
+                false
+            }
+        }
+
+
     }
 
     override fun afficherVoitures(voitures: MutableList<Auto>) {
-        partageVueModel.nouvelleVoiture.observe(viewLifecycleOwner) { nouvVoiture ->
+       /*
+       partageVueModel.nouvelleVoiture.observe(viewLifecycleOwner) { nouvVoiture ->
             if (nouvVoiture != null) {
                 voitureAdapter.addItem(nouvVoiture)
                 partageVueModel.clearNouvelleVoiture()
             }
         }
+        */
         voitureAdapter.setItems(voitures)
         voitureAdapter.notifyDataSetChanged()
 
@@ -128,11 +161,12 @@ class VoituresDisponiblesVue : Fragment(), VoituresDisponiblesInterface.View,
 
     fun naviguerVersDétails(voiture: Auto) {
         val bundle = Bundle().apply {
-            putString("marque_modèle_details_voiture", voiture.modèle)
+            putString("marque_modèle_details_voiture", voiture.marque)
+
             putSerializable("annee_details_voiture", voiture.année)
             putString("nombre_details_passager", 5.toString())
-            putString("details_nom_propriétaire", voiture.code_propriétaire)
-            putString("details_date_location", voiture.location)
+            voiture.code_propriétaire?.let { putString("details_nom_propriétaire", it) }
+           // putString("details_date_location", voiture.location)
             putString("img_details_voiture", voiture.image)
         }
         findNavController().navigate(R.id.vers_detailsVoitureFragment, bundle)

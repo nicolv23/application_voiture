@@ -89,7 +89,7 @@ class AccueilVue : Fragment(), AccueilInterface {
 
         // Masquer le menu de navigation dans ce fragment
         (activity as? MainActivity)?.apply {
-            hideBottomNavigation()
+          //  hideBottomNavigation()
 
 
         }

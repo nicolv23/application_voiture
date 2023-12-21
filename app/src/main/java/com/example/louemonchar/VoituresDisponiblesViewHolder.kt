@@ -28,10 +28,13 @@ class VoituresDisponiblesViewHolder(
 
 
         Glide.with(itemView.context).load(item.image).into(binding.imgVoituresDisponible)
-        binding.modLeVoituresDisponible.text = item.marque + " " + item.modèle
+        binding.modLeVoituresDisponible.text = item.marque// + " " + item.modèle
         binding.annEVoituresDisponible.text = "Année : " + " " + item.année.toString()
+        binding.modelVoiture.text=  "Modèle : "+item.modèle
+        binding.prixVoiture.text = "Prix : " +item.prix
+        binding.tranmissionVoituresDisponible.text = "Transmission : "+item.transmission
         binding.dateDeLocationDisponible.text = "Date location :" + " " + item.location
-        binding.passagersVoituresDisponible.text = "Passgers : "+ 5.toString()
+        binding.passagersVoituresDisponible.text = "Passagers : "+ 5.toString()
         binding.propriTaireVoituresDisponible.text = "Proprio : " + " " + item.code_propriétaire
 
         // Ajoutez un listener sur l'itemView pour gérer les clics

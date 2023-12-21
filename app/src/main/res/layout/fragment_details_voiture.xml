@@ -101,6 +101,29 @@
                     tools:textSize="22sp" />
 
                 <LinearLayout
+                    android:id="@+id/modèleVoiture"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/label_details_modele_voiture"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="Modèle : " />
+
+                    <TextView
+                        android:id="@+id/modèle_details_voiture"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="modèle" />
+                </LinearLayout>
+                <LinearLayout
                     android:id="@+id/modèle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

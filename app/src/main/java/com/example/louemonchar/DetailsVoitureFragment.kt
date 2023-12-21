@@ -125,7 +125,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.Task
 
 class DetailsVoitureFragment : Fragment() {
-
+    private lateinit var modelVoiture :TextView
     private lateinit var boutonReserver: Button
     private lateinit var marqueModèle: TextView
     private lateinit var année: TextView
@@ -144,6 +144,7 @@ class DetailsVoitureFragment : Fragment() {
 
         boutonReserver = view.findViewById(R.id.détails)
         marqueModèle = view.findViewById(R.id.marque_modèle_details_voiture)
+        modelVoiture = view.findViewById(R.id.modèle_details_voiture)
         année = view.findViewById(R.id.annee_details_voiture)
         nbrPassagers = view.findViewById(R.id.nombre_details_passager)
         propriétaire = view.findViewById(R.id.details_nom_propriétaire)

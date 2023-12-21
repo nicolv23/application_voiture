@@ -100,6 +100,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.enregistrer -> replaceFragment(R.id.reserverVoitureFragment)
                 R.id.disponible -> replaceFragment(R.id.voituresDisponiblesVue)
 
+
             }
             true
         }

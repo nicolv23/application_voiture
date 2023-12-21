@@ -21,7 +21,7 @@
             android:id="@+id/relative_head_disponible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/titre_conteneurdisponible"
@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
-                    android:text="Recherche par modèle"
+                    android:text="Recherche"
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                     android:textColor="@android:color/white"
                     android:textSize="16sp"
@@ -47,11 +47,11 @@
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="50dp"
                     android:layout_marginStart="30dp"
                     android:layout_marginEnd="30dp"
                     android:background="@color/white"
-                    android:hint="Recherche par modèle de voiture">
+                    android:hint="Recherche par modele de voiture">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/recherche_modèle"
@@ -62,6 +62,43 @@
                         android:textSize="12sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:background="@color/white"
+                    android:hint="Recherche par marque de voiture">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/recherche_marque"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:textSize="12sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:background="@color/white"
+                    android:hint="Recherche par transmission de voiture">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/recherche_transmission"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:textSize="12sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
 
                 <!--Titre pour recherche par date-->
                 <TextView
@@ -89,7 +126,7 @@
 
                     <Button
                         android:id="@+id/bouton_Date"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="4dp"
@@ -130,7 +167,7 @@
         <RelativeLayout
             android:id="@+id/relative_recycle_disponible"
             android:layout_width="416dp"
-            android:layout_height="587dp"
+            android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
