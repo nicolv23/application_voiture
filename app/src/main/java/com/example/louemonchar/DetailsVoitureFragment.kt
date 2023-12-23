@@ -101,6 +101,7 @@ class DetailsVoitureFragment : Fragment() {
 
 package com.example.louemonchar
 
+import BDVoitures
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -113,6 +114,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
@@ -120,12 +122,15 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
+import com.example.louemonchar.http.Auto
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.Task
 
-class DetailsVoitureFragment : Fragment() {
 
+class DetailsVoitureFragment : Fragment() {
+    private lateinit var transmission :TextView
+    private lateinit var modelVoiture :TextView
     private lateinit var boutonReserver: Button
     private lateinit var marqueModèle: TextView
     private lateinit var année: TextView
@@ -135,6 +140,10 @@ class DetailsVoitureFragment : Fragment() {
     private lateinit var imageVoiture: ImageView
     private lateinit var localiserTextView: TextView
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var btnFavoris : ImageButton
+    private lateinit var code : TextView
+    private lateinit var prix :TextView
+    private lateinit var etat :TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -142,23 +151,56 @@ class DetailsVoitureFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_details_voiture, container, false)
 
+        btnFavoris = view.findViewById(R.id.ajouterFavoris)
         boutonReserver = view.findViewById(R.id.détails)
         marqueModèle = view.findViewById(R.id.marque_modèle_details_voiture)
+        modelVoiture = view.findViewById(R.id.modèle_details_voiture)
         année = view.findViewById(R.id.annee_details_voiture)
         nbrPassagers = view.findViewById(R.id.nombre_details_passager)
         propriétaire = view.findViewById(R.id.details_nom_propriétaire)
         dateLocation = view.findViewById(R.id.details_date_location)
         imageVoiture = view.findViewById(R.id.img_details_voiture)
         localiserTextView = view.findViewById(R.id.localiser)
+        transmission = view.findViewById(R.id.transmission_details_voiture)
+        code = view.findViewById(R.id.code_details_voiture)
+        prix = view.findViewById(R.id.details_prix)
+        etat = view.findViewById(R.id.details_état)
 
         // Récupération des données passées au fragment
         val arguments = requireArguments()
+        code.text = arguments.getString("code_details_voiture")
+        modelVoiture.text = arguments.getString("code_details_voiture")
         marqueModèle.text = arguments.getString("marque_modèle_details_voiture")
+        transmission.text = arguments.getString("transmission_details_voiture")
         année.text = arguments.getInt("annee_details_voiture").toString()
         nbrPassagers.text = arguments.getString("nombre_details_passager")
         propriétaire.text = arguments.getString("details_nom_propriétaire")
         dateLocation.text = arguments.getString("details_date_location")
+        prix.text = arguments.getInt("details_prix").toString()
+        etat.text = arguments.getString("details_état")
         Glide.with(view.context).load(arguments.getString("img_details_voiture")).into(imageVoiture)
+
+        btnFavoris.setOnClickListener{
+
+            val voitureFavoris  = Auto(
+
+                code = code.text.toString(),
+                code_propriétaire = propriétaire.text.toString(),
+                marque = marqueModèle.text.toString(),
+                transmission = transmission.text.toString(),
+                modèle = modelVoiture.text.toString(),
+                année = année.text.toString().toInt(),
+                image = imageVoiture.toString(),
+                etat = etat.text.toString(),
+                prix = prix.text.toString().toInt(),
+                location = dateLocation.text.toString()
+
+
+            )
+
+           val dbVoiture = BDVoitures(requireContext())
+            dbVoiture.insererVoiture(voitureFavoris)
+        }
 
         boutonReserver.setOnClickListener {
             // Logique pour la réservation

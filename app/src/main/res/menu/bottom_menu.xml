@@ -7,9 +7,9 @@
         android:title="Accueil" />
 
     <item
-        android:id="@+id/deconnecter"
-        android:title="Deconnecter"
-        android:icon="@drawable/ic_baseline_logout_24"/>
+        android:id="@+id/favoris"
+        android:title="Favoris"
+        android:icon="@drawable/ic_baseline_whatshot_24"/>
 
     <item
         android:id="@+id/fab"
@@ -25,5 +25,6 @@
         android:id="@+id/disponible"
         android:title="Disponible"
         android:icon="@drawable/ic_baseline_local_car_wash_24"/>
+
 
 </menu>

@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.louemonchar.http.Auto
 
 import retrofit2.Callback
 
@@ -32,11 +33,11 @@ interface EnregistrerVoitureInterface {
         fun onImageSelectionnee(imageURI:String)
         fun mettreDate(date: java.util.Date)
 
-       // fun enregistrerNouvelleVoiture(voiture: EnregistrerVoitureModele.nouvelleVoiture)
+        fun enregistrerNouvelleVoiture(voiture: Auto)
 
     }
 
     interface Modele {
-    //    fun enregistrerNouvelleVoiture(voiture: EnregistrerVoitureModele.nouvelleVoiture, callback: Callback<EnregistrerVoitureModele.nouvelleVoiture>)
+        fun enregistrerNouvelleVoiture(voiture: Auto, callback: Callback<Auto>)
      }
 }

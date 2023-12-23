@@ -48,6 +48,9 @@
         <action
             android:id="@+id/vers_cameraVue"
             app:destination="@id/cameraVue" />
+        <action
+            android:id="@+id/action_enregistrerVoitureVue_to_favorisFragment"
+            app:destination="@id/favorisFragment" />
     </fragment>
     <fragment
         android:id="@+id/cameraVue"
@@ -98,7 +101,11 @@
         android:id="@+id/reserverVoitureFragment"
         android:name="com.example.louemonchar.ReserverVoitureFragment"
         android:label="fragment_reserver_voiture"
-        tools:layout="@layout/fragment_reserver_voiture" />
+        tools:layout="@layout/fragment_reserver_voiture" >
+        <action
+            android:id="@+id/action_reserverVoitureFragment_to_favorisFragment"
+            app:destination="@id/favorisFragment" />
+    </fragment>
 
 
     <fragment
@@ -136,6 +143,9 @@
                 android:name="nomModèle"
                 app:argType="string" />
         </action>
+        <action
+            android:id="@+id/action_accueilVue_to_favorisFragment"
+            app:destination="@id/favorisFragment" />
 
     </fragment>
     <fragment
@@ -149,6 +159,30 @@
         <action
             android:id="@+id/action_voituresDisponiblesVue_to_enregistrerVoitureVue"
             app:destination="@id/enregistrerVoitureVue" />
+        <action
+            android:id="@+id/action_voituresDisponiblesVue_to_favorisFragment"
+            app:destination="@id/favorisFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favorisFragment"
+        android:name="com.example.louemonchar.FavorisFragment"
+        android:label="fragment_favoris"
+        tools:layout="@layout/fragment_favoris" >
+        <action
+            android:id="@+id/action_favorisFragment_to_accueilVue"
+            app:destination="@id/accueilVue" />
+        <action
+            android:id="@+id/action_favorisFragment_to_accueilVue2"
+            app:destination="@id/accueilVue" />
+        <action
+            android:id="@+id/action_favorisFragment_to_enregistrerVoitureVue"
+            app:destination="@id/enregistrerVoitureVue" />
+        <action
+            android:id="@+id/action_favorisFragment_to_voituresDisponiblesVue"
+            app:destination="@id/voituresDisponiblesVue" />
+        <action
+            android:id="@+id/action_favorisFragment_to_reserverVoitureFragment"
+            app:destination="@id/reserverVoitureFragment" />
     </fragment>
 
 </navigation>

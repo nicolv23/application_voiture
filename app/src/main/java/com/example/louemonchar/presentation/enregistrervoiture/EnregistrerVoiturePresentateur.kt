@@ -2,6 +2,7 @@ package com.example.louemonchar.presentation.enregistrervoiture
 
 import android.util.Log
 import android.widget.Toast
+import com.example.louemonchar.http.Auto
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,19 +23,19 @@ class EnregistrerVoiturePresentateur (private val vue : EnregistrerVoitureInterf
     override fun mettreDate(date: java.util.Date) {
         dateLocation = date
     }
-/*
-    override fun enregistrerNouvelleVoiture(voiture: EnregistrerVoitureModele.nouvelleVoiture) {
+
+    override fun enregistrerNouvelleVoiture(voiture: Auto) {
         modele.enregistrerNouvelleVoiture(voiture, object :
-            Callback<EnregistrerVoitureModele.nouvelleVoiture> {
+            Callback<Auto> {
             override fun onResponse(
-                call: Call<EnregistrerVoitureModele.nouvelleVoiture>,
-                response: Response<EnregistrerVoitureModele.nouvelleVoiture>
+                call: Call<Auto>,
+                response: Response<Auto>
             ) {
                 reponse(response)
             }
 
             override fun onFailure(
-                call: Call<EnregistrerVoitureModele.nouvelleVoiture>,
+                call: Call<Auto>,
                 msgErreur: Throwable
             ) {
                 erreur(msgErreur)
@@ -44,7 +45,7 @@ class EnregistrerVoiturePresentateur (private val vue : EnregistrerVoitureInterf
 
 
 
-    private fun reponse(response: Response<EnregistrerVoitureModele.nouvelleVoiture>) {
+    private fun reponse(response: Response<Auto>) {
         if (response.isSuccessful) {
             messageErreur("Voiture enregistrée avec succès")
         } else {
@@ -64,7 +65,7 @@ class EnregistrerVoiturePresentateur (private val vue : EnregistrerVoitureInterf
     companion object {
         private const val TAG = "EnregistrerVoiturePresentateur"
     }
-    */
+
 
 }
 

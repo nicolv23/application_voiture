@@ -20,12 +20,22 @@ class VoituresDisponiblesPresentateur(private val view: VoituresDisponiblesInter
 
     override fun rechercherParModèle(query: String) {
         montrerBarreChargement()
-
-
         val filtreVoiture = voitureList.filter { it.modèle.contains(query, true) }
         view.afficherVoitures(filtreVoiture.toMutableList())
+        cacherBarreChargement()
+    }
 
+    override fun rechercherParMarque(query:String){
+        montrerBarreChargement()
+        val filtreVoitureParMarque = voitureList.filter { it.marque.contains(query,true) }
+        view.afficherVoitures(filtreVoitureParMarque.toMutableList())
+        cacherBarreChargement()
+    }
 
+    override fun rechercherParTransmission(query:String){
+        montrerBarreChargement()
+        val filtreVoitureParPrix = voitureList.filter { it.transmission.contains(query,true) }
+        view.afficherVoitures(filtreVoitureParPrix.toMutableList())
         cacherBarreChargement()
     }
 
@@ -34,10 +44,13 @@ class VoituresDisponiblesPresentateur(private val view: VoituresDisponiblesInter
     }
 
     override fun searchByDateRange() {
-        val voituresFiltrées = voitureList.filter {Date(it.location.toDateFormat().time) == dateLocation }
+        val voituresFiltrées = voitureList.filter { it.location?.toDateFormat()
+            ?.let { it1 -> Date(it1.time) } == dateLocation }
         view.afficherVoitures(voituresFiltrées.toMutableList())
+
+
     }
-    
+
 
 
     private fun montrerBarreChargement() {

@@ -96,9 +96,10 @@ class MainActivity : AppCompatActivity() {
         binding?.bottomNavigationView?.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> replaceFragment(R.id.accueilVue)
-                R.id.deconnecter -> replaceFragment(R.id.connexionVue)
+               // R.id.deconnecter -> replaceFragment(R.id.connexionVue)
                 R.id.enregistrer -> replaceFragment(R.id.reserverVoitureFragment)
                 R.id.disponible -> replaceFragment(R.id.voituresDisponiblesVue)
+                R.id.favoris -> replaceFragment(R.id.favorisFragment)
 
             }
             true
